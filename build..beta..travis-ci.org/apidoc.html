@@ -46,1224 +46,1225 @@
     font-weight: bold;
 }
 </style>
-<h1>api-documentation for
+<h1>api documentation for
     <a
-        
+
         href="https://github.com/kriskowal/q"
-        
-    >q (v1.4.1)</a>
+
+    >q (v1.5.0)</a>
 </h1>
+<h4>A library for promises (CommonJS/Promises/A,B,D)</h4>
 <div class="apidocSectionDiv"><a
     href="#apidoc.tableOfContents"
     id="apidoc.tableOfContents"
 ><h1>table of contents</h1></a><ol>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.q">module q</a><ol>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">boolean <span class="apidocSignatureSpan">q.</span>longStackSupport</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.Promise">
             function <span class="apidocSignatureSpan">q.</span>Promise
             <span class="apidocSignatureSpan">(resolver)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.all">
             function <span class="apidocSignatureSpan">q.</span>all
             <span class="apidocSignatureSpan">(promises)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.allResolved">
             function <span class="apidocSignatureSpan">q.</span>allResolved
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.allSettled">
             function <span class="apidocSignatureSpan">q.</span>allSettled
             <span class="apidocSignatureSpan">(promises)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.any">
             function <span class="apidocSignatureSpan">q.</span>any
             <span class="apidocSignatureSpan">(promises)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.async">
             function <span class="apidocSignatureSpan">q.</span>async
             <span class="apidocSignatureSpan">(makeGenerator)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.catch">
             function <span class="apidocSignatureSpan">q.</span>catch
             <span class="apidocSignatureSpan">(object, rejected)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.defer">
             function <span class="apidocSignatureSpan">q.</span>defer
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.del">
             function <span class="apidocSignatureSpan">q.</span>del
             <span class="apidocSignatureSpan">(object, key)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.delay">
             function <span class="apidocSignatureSpan">q.</span>delay
             <span class="apidocSignatureSpan">(object, timeout)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.delete">
             function <span class="apidocSignatureSpan">q.</span>delete
             <span class="apidocSignatureSpan">(object, key)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.denodeify">
             function <span class="apidocSignatureSpan">q.</span>denodeify
             <span class="apidocSignatureSpan">(callback)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.dispatch">
             function <span class="apidocSignatureSpan">q.</span>dispatch
             <span class="apidocSignatureSpan">(object, op, args)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.done">
             function <span class="apidocSignatureSpan">q.</span>done
             <span class="apidocSignatureSpan">(object, fulfilled, rejected, progress)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.fail">
             function <span class="apidocSignatureSpan">q.</span>fail
             <span class="apidocSignatureSpan">(object, rejected)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.fapply">
             function <span class="apidocSignatureSpan">q.</span>fapply
             <span class="apidocSignatureSpan">(object, args)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.fbind">
             function <span class="apidocSignatureSpan">q.</span>fbind
             <span class="apidocSignatureSpan">(object)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.fcall">
             function <span class="apidocSignatureSpan">q.</span>fcall
             <span class="apidocSignatureSpan">(object)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.fin">
             function <span class="apidocSignatureSpan">q.</span>fin
             <span class="apidocSignatureSpan">(object, callback)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.finally">
             function <span class="apidocSignatureSpan">q.</span>finally
             <span class="apidocSignatureSpan">(object, callback)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.fulfill">
             function <span class="apidocSignatureSpan">q.</span>fulfill
             <span class="apidocSignatureSpan">(value)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.get">
             function <span class="apidocSignatureSpan">q.</span>get
             <span class="apidocSignatureSpan">(object, key)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.getUnhandledReasons">
             function <span class="apidocSignatureSpan">q.</span>getUnhandledReasons
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.invoke">
             function <span class="apidocSignatureSpan">q.</span>invoke
             <span class="apidocSignatureSpan">(object, name)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.isFulfilled">
             function <span class="apidocSignatureSpan">q.</span>isFulfilled
             <span class="apidocSignatureSpan">(object)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.isPending">
             function <span class="apidocSignatureSpan">q.</span>isPending
             <span class="apidocSignatureSpan">(object)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.isPromise">
             function <span class="apidocSignatureSpan">q.</span>isPromise
             <span class="apidocSignatureSpan">(object)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.isPromiseAlike">
             function <span class="apidocSignatureSpan">q.</span>isPromiseAlike
             <span class="apidocSignatureSpan">(object)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.isRejected">
             function <span class="apidocSignatureSpan">q.</span>isRejected
             <span class="apidocSignatureSpan">(object)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.join">
             function <span class="apidocSignatureSpan">q.</span>join
             <span class="apidocSignatureSpan">(x, y)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.keys">
             function <span class="apidocSignatureSpan">q.</span>keys
             <span class="apidocSignatureSpan">(object)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise">
             function <span class="apidocSignatureSpan">q.</span>makePromise
             <span class="apidocSignatureSpan">(descriptor, fallback, inspect)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.mapply">
             function <span class="apidocSignatureSpan">q.</span>mapply
             <span class="apidocSignatureSpan">(object, name, args)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.master">
             function <span class="apidocSignatureSpan">q.</span>master
             <span class="apidocSignatureSpan">(object)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.mcall">
             function <span class="apidocSignatureSpan">q.</span>mcall
             <span class="apidocSignatureSpan">(object, name)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.nbind">
             function <span class="apidocSignatureSpan">q.</span>nbind
             <span class="apidocSignatureSpan">(callback, thisp)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.nearer">
             function <span class="apidocSignatureSpan">q.</span>nearer
             <span class="apidocSignatureSpan">(value)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.nextTick">
             function <span class="apidocSignatureSpan">q.</span>nextTick
             <span class="apidocSignatureSpan">(task)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.nfapply">
             function <span class="apidocSignatureSpan">q.</span>nfapply
             <span class="apidocSignatureSpan">(callback, args)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.nfbind">
             function <span class="apidocSignatureSpan">q.</span>nfbind
             <span class="apidocSignatureSpan">(callback)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.nfcall">
             function <span class="apidocSignatureSpan">q.</span>nfcall
             <span class="apidocSignatureSpan">(callback)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.ninvoke">
             function <span class="apidocSignatureSpan">q.</span>ninvoke
             <span class="apidocSignatureSpan">(object, name)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.nmapply">
             function <span class="apidocSignatureSpan">q.</span>nmapply
             <span class="apidocSignatureSpan">(object, name, args)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.nmcall">
             function <span class="apidocSignatureSpan">q.</span>nmcall
             <span class="apidocSignatureSpan">(object, name)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.noConflict">
             function <span class="apidocSignatureSpan">q.</span>noConflict
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.nodeify">
             function <span class="apidocSignatureSpan">q.</span>nodeify
             <span class="apidocSignatureSpan">(object, nodeback)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.npost">
             function <span class="apidocSignatureSpan">q.</span>npost
             <span class="apidocSignatureSpan">(object, name, args)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.nsend">
             function <span class="apidocSignatureSpan">q.</span>nsend
             <span class="apidocSignatureSpan">(object, name)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.passByCopy">
             function <span class="apidocSignatureSpan">q.</span>passByCopy
             <span class="apidocSignatureSpan">(object)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.post">
             function <span class="apidocSignatureSpan">q.</span>post
             <span class="apidocSignatureSpan">(object, name, args)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.progress">
             function <span class="apidocSignatureSpan">q.</span>progress
             <span class="apidocSignatureSpan">(object, progressed)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.promise">
             function <span class="apidocSignatureSpan">q.</span>promise
             <span class="apidocSignatureSpan">(resolver)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.promised">
             function <span class="apidocSignatureSpan">q.</span>promised
             <span class="apidocSignatureSpan">(callback)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.race">
             function <span class="apidocSignatureSpan">q.</span>race
             <span class="apidocSignatureSpan">(answerPs)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.reject">
             function <span class="apidocSignatureSpan">q.</span>reject
             <span class="apidocSignatureSpan">(reason)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.resetUnhandledRejections">
             function <span class="apidocSignatureSpan">q.</span>resetUnhandledRejections
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.resolve">
             function <span class="apidocSignatureSpan">q.</span>resolve
             <span class="apidocSignatureSpan">(value)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.return">
             function <span class="apidocSignatureSpan">q.</span>return
             <span class="apidocSignatureSpan">(value)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.send">
             function <span class="apidocSignatureSpan">q.</span>send
             <span class="apidocSignatureSpan">(object, name)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.set">
             function <span class="apidocSignatureSpan">q.</span>set
             <span class="apidocSignatureSpan">(object, key, value)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.spawn">
             function <span class="apidocSignatureSpan">q.</span>spawn
             <span class="apidocSignatureSpan">(makeGenerator)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.spread">
             function <span class="apidocSignatureSpan">q.</span>spread
             <span class="apidocSignatureSpan">(value, fulfilled, rejected)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.stopUnhandledRejectionTracking">
             function <span class="apidocSignatureSpan">q.</span>stopUnhandledRejectionTracking
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.tap">
             function <span class="apidocSignatureSpan">q.</span>tap
             <span class="apidocSignatureSpan">(promise, callback)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.thenReject">
             function <span class="apidocSignatureSpan">q.</span>thenReject
             <span class="apidocSignatureSpan">(promise, reason)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.thenResolve">
             function <span class="apidocSignatureSpan">q.</span>thenResolve
             <span class="apidocSignatureSpan">(promise, value)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.timeout">
             function <span class="apidocSignatureSpan">q.</span>timeout
             <span class="apidocSignatureSpan">(object, ms, error)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.try">
             function <span class="apidocSignatureSpan">q.</span>try
             <span class="apidocSignatureSpan">(object)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.when">
             function <span class="apidocSignatureSpan">q.</span>when
             <span class="apidocSignatureSpan">(value, fulfilled, rejected, progressed)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">q.</span>defer.prototype</span>
-            
+
         </li>
-        
+
         <li>
-            
+
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">q.</span>makePromise.prototype</span>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.q.Promise">module q.Promise</a><ol>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.Promise.Promise">
             function <span class="apidocSignatureSpan">q.</span>Promise
             <span class="apidocSignatureSpan">(resolver)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.Promise.all">
             function <span class="apidocSignatureSpan">q.Promise.</span>all
             <span class="apidocSignatureSpan">(promises)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.Promise.race">
             function <span class="apidocSignatureSpan">q.Promise.</span>race
             <span class="apidocSignatureSpan">(answerPs)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.Promise.reject">
             function <span class="apidocSignatureSpan">q.Promise.</span>reject
             <span class="apidocSignatureSpan">(reason)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.Promise.resolve">
             function <span class="apidocSignatureSpan">q.Promise.</span>resolve
             <span class="apidocSignatureSpan">(value)</span>
             </a>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.q.defer">module q.defer</a><ol>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.defer.defer">
             function <span class="apidocSignatureSpan">q.</span>defer
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.q.defer.prototype">module q.defer.prototype</a><ol>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.defer.prototype.makeNodeResolver">
             function <span class="apidocSignatureSpan">q.defer.prototype.</span>makeNodeResolver
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.q.makePromise">module q.makePromise</a><ol>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.makePromise">
             function <span class="apidocSignatureSpan">q.</span>makePromise
             <span class="apidocSignatureSpan">(descriptor, fallback, inspect)</span>
             </a>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.q.makePromise.prototype">module q.makePromise.prototype</a><ol>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.all">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>all
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.allResolved">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>allResolved
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.allSettled">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>allSettled
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.any">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>any
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.catch">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>catch
             <span class="apidocSignatureSpan">(rejected)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.del">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>del
             <span class="apidocSignatureSpan">(key)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.delay">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>delay
             <span class="apidocSignatureSpan">(timeout)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.delete">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>delete
             <span class="apidocSignatureSpan">(key)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.denodeify">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>denodeify
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.dispatch">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>dispatch
             <span class="apidocSignatureSpan">(op, args)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.done">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>done
             <span class="apidocSignatureSpan">(fulfilled, rejected, progress)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.fail">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>fail
             <span class="apidocSignatureSpan">(rejected)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.fapply">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>fapply
             <span class="apidocSignatureSpan">(args)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.fbind">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>fbind
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.fcall">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>fcall
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.fin">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>fin
             <span class="apidocSignatureSpan">(callback)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.finally">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>finally
             <span class="apidocSignatureSpan">(callback)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.get">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>get
             <span class="apidocSignatureSpan">(key)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.invoke">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>invoke
             <span class="apidocSignatureSpan">(name)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.isFulfilled">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>isFulfilled
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.isPending">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>isPending
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.isRejected">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>isRejected
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.join">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>join
             <span class="apidocSignatureSpan">(that)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.keys">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>keys
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.mapply">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>mapply
             <span class="apidocSignatureSpan">(name, args)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.mcall">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>mcall
             <span class="apidocSignatureSpan">(name)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.nbind">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>nbind
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.nfapply">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>nfapply
             <span class="apidocSignatureSpan">(args)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.nfbind">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>nfbind
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.nfcall">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>nfcall
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.ninvoke">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>ninvoke
             <span class="apidocSignatureSpan">(name)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.nmapply">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>nmapply
             <span class="apidocSignatureSpan">(name, args)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.nmcall">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>nmcall
             <span class="apidocSignatureSpan">(name)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.nodeify">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>nodeify
             <span class="apidocSignatureSpan">(nodeback)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.npost">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>npost
             <span class="apidocSignatureSpan">(name, args)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.nsend">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>nsend
             <span class="apidocSignatureSpan">(name)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.passByCopy">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>passByCopy
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.post">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>post
             <span class="apidocSignatureSpan">(name, args)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.progress">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>progress
             <span class="apidocSignatureSpan">(progressed)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.race">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>race
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.send">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>send
             <span class="apidocSignatureSpan">(name)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.set">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>set
             <span class="apidocSignatureSpan">(key, value)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.spread">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>spread
             <span class="apidocSignatureSpan">(fulfilled, rejected)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.tap">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>tap
             <span class="apidocSignatureSpan">(callback)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.then">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>then
             <span class="apidocSignatureSpan">(fulfilled, rejected, progressed)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.thenReject">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>thenReject
             <span class="apidocSignatureSpan">(reason)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.thenResolve">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>thenResolve
             <span class="apidocSignatureSpan">(value)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.timeout">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>timeout
             <span class="apidocSignatureSpan">(ms, error)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.makePromise.prototype.toString">
             function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>toString
             <span class="apidocSignatureSpan">()</span>
             </a>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
     <li class="apidocModuleLi"><a href="#apidoc.module.q.nextTick">module q.nextTick</a><ol>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.nextTick.nextTick">
             function <span class="apidocSignatureSpan">q.</span>nextTick
             <span class="apidocSignatureSpan">(task)</span>
             </a>
-            
+
         </li>
-        
+
         <li>
-            
+
             <a class="apidocElementLiA" href="#apidoc.element.q.nextTick.runAfter">
             function <span class="apidocSignatureSpan">q.nextTick.</span>runAfter
             <span class="apidocSignatureSpan">(task)</span>
             </a>
-            
+
         </li>
-        
+
     </ol></li>
-    
+
 </ol></div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.q" id="apidoc.module.q">module q</a></h1>
-    
-    
-    
-    
+
+
+
+
     <h2>
         <a href="#apidoc.element.q.Promise" id="apidoc.element.q.Promise">
         function <span class="apidocSignatureSpan">q.</span>Promise
@@ -1301,9 +1302,9 @@ request.onprogress = onprogress;
 request.send();
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.all" id="apidoc.element.q.all">
         function <span class="apidocSignatureSpan">q.</span>all
@@ -1363,9 +1364,9 @@ If you have a promise for an array, you can use ``spread`` as a
 replacement for ``then``.  The ``spread`` function “spreads” the
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.allResolved" id="apidoc.element.q.allResolved">
         function <span class="apidocSignatureSpan">q.</span>allResolved
@@ -1383,9 +1384,9 @@ replacement for ``then``.  The ``spread`` function “spreads” the
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.allSettled" id="apidoc.element.q.allSettled">
         function <span class="apidocSignatureSpan">q.</span>allSettled
@@ -1414,9 +1415,9 @@ results.forEach(function (result) {
     }
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.any" id="apidoc.element.q.any">
         function <span class="apidocSignatureSpan">q.</span>any
@@ -1440,13 +1441,12 @@ results.forEach(function (result) {
         function onFulfilled(result) {
             deferred.resolve(result);
         }
-        function onRejected() {
+        function onRejected(err) {
             pendingCount--;
             if (pendingCount === 0) {
-                deferred.reject(new Error(
-                    &#x22;Can&#x27;t get fulfillment value from any promise, all &#x22; +
-                    &#x22;promises were rejected.&#x22;
-                ));
+                err.message = (&#x22;Q can&#x27;t get fulfillment value from any promise, all &#x22; +
+                    &#x22;promises were rejected. Last error message: &#x22; + err.message);
+                deferred.reject(err);
             }
         }
         function onProgress(progress) {
@@ -1476,9 +1476,9 @@ Q.<span class="apidocCodeKeywordSpan">any</span>(promises)
 ```
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.async" id="apidoc.element.q.async">
         function <span class="apidocSignatureSpan">q.</span>async
@@ -1534,11 +1534,27 @@ Q.<span class="apidocCodeKeywordSpan">any</span>(promises)
         return callback();
     };
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+* calls the generator and also ends the promise chain, so that any
+* unhandled errors are thrown instead of forwarded to the error
+* handler. This is useful because it&#x27;s extremely common to run
+* generators at the top-level to work with libraries.
+*/
+Q.spawn = spawn;
+function spawn(makeGenerator) {
+   Q.done(Q.<span class="apidocCodeKeywordSpan">async</span>(makeGenerator)());
+}
+
+// FIXME: Remove this interface once ES6 generators are in SpiderMonkey.
+/**
+* Throws a ReturnValue exception to stop an asynchronous generator.
+*
+* This interface is a stop-gap measure to support generator return
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.catch" id="apidoc.element.q.catch">
         function <span class="apidocSignatureSpan">q.</span>catch
@@ -1567,9 +1583,9 @@ With this approach, you also get implicit error propagation, just like `try`,
 `catch`, and `finally`.  An error in `promisedStep1` will flow all the way to
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.defer" id="apidoc.element.q.defer">
         function <span class="apidocSignatureSpan">q.</span>defer
@@ -1633,6 +1649,7 @@ With this approach, you also get implicit error propagation, just like `try`,
             // At the same time, cut off the first line; it&#x27;s always just
             // &#x22;[object Promise]\n&#x22;, as per the `toString`.
             promise.stack = e.stack.substring(e.stack.indexOf(&#x22;\n&#x22;) + 1);
+            promise.stackCounter = longStackCounter++;
         }
     }
 
@@ -1642,7 +1659,12 @@ With this approach, you also get implicit error propagation, just like `try`,
 
     function become(newPromise) {
         resolvedPromise = newPromise;
-        promise.source = newPromise;
+
+        if (Q.longStackSupport &#x26;&#x26; hasStacks) {
+            // Only hold a reference to the new promise if long stacks
+            // are enabled to reduce memory usage
+            promise.source = newPromise;
+        }
 
         array_reduce(messages, function (undefined, message) {
             Q.nextTick(function () {
@@ -1709,9 +1731,9 @@ FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
 });
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.del" id="apidoc.element.q.del">
         function <span class="apidocSignatureSpan">q.</span>del
@@ -1740,9 +1762,9 @@ value(...args)              promise.fcall(...args)
 If the promise is a proxy for a remote object, you can shave
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.delay" id="apidoc.element.q.delay">
         function <span class="apidocSignatureSpan">q.</span>delay
@@ -1774,9 +1796,9 @@ theDepthsOfMyProgram();
 ```
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.delete" id="apidoc.element.q.delete">
         function <span class="apidocSignatureSpan">q.</span>delete
@@ -1789,9 +1811,9 @@ theDepthsOfMyProgram();
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.denodeify" id="apidoc.element.q.denodeify">
         function <span class="apidocSignatureSpan">q.</span>denodeify
@@ -1800,6 +1822,9 @@ theDepthsOfMyProgram();
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">denodeify = function (callback) {
+    if (callback === undefined) {
+        throw new Error(&#x22;Q can&#x27;t wrap an undefined function&#x22;);
+    }
     var baseArgs = array_slice(arguments, 1);
     return function () {
         var nodeArgs = baseArgs.concat(array_slice(arguments));
@@ -1827,9 +1852,9 @@ return redisClientGet(&#x22;user:1:id&#x22;);
 Finally, if you&#x27;re working with raw deferred objects, there is a
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.dispatch" id="apidoc.element.q.dispatch">
         function <span class="apidocSignatureSpan">q.</span>dispatch
@@ -1840,11 +1865,27 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
     <li>description and source-code<pre class="apidocCodePre">function dispatch(object, op, args) {
     return Q(object).dispatch(op, args);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ * @param object* the recipient
+ * @param op the name of the message operation, e.g., &#x22;when&#x22;,
+ * @param args further arguments to be forwarded to the operation
+ * @returns result {Promise} a promise for the result of the operation
+ */
+Q.dispatch = dispatch;
+function dispatch(object, op, args) {
+return Q(object).<span class="apidocCodeKeywordSpan">dispatch</span>(op, args);
+}
+
+Promise.prototype.dispatch = function (op, args) {
+var self = this;
+var deferred = defer();
+Q.nextTick(function () {
+    self.promiseDispatch(deferred.resolve, op, args);
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.done" id="apidoc.element.q.done">
         function <span class="apidocSignatureSpan">q.</span>done
@@ -1872,9 +1913,9 @@ the `catch` function, where it’s caught and handled.  (Here `promisedStepN` is
 a version of `stepN` that returns a promise.)
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.fail" id="apidoc.element.q.fail">
         function <span class="apidocSignatureSpan">q.</span>fail
@@ -1903,9 +1944,9 @@ CoffeeScript, you may use `catch` instead of `fail`.
 Promises also have a ``fin`` function that is like a ``finally`` clause.
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.fapply" id="apidoc.element.q.fapply">
         function <span class="apidocSignatureSpan">q.</span>fapply
@@ -1933,9 +1974,9 @@ round-trips by using these functions instead of ``then``.  To take
 advantage of promises for remote objects, check out [Q-Connection][].
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.fbind" id="apidoc.element.q.fbind">
         function <span class="apidocSignatureSpan">q.</span>fbind
@@ -1955,9 +1996,9 @@ advantage of promises for remote objects, check out [Q-Connection][].
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.fcall" id="apidoc.element.q.fcall">
         function <span class="apidocSignatureSpan">q.</span>fcall
@@ -1986,9 +2027,9 @@ Q.<span class="apidocCodeKeywordSpan">fcall</span>(promisedStep1)
 .catch(function (error) {
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.fin" id="apidoc.element.q.fin">
         function <span class="apidocSignatureSpan">q.</span>fin
@@ -2017,9 +2058,9 @@ var outputPromise = getInputPromise()
 -   If the handler returns a promise, ``outputPromise`` gets postponed.  The
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.finally" id="apidoc.element.q.finally">
         function <span class="apidocSignatureSpan">q.</span>finally
@@ -2032,9 +2073,9 @@ var outputPromise = getInputPromise()
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.fulfill" id="apidoc.element.q.fulfill">
         function <span class="apidocSignatureSpan">q.</span>fulfill
@@ -2077,9 +2118,9 @@ var outputPromise = getInputPromise()
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.get" id="apidoc.element.q.get">
         function <span class="apidocSignatureSpan">q.</span>get
@@ -2108,9 +2149,9 @@ value(...args)              promise.fcall(...args)
 ```
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.getUnhandledReasons" id="apidoc.element.q.getUnhandledReasons">
         function <span class="apidocSignatureSpan">q.</span>getUnhandledReasons
@@ -2124,9 +2165,9 @@ value(...args)              promise.fcall(...args)
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.invoke" id="apidoc.element.q.invoke">
         function <span class="apidocSignatureSpan">q.</span>invoke
@@ -2154,9 +2195,9 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
 ### Over the Wire
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.isFulfilled" id="apidoc.element.q.isFulfilled">
         function <span class="apidocSignatureSpan">q.</span>isFulfilled
@@ -2169,9 +2210,9 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.isPending" id="apidoc.element.q.isPending">
         function <span class="apidocSignatureSpan">q.</span>isPending
@@ -2184,9 +2225,9 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.isPromise" id="apidoc.element.q.isPromise">
         function <span class="apidocSignatureSpan">q.</span>isPromise
@@ -2199,9 +2240,9 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.isPromiseAlike" id="apidoc.element.q.isPromiseAlike">
         function <span class="apidocSignatureSpan">q.</span>isPromiseAlike
@@ -2214,9 +2255,9 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.isRejected" id="apidoc.element.q.isRejected">
         function <span class="apidocSignatureSpan">q.</span>isRejected
@@ -2229,9 +2270,9 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.join" id="apidoc.element.q.join">
         function <span class="apidocSignatureSpan">q.</span>join
@@ -2242,11 +2283,28 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
     <li>description and source-code<pre class="apidocCodePre">join = function (x, y) {
     return Q(x).join(y);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        if (p.stack &#x26;&#x26; (!error.__minimumStackCounter__ || error.__minimumStackCounter__ &#x3e; p.stackCounter)) {
+            object_defineProperty(error, &#x22;__minimumStackCounter__&#x22;, {value: p.stackCounter, configurable: true});
+            stacks.unshift(p.stack);
+        }
+    }
+    stacks.unshift(error.stack);
+
+    var concatedStacks = stacks.<span class="apidocCodeKeywordSpan">join</span>(&#x22;\n&#x22; + STACK_JUMP_SEPARATOR + &#x22;\n
+&#x22;);
+    var stack = filterStackString(concatedStacks);
+    object_defineProperty(error, &#x22;stack&#x22;, {value: stack, configurable: true});
+}
+}
+
+function filterStackString(stackString) {
+var lines = stackString.split(&#x22;\n&#x22;);
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.keys" id="apidoc.element.q.keys">
         function <span class="apidocSignatureSpan">q.</span>keys
@@ -2259,9 +2317,9 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise" id="apidoc.element.q.makePromise">
         function <span class="apidocSignatureSpan">q.</span>makePromise
@@ -2324,9 +2382,9 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.mapply" id="apidoc.element.q.mapply">
         function <span class="apidocSignatureSpan">q.</span>mapply
@@ -2339,9 +2397,9 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.master" id="apidoc.element.q.master">
         function <span class="apidocSignatureSpan">q.</span>master
@@ -2360,9 +2418,9 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.mcall" id="apidoc.element.q.mcall">
         function <span class="apidocSignatureSpan">q.</span>mcall
@@ -2375,9 +2433,9 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.nbind" id="apidoc.element.q.nbind">
         function <span class="apidocSignatureSpan">q.</span>nbind
@@ -2416,9 +2474,9 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
 ```javascript
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.nearer" id="apidoc.element.q.nearer">
         function <span class="apidocSignatureSpan">q.</span>nearer
@@ -2437,9 +2495,9 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.nextTick" id="apidoc.element.q.nextTick">
         function <span class="apidocSignatureSpan">q.</span>nextTick
@@ -2459,11 +2517,27 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
         requestTick();
     }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    //   `setTimeout`. In this case `setImmediate` is preferred because
+    //    it is faster. Browserify&#x27;s `process.toString()` yields
+    //   &#x22;[object Object]&#x22;, while in a real Node environment
+    //   `process.toString()` yields &#x22;[object process]&#x22;.
+    isNodeJS = true;
+
+    requestTick = function () {
+        process.<span class="apidocCodeKeywordSpan">nextTick</span>(flush);
+    };
+
+} else if (typeof setImmediate === &#x22;function&#x22;) {
+    // In IE10, Node.js 0.9+, or https://github.com/NobleJS/setImmediate
+    if (typeof window !== &#x22;undefined&#x22;) {
+        requestTick = setImmediate.bind(window, flush);
+    } else {
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.nfapply" id="apidoc.element.q.nfapply">
         function <span class="apidocSignatureSpan">q.</span>nfapply
@@ -2491,9 +2565,9 @@ run in to the usual problems where passing a method to another function—like
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.nfbind" id="apidoc.element.q.nfbind">
         function <span class="apidocSignatureSpan">q.</span>nfbind
@@ -2502,6 +2576,9 @@ use `Function.prototype.bind` or some nice shortcut methods we provide:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">nfbind = function (callback) {
+    if (callback === undefined) {
+        throw new Error(&#x22;Q can&#x27;t wrap an undefined function&#x22;);
+    }
     var baseArgs = array_slice(arguments, 1);
     return function () {
         var nodeArgs = baseArgs.concat(array_slice(arguments));
@@ -2511,11 +2588,27 @@ use `Function.prototype.bind` or some nice shortcut methods we provide:
         return deferred.promise;
     };
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+return deferred.promise;
+};
+
+/**
+ * Wraps a NodeJS continuation passing function and returns an equivalent
+ * version that returns a promise.
+ * @example
+ * Q.<span class="apidocCodeKeywordSpan">nfbind</span>(FS.readFile, __filename)(&#x22;utf-8&#x22;)
+ * .then(console.log)
+ * .done()
+ */
+Q.nfbind =
+Q.denodeify = function (callback /*...args*/) {
+if (callback === undefined) {
+    throw new Error(&#x22;Q can&#x27;t wrap an undefined function&#x22;);
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.nfcall" id="apidoc.element.q.nfcall">
         function <span class="apidocSignatureSpan">q.</span>nfcall
@@ -2545,9 +2638,9 @@ run in to the usual problems where passing a method to another function—like
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.ninvoke" id="apidoc.element.q.ninvoke">
         function <span class="apidocSignatureSpan">q.</span>ninvoke
@@ -2580,9 +2673,9 @@ You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
 var readFile = Q.denodeify(FS.readFile);
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.nmapply" id="apidoc.element.q.nmapply">
         function <span class="apidocSignatureSpan">q.</span>nmapply
@@ -2595,9 +2688,9 @@ var readFile = Q.denodeify(FS.readFile);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.nmcall" id="apidoc.element.q.nmcall">
         function <span class="apidocSignatureSpan">q.</span>nmcall
@@ -2614,9 +2707,9 @@ var readFile = Q.denodeify(FS.readFile);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.noConflict" id="apidoc.element.q.noConflict">
         function <span class="apidocSignatureSpan">q.</span>noConflict
@@ -2629,9 +2722,9 @@ var readFile = Q.denodeify(FS.readFile);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.nodeify" id="apidoc.element.q.nodeify">
         function <span class="apidocSignatureSpan">q.</span>nodeify
@@ -2642,11 +2735,27 @@ var readFile = Q.denodeify(FS.readFile);
     <li>description and source-code<pre class="apidocCodePre">function nodeify(object, nodeback) {
     return Q(object).nodeify(nodeback);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ * pass a nodeback, they will receive the result promise.
+ * @param object a result (or a promise for a result)
+ * @param {Function} nodeback a Node.js-style callback
+ * @returns either the promise or nothing
+ */
+Q.nodeify = nodeify;
+function nodeify(object, nodeback) {
+return Q(object).<span class="apidocCodeKeywordSpan">nodeify</span>(nodeback);
+}
+
+Promise.prototype.nodeify = function (nodeback) {
+if (nodeback) {
+    this.then(function (value) {
+        Q.nextTick(function () {
+            nodeback(null, value);
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.npost" id="apidoc.element.q.npost">
         function <span class="apidocSignatureSpan">q.</span>npost
@@ -2675,9 +2784,9 @@ var readFile = Q.denodeify(FS.readFile);
 return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.nsend" id="apidoc.element.q.nsend">
         function <span class="apidocSignatureSpan">q.</span>nsend
@@ -2694,9 +2803,9 @@ return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.passByCopy" id="apidoc.element.q.passByCopy">
         function <span class="apidocSignatureSpan">q.</span>passByCopy
@@ -2711,9 +2820,9 @@ return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.post" id="apidoc.element.q.post">
         function <span class="apidocSignatureSpan">q.</span>post
@@ -2742,9 +2851,9 @@ If the promise is a proxy for a remote object, you can shave
 round-trips by using these functions instead of ``then``.  To take
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.progress" id="apidoc.element.q.progress">
         function <span class="apidocSignatureSpan">q.</span>progress
@@ -2773,9 +2882,9 @@ return uploadFile().<span class="apidocCodeKeywordSpan">progress</span>(function
 When you get to the end of a chain of promises, you should either
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.promise" id="apidoc.element.q.promise">
         function <span class="apidocSignatureSpan">q.</span>promise
@@ -2797,9 +2906,9 @@ When you get to the end of a chain of promises, you should either
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.promised" id="apidoc.element.q.promised">
         function <span class="apidocSignatureSpan">q.</span>promised
@@ -2814,11 +2923,27 @@ When you get to the end of a chain of promises, you should either
         });
     };
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+/**
+* The promised function decorator ensures that any promise arguments
+* are settled and passed as values (`this` is also settled and passed
+* as a value).  It will also ensure that the result of a function is
+* always a promise.
+*
+* @example
+* var add = Q.<span class="apidocCodeKeywordSpan">promised</span>(function (a, b) {
+*     return a + b;
+* });
+* add(Q(a), Q(B));
+*
+* @param {function} callback The function to decorate
+* @returns {function} a function that has been decorated.
+*/
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.race" id="apidoc.element.q.race">
         function <span class="apidocSignatureSpan">q.</span>race
@@ -2840,9 +2965,9 @@ When you get to the end of a chain of promises, you should either
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.reject" id="apidoc.element.q.reject">
         function <span class="apidocSignatureSpan">q.</span>reject
@@ -2887,9 +3012,9 @@ return deferred.promise;
 ```
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.resetUnhandledRejections" id="apidoc.element.q.resetUnhandledRejections">
         function <span class="apidocSignatureSpan">q.</span>resetUnhandledRejections
@@ -2907,9 +3032,9 @@ return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.resolve" id="apidoc.element.q.resolve">
         function <span class="apidocSignatureSpan">q.</span>resolve
@@ -2950,9 +3075,9 @@ Note that a deferred can be resolved with a value or a promise.  The
 ``reject`` function is a shorthand for resolving with a rejected
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.return" id="apidoc.element.q.return">
         function <span class="apidocSignatureSpan">q.</span>return
@@ -2963,11 +3088,26 @@ Note that a deferred can be resolved with a value or a promise.  The
     <li>description and source-code<pre class="apidocCodePre">function _return(value) {
     throw new QReturnValue(value);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ *      var bar = yield getBarPromise();
+ *      return foo + bar;
+ * })
+ * // Older SpiderMonkey style
+ * Q.async(function () {
+ *      var foo = yield getFooPromise();
+ *      var bar = yield getBarPromise();
+ *      Q.<span class="apidocCodeKeywordSpan">return</span>(foo + bar);
+ * })
+ */
+Q[&#x22;return&#x22;] = _return;
+function _return(value) {
+    throw new QReturnValue(value);
+}
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.send" id="apidoc.element.q.send">
         function <span class="apidocSignatureSpan">q.</span>send
@@ -2996,9 +3136,9 @@ function onload() {
     }
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.set" id="apidoc.element.q.set">
         function <span class="apidocSignatureSpan">q.</span>set
@@ -3009,11 +3149,27 @@ function onload() {
     <li>description and source-code<pre class="apidocCodePre">set = function (object, key, value) {
     return Q(object).dispatch(&#x22;set&#x22;, [key, value]);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+promise.resolve = Q; // ES6
+
+// XXX experimental.  This method is a way to denote that a local value is
+// serializable and should be immediately dispatched to a remote upon request,
+// instead of passing a reference.
+Q.passByCopy = function (object) {
+//freeze(object);
+//passByCopies.<span class="apidocCodeKeywordSpan">set</span>(object, true);
+return object;
+};
+
+Promise.prototype.passByCopy = function () {
+//freeze(object);
+//passByCopies.set(object, true);
+return this;
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.spawn" id="apidoc.element.q.spawn">
         function <span class="apidocSignatureSpan">q.</span>spawn
@@ -3026,9 +3182,9 @@ function onload() {
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.spread" id="apidoc.element.q.spread">
         function <span class="apidocSignatureSpan">q.</span>spread
@@ -3056,9 +3212,9 @@ function eventualAdd(a, b) {
 But ``spread`` calls ``all`` initially, so you can skip it in chains.
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.stopUnhandledRejectionTracking" id="apidoc.element.q.stopUnhandledRejectionTracking">
         function <span class="apidocSignatureSpan">q.</span>stopUnhandledRejectionTracking
@@ -3072,9 +3228,9 @@ But ``spread`` calls ``all`` initially, so you can skip it in chains.
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.tap" id="apidoc.element.q.tap">
         function <span class="apidocSignatureSpan">q.</span>tap
@@ -3085,11 +3241,27 @@ But ``spread`` calls ``all`` initially, so you can skip it in chains.
     <li>description and source-code<pre class="apidocCodePre">tap = function (promise, callback) {
     return Q(promise).tap(callback);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+       }
+   }]);
+
+   return deferred.promise;
+};
+
+Q.tap = function (promise, callback) {
+   return Q(promise).<span class="apidocCodeKeywordSpan">tap</span>(callback);
+};
+
+/**
+* Works almost like &#x22;finally&#x22;, but not called for rejections.
+* Original resolution value is passed through callback unaffected.
+* Callback may return a promise that will be awaited for.
+* @param {Function} callback
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.thenReject" id="apidoc.element.q.thenReject">
         function <span class="apidocSignatureSpan">q.</span>thenReject
@@ -3100,11 +3272,27 @@ But ``spread`` calls ``all`` initially, so you can skip it in chains.
     <li>description and source-code<pre class="apidocCodePre">thenReject = function (promise, reason) {
     return Q(promise).thenReject(reason);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+};
+
+Promise.prototype.thenReject = function (reason) {
+   return this.then(function () { throw reason; });
+};
+
+Q.thenReject = function (promise, reason) {
+   return Q(promise).<span class="apidocCodeKeywordSpan">thenReject</span>(reason);
+};
+
+/**
+* If an object is not a promise, it is as &#x22;near&#x22; as possible.
+* If a promise is rejected, it is as &#x22;near&#x22; as possible too.
+* If it’s a fulfilled promise, the fulfillment value is nearer.
+* If it’s a deferred promise and the deferred has been resolved, the
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.thenResolve" id="apidoc.element.q.thenResolve">
         function <span class="apidocSignatureSpan">q.</span>thenResolve
@@ -3115,11 +3303,27 @@ But ``spread`` calls ``all`` initially, so you can skip it in chains.
     <li>description and source-code<pre class="apidocCodePre">thenResolve = function (promise, value) {
     return Q(promise).thenResolve(value);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+*   .tap(console.log)
+*   .then(...);
+*/
+Promise.prototype.tap = function (callback) {
+   callback = Q(callback);
+
+   return this.then(function (value) {
+       return callback.fcall(value).<span class="apidocCodeKeywordSpan">thenResolve</span>(value);
+   });
+};
+
+/**
+* Registers an observer on a promise.
+*
+* Guarantees:
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.timeout" id="apidoc.element.q.timeout">
         function <span class="apidocSignatureSpan">q.</span>timeout
@@ -3130,11 +3334,27 @@ But ``spread`` calls ``all`` initially, so you can skip it in chains.
     <li>description and source-code<pre class="apidocCodePre">timeout = function (object, ms, error) {
     return Q(object).timeout(ms, error);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ * @param {Any*} promise
+ * @param {Number} milliseconds timeout
+ * @param {Any*} custom error message or Error object (optional)
+ * @returns a promise for the resolution of the given promise if it is
+ * fulfilled before the timeout, otherwise rejected.
+ */
+Q.timeout = function (object, ms, error) {
+return Q(object).<span class="apidocCodeKeywordSpan">timeout</span>(ms, error);
+};
+
+Promise.prototype.timeout = function (ms, error) {
+var deferred = defer();
+var timeoutId = setTimeout(function () {
+    if (!error || &#x22;string&#x22; === typeof error) {
+        error = new Error(error || &#x22;Timed out after &#x22; + ms + &#x22; ms&#x22;);
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.try" id="apidoc.element.q.try">
         function <span class="apidocSignatureSpan">q.</span>try
@@ -3147,9 +3367,9 @@ But ``spread`` calls ``all`` initially, so you can skip it in chains.
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.when" id="apidoc.element.q.when">
         function <span class="apidocSignatureSpan">q.</span>when
@@ -3177,18 +3397,18 @@ function timeout(promise, ms) {
 ```
 ...</pre></li>
     </ul>
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
 </div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.q.Promise" id="apidoc.module.q.Promise">module q.Promise</a></h1>
-    
-    
+
+
     <h2>
         <a href="#apidoc.element.q.Promise.Promise" id="apidoc.element.q.Promise.Promise">
         function <span class="apidocSignatureSpan">q.</span>Promise
@@ -3226,9 +3446,9 @@ request.onprogress = onprogress;
 request.send();
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.Promise.all" id="apidoc.element.q.Promise.all">
         function <span class="apidocSignatureSpan">q.Promise.</span>all
@@ -3288,9 +3508,9 @@ If you have a promise for an array, you can use ``spread`` as a
 replacement for ``then``.  The ``spread`` function “spreads” the
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.Promise.race" id="apidoc.element.q.Promise.race">
         function <span class="apidocSignatureSpan">q.Promise.</span>race
@@ -3312,9 +3532,9 @@ replacement for ``then``.  The ``spread`` function “spreads” the
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.Promise.reject" id="apidoc.element.q.Promise.reject">
         function <span class="apidocSignatureSpan">q.Promise.</span>reject
@@ -3359,9 +3579,9 @@ return deferred.promise;
 ```
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.Promise.resolve" id="apidoc.element.q.Promise.resolve">
         function <span class="apidocSignatureSpan">q.Promise.</span>resolve
@@ -3402,14 +3622,14 @@ Note that a deferred can be resolved with a value or a promise.  The
 ``reject`` function is a shorthand for resolving with a rejected
 ...</pre></li>
     </ul>
-    
-    
+
+
 </div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.q.defer" id="apidoc.module.q.defer">module q.defer</a></h1>
-    
-    
+
+
     <h2>
         <a href="#apidoc.element.q.defer.defer" id="apidoc.element.q.defer.defer">
         function <span class="apidocSignatureSpan">q.</span>defer
@@ -3473,6 +3693,7 @@ Note that a deferred can be resolved with a value or a promise.  The
             // At the same time, cut off the first line; it&#x27;s always just
             // &#x22;[object Promise]\n&#x22;, as per the `toString`.
             promise.stack = e.stack.substring(e.stack.indexOf(&#x22;\n&#x22;) + 1);
+            promise.stackCounter = longStackCounter++;
         }
     }
 
@@ -3482,7 +3703,12 @@ Note that a deferred can be resolved with a value or a promise.  The
 
     function become(newPromise) {
         resolvedPromise = newPromise;
-        promise.source = newPromise;
+
+        if (Q.longStackSupport &#x26;&#x26; hasStacks) {
+            // Only hold a reference to the new promise if long stacks
+            // are enabled to reduce memory usage
+            promise.source = newPromise;
+        }
 
         array_reduce(messages, function (undefined, message) {
             Q.nextTick(function () {
@@ -3549,14 +3775,14 @@ FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
 });
 ...</pre></li>
     </ul>
-    
-    
+
+
 </div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.q.defer.prototype" id="apidoc.module.q.defer.prototype">module q.defer.prototype</a></h1>
-    
-    
+
+
     <h2>
         <a href="#apidoc.element.q.defer.prototype.makeNodeResolver" id="apidoc.element.q.defer.prototype.makeNodeResolver">
         function <span class="apidocSignatureSpan">q.defer.prototype.</span>makeNodeResolver
@@ -3594,14 +3820,14 @@ Q comes with optional support for “long stack traces,” wherein the `stack`
 property of `Error` rejection reasons is rewritten to be traced along
 ...</pre></li>
     </ul>
-    
-    
+
+
 </div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.q.makePromise" id="apidoc.module.q.makePromise">module q.makePromise</a></h1>
-    
-    
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.makePromise" id="apidoc.element.q.makePromise.makePromise">
         function <span class="apidocSignatureSpan">q.</span>makePromise
@@ -3664,14 +3890,14 @@ property of `Error` rejection reasons is rewritten to be traced along
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
+
+
 </div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.q.makePromise.prototype" id="apidoc.module.q.makePromise.prototype">module q.makePromise.prototype</a></h1>
-    
-    
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.all" id="apidoc.element.q.makePromise.prototype.all">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>all
@@ -3700,9 +3926,9 @@ If you have a promise for an array, you can use ``spread`` as a
 replacement for ``then``.  The ``spread`` function “spreads” the
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.allResolved" id="apidoc.element.q.makePromise.prototype.allResolved">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>allResolved
@@ -3715,9 +3941,9 @@ replacement for ``then``.  The ``spread`` function “spreads” the
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.allSettled" id="apidoc.element.q.makePromise.prototype.allSettled">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>allSettled
@@ -3754,9 +3980,9 @@ results.forEach(function (result) {
     }
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.any" id="apidoc.element.q.makePromise.prototype.any">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>any
@@ -3784,9 +4010,9 @@ Q.<span class="apidocCodeKeywordSpan">any</span>(promises)
 ```
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.catch" id="apidoc.element.q.makePromise.prototype.catch">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>catch
@@ -3815,9 +4041,9 @@ With this approach, you also get implicit error propagation, just like `try`,
 `catch`, and `finally`.  An error in `promisedStep1` will flow all the way to
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.del" id="apidoc.element.q.makePromise.prototype.del">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>del
@@ -3846,9 +4072,9 @@ value(...args)              promise.fcall(...args)
 If the promise is a proxy for a remote object, you can shave
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.delay" id="apidoc.element.q.makePromise.prototype.delay">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>delay
@@ -3882,9 +4108,9 @@ theDepthsOfMyProgram();
 ```
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.delete" id="apidoc.element.q.makePromise.prototype.delete">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>delete
@@ -3897,9 +4123,9 @@ theDepthsOfMyProgram();
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.denodeify" id="apidoc.element.q.makePromise.prototype.denodeify">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>denodeify
@@ -3930,9 +4156,9 @@ return redisClientGet(&#x22;user:1:id&#x22;);
 Finally, if you&#x27;re working with raw deferred objects, there is a
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.dispatch" id="apidoc.element.q.makePromise.prototype.dispatch">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>dispatch
@@ -3948,11 +4174,27 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
     });
     return deferred.promise;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ * @param object* the recipient
+ * @param op the name of the message operation, e.g., &#x22;when&#x22;,
+ * @param args further arguments to be forwarded to the operation
+ * @returns result {Promise} a promise for the result of the operation
+ */
+Q.dispatch = dispatch;
+function dispatch(object, op, args) {
+return Q(object).<span class="apidocCodeKeywordSpan">dispatch</span>(op, args);
+}
+
+Promise.prototype.dispatch = function (op, args) {
+var self = this;
+var deferred = defer();
+Q.nextTick(function () {
+    self.promiseDispatch(deferred.resolve, op, args);
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.done" id="apidoc.element.q.makePromise.prototype.done">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>done
@@ -4002,9 +4244,9 @@ the `catch` function, where it’s caught and handled.  (Here `promisedStepN` is
 a version of `stepN` that returns a promise.)
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.fail" id="apidoc.element.q.makePromise.prototype.fail">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>fail
@@ -4033,9 +4275,9 @@ CoffeeScript, you may use `catch` instead of `fail`.
 Promises also have a ``fin`` function that is like a ``finally`` clause.
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.fapply" id="apidoc.element.q.makePromise.prototype.fapply">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>fapply
@@ -4063,9 +4305,9 @@ round-trips by using these functions instead of ``then``.  To take
 advantage of promises for remote objects, check out [Q-Connection][].
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.fbind" id="apidoc.element.q.makePromise.prototype.fbind">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>fbind
@@ -4085,9 +4327,9 @@ advantage of promises for remote objects, check out [Q-Connection][].
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.fcall" id="apidoc.element.q.makePromise.prototype.fcall">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>fcall
@@ -4116,9 +4358,9 @@ Q.<span class="apidocCodeKeywordSpan">fcall</span>(promisedStep1)
 .catch(function (error) {
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.fin" id="apidoc.element.q.makePromise.prototype.fin">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>fin
@@ -4127,6 +4369,9 @@ Q.<span class="apidocCodeKeywordSpan">fcall</span>(promisedStep1)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">fin = function (callback) {
+    if (!callback || typeof callback.apply !== &#x22;function&#x22;) {
+        throw new Error(&#x22;Q can&#x27;t apply finally callback&#x22;);
+    }
     callback = Q(callback);
     return this.then(function (value) {
         return callback.fcall().then(function () {
@@ -4157,9 +4402,9 @@ var outputPromise = getInputPromise()
 -   If the handler returns a promise, ``outputPromise`` gets postponed.  The
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.finally" id="apidoc.element.q.makePromise.prototype.finally">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>finally
@@ -4168,6 +4413,9 @@ var outputPromise = getInputPromise()
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">finally = function (callback) {
+    if (!callback || typeof callback.apply !== &#x22;function&#x22;) {
+        throw new Error(&#x22;Q can&#x27;t apply finally callback&#x22;);
+    }
     callback = Q(callback);
     return this.then(function (value) {
         return callback.fcall().then(function () {
@@ -4182,9 +4430,9 @@ var outputPromise = getInputPromise()
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.get" id="apidoc.element.q.makePromise.prototype.get">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>get
@@ -4213,9 +4461,9 @@ value(...args)              promise.fcall(...args)
 ```
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.invoke" id="apidoc.element.q.makePromise.prototype.invoke">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>invoke
@@ -4243,9 +4491,9 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
 ### Over the Wire
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.isFulfilled" id="apidoc.element.q.makePromise.prototype.isFulfilled">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>isFulfilled
@@ -4258,9 +4506,9 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.isPending" id="apidoc.element.q.makePromise.prototype.isPending">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>isPending
@@ -4273,9 +4521,9 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.isRejected" id="apidoc.element.q.makePromise.prototype.isRejected">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>isRejected
@@ -4288,9 +4536,9 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.join" id="apidoc.element.q.makePromise.prototype.join">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>join
@@ -4304,15 +4552,32 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
             // TODO: &#x22;===&#x22; should be Object.is or equiv
             return x;
         } else {
-            throw new Error(&#x22;Can&#x27;t join: not the same: &#x22; + x + &#x22; &#x22; + y);
+            throw new Error(&#x22;Q can&#x27;t join: not the same: &#x22; + x + &#x22; &#x22; + y);
         }
     });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        if (p.stack &#x26;&#x26; (!error.__minimumStackCounter__ || error.__minimumStackCounter__ &#x3e; p.stackCounter)) {
+            object_defineProperty(error, &#x22;__minimumStackCounter__&#x22;, {value: p.stackCounter, configurable: true});
+            stacks.unshift(p.stack);
+        }
+    }
+    stacks.unshift(error.stack);
+
+    var concatedStacks = stacks.<span class="apidocCodeKeywordSpan">join</span>(&#x22;\n&#x22; + STACK_JUMP_SEPARATOR + &#x22;\n
+&#x22;);
+    var stack = filterStackString(concatedStacks);
+    object_defineProperty(error, &#x22;stack&#x22;, {value: stack, configurable: true});
+}
+}
+
+function filterStackString(stackString) {
+var lines = stackString.split(&#x22;\n&#x22;);
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.keys" id="apidoc.element.q.makePromise.prototype.keys">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>keys
@@ -4325,9 +4590,9 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.mapply" id="apidoc.element.q.makePromise.prototype.mapply">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>mapply
@@ -4340,9 +4605,9 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.mcall" id="apidoc.element.q.makePromise.prototype.mcall">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>mcall
@@ -4355,9 +4620,9 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.nbind" id="apidoc.element.q.makePromise.prototype.nbind">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>nbind
@@ -4388,9 +4653,9 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
 ```javascript
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.nfapply" id="apidoc.element.q.makePromise.prototype.nfapply">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>nfapply
@@ -4422,9 +4687,9 @@ run in to the usual problems where passing a method to another function—like
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.nfbind" id="apidoc.element.q.makePromise.prototype.nfbind">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>nfbind
@@ -4437,11 +4702,27 @@ use `Function.prototype.bind` or some nice shortcut methods we provide:
     args.unshift(this);
     return Q.denodeify.apply(void 0, args);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+return deferred.promise;
+};
+
+/**
+ * Wraps a NodeJS continuation passing function and returns an equivalent
+ * version that returns a promise.
+ * @example
+ * Q.<span class="apidocCodeKeywordSpan">nfbind</span>(FS.readFile, __filename)(&#x22;utf-8&#x22;)
+ * .then(console.log)
+ * .done()
+ */
+Q.nfbind =
+Q.denodeify = function (callback /*...args*/) {
+if (callback === undefined) {
+    throw new Error(&#x22;Q can&#x27;t wrap an undefined function&#x22;);
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.nfcall" id="apidoc.element.q.makePromise.prototype.nfcall">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>nfcall
@@ -4474,9 +4755,9 @@ run in to the usual problems where passing a method to another function—like
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.ninvoke" id="apidoc.element.q.makePromise.prototype.ninvoke">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>ninvoke
@@ -4509,9 +4790,9 @@ You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
 var readFile = Q.denodeify(FS.readFile);
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.nmapply" id="apidoc.element.q.makePromise.prototype.nmapply">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>nmapply
@@ -4528,9 +4809,9 @@ var readFile = Q.denodeify(FS.readFile);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.nmcall" id="apidoc.element.q.makePromise.prototype.nmcall">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>nmcall
@@ -4547,9 +4828,9 @@ var readFile = Q.denodeify(FS.readFile);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.nodeify" id="apidoc.element.q.makePromise.prototype.nodeify">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>nodeify
@@ -4572,11 +4853,27 @@ var readFile = Q.denodeify(FS.readFile);
         return this;
     }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ * pass a nodeback, they will receive the result promise.
+ * @param object a result (or a promise for a result)
+ * @param {Function} nodeback a Node.js-style callback
+ * @returns either the promise or nothing
+ */
+Q.nodeify = nodeify;
+function nodeify(object, nodeback) {
+return Q(object).<span class="apidocCodeKeywordSpan">nodeify</span>(nodeback);
+}
+
+Promise.prototype.nodeify = function (nodeback) {
+if (nodeback) {
+    this.then(function (value) {
+        Q.nextTick(function () {
+            nodeback(null, value);
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.npost" id="apidoc.element.q.makePromise.prototype.npost">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>npost
@@ -4609,9 +4906,9 @@ var readFile = Q.denodeify(FS.readFile);
 return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.nsend" id="apidoc.element.q.makePromise.prototype.nsend">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>nsend
@@ -4628,9 +4925,9 @@ return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.passByCopy" id="apidoc.element.q.makePromise.prototype.passByCopy">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>passByCopy
@@ -4645,9 +4942,9 @@ return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.post" id="apidoc.element.q.makePromise.prototype.post">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>post
@@ -4676,9 +4973,9 @@ If the promise is a proxy for a remote object, you can shave
 round-trips by using these functions instead of ``then``.  To take
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.progress" id="apidoc.element.q.makePromise.prototype.progress">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>progress
@@ -4707,9 +5004,9 @@ return uploadFile().<span class="apidocCodeKeywordSpan">progress</span>(function
 When you get to the end of a chain of promises, you should either
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.race" id="apidoc.element.q.makePromise.prototype.race">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>race
@@ -4722,9 +5019,9 @@ When you get to the end of a chain of promises, you should either
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.send" id="apidoc.element.q.makePromise.prototype.send">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>send
@@ -4753,9 +5050,9 @@ function onload() {
     }
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.set" id="apidoc.element.q.makePromise.prototype.set">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>set
@@ -4766,11 +5063,27 @@ function onload() {
     <li>description and source-code<pre class="apidocCodePre">set = function (key, value) {
     return this.dispatch(&#x22;set&#x22;, [key, value]);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+promise.resolve = Q; // ES6
+
+// XXX experimental.  This method is a way to denote that a local value is
+// serializable and should be immediately dispatched to a remote upon request,
+// instead of passing a reference.
+Q.passByCopy = function (object) {
+//freeze(object);
+//passByCopies.<span class="apidocCodeKeywordSpan">set</span>(object, true);
+return object;
+};
+
+Promise.prototype.passByCopy = function () {
+//freeze(object);
+//passByCopies.set(object, true);
+return this;
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.spread" id="apidoc.element.q.makePromise.prototype.spread">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>spread
@@ -4800,9 +5113,9 @@ function eventualAdd(a, b) {
 But ``spread`` calls ``all`` initially, so you can skip it in chains.
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.tap" id="apidoc.element.q.makePromise.prototype.tap">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>tap
@@ -4817,11 +5130,27 @@ But ``spread`` calls ``all`` initially, so you can skip it in chains.
         return callback.fcall(value).thenResolve(value);
     });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+       }
+   }]);
+
+   return deferred.promise;
+};
+
+Q.tap = function (promise, callback) {
+   return Q(promise).<span class="apidocCodeKeywordSpan">tap</span>(callback);
+};
+
+/**
+* Works almost like &#x22;finally&#x22;, but not called for rejections.
+* Original resolution value is passed through callback unaffected.
+* Callback may return a promise that will be awaited for.
+* @param {Function} callback
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.then" id="apidoc.element.q.makePromise.prototype.then">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>then
@@ -4917,9 +5246,9 @@ Q.fcall(promisedStep1)
 // Handle any error from all above steps
 ...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.thenReject" id="apidoc.element.q.makePromise.prototype.thenReject">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>thenReject
@@ -4930,11 +5259,27 @@ Q.fcall(promisedStep1)
     <li>description and source-code<pre class="apidocCodePre">thenReject = function (reason) {
     return this.then(function () { throw reason; });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+};
+
+Promise.prototype.thenReject = function (reason) {
+   return this.then(function () { throw reason; });
+};
+
+Q.thenReject = function (promise, reason) {
+   return Q(promise).<span class="apidocCodeKeywordSpan">thenReject</span>(reason);
+};
+
+/**
+* If an object is not a promise, it is as &#x22;near&#x22; as possible.
+* If a promise is rejected, it is as &#x22;near&#x22; as possible too.
+* If it’s a fulfilled promise, the fulfillment value is nearer.
+* If it’s a deferred promise and the deferred has been resolved, the
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.thenResolve" id="apidoc.element.q.makePromise.prototype.thenResolve">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>thenResolve
@@ -4945,11 +5290,27 @@ Q.fcall(promisedStep1)
     <li>description and source-code<pre class="apidocCodePre">thenResolve = function (value) {
     return this.then(function () { return value; });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+*   .tap(console.log)
+*   .then(...);
+*/
+Promise.prototype.tap = function (callback) {
+   callback = Q(callback);
+
+   return this.then(function (value) {
+       return callback.fcall(value).<span class="apidocCodeKeywordSpan">thenResolve</span>(value);
+   });
+};
+
+/**
+* Registers an observer on a promise.
+*
+* Guarantees:
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.timeout" id="apidoc.element.q.makePromise.prototype.timeout">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>timeout
@@ -4977,11 +5338,27 @@ Q.fcall(promisedStep1)
 
     return deferred.promise;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ * @param {Any*} promise
+ * @param {Number} milliseconds timeout
+ * @param {Any*} custom error message or Error object (optional)
+ * @returns a promise for the resolution of the given promise if it is
+ * fulfilled before the timeout, otherwise rejected.
+ */
+Q.timeout = function (object, ms, error) {
+return Q(object).<span class="apidocCodeKeywordSpan">timeout</span>(ms, error);
+};
+
+Promise.prototype.timeout = function (ms, error) {
+var deferred = defer();
+var timeoutId = setTimeout(function () {
+    if (!error || &#x22;string&#x22; === typeof error) {
+        error = new Error(error || &#x22;Timed out after &#x22; + ms + &#x22; ms&#x22;);
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.makePromise.prototype.toString" id="apidoc.element.q.makePromise.prototype.toString">
         function <span class="apidocSignatureSpan">q.makePromise.prototype.</span>toString
@@ -4992,16 +5369,33 @@ Q.fcall(promisedStep1)
     <li>description and source-code<pre class="apidocCodePre">toString = function () {
     return &#x22;[object Promise]&#x22;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    if (!flushing) {
+        flushing = true;
+        requestTick();
+    }
+};
+
+if (typeof process === &#x22;object&#x22; &#x26;&#x26;
+    process.<span class="apidocCodeKeywordSpan">toString</span>() === &#x22;[object process]&#x22; &#x26;&#x26; process.nextTick
+) {
+    // Ensure Q is in a real Node environment, with a `process.nextTick`.
+    // To see through fake Node environments:
+    // * Mocha test runner - exposes a `process` global without a `nextTick`
+    // * Browserify - exposes a `process.nexTick` function that uses
+    //   `setTimeout`. In this case `setImmediate` is preferred because
+    //    it is faster. Browserify&#x27;s `process.toString()` yields
+    //   &#x22;[object Object]&#x22;, while in a real Node environment
+...</pre></li>
     </ul>
-    
-    
+
+
 </div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.q.nextTick" id="apidoc.module.q.nextTick">module q.nextTick</a></h1>
-    
-    
+
+
     <h2>
         <a href="#apidoc.element.q.nextTick.nextTick" id="apidoc.element.q.nextTick.nextTick">
         function <span class="apidocSignatureSpan">q.</span>nextTick
@@ -5021,11 +5415,27 @@ Q.fcall(promisedStep1)
         requestTick();
     }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    //   `setTimeout`. In this case `setImmediate` is preferred because
+    //    it is faster. Browserify&#x27;s `process.toString()` yields
+    //   &#x22;[object Object]&#x22;, while in a real Node environment
+    //   `process.toString()` yields &#x22;[object process]&#x22;.
+    isNodeJS = true;
+
+    requestTick = function () {
+        process.<span class="apidocCodeKeywordSpan">nextTick</span>(flush);
+    };
+
+} else if (typeof setImmediate === &#x22;function&#x22;) {
+    // In IE10, Node.js 0.9+, or https://github.com/NobleJS/setImmediate
+    if (typeof window !== &#x22;undefined&#x22;) {
+        requestTick = setImmediate.bind(window, flush);
+    } else {
+...</pre></li>
     </ul>
-    
-    
-    
+
+
+
     <h2>
         <a href="#apidoc.element.q.nextTick.runAfter" id="apidoc.element.q.nextTick.runAfter">
         function <span class="apidocSignatureSpan">q.nextTick.</span>runAfter
@@ -5040,10 +5450,25 @@ Q.fcall(promisedStep1)
         requestTick();
     }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+}
+
+function trackRejection(promise, reason) {
+if (!trackUnhandledRejections) {
+    return;
+}
+if (typeof process === &#x22;object&#x22; &#x26;&#x26; typeof process.emit === &#x22;function&#x22;) {
+    Q.nextTick.<span class="apidocCodeKeywordSpan">runAfter</span>(function () {
+        if (array_indexOf(unhandledRejections, promise) !== -1) {
+            process.emit(&#x22;unhandledRejection&#x22;, reason, promise);
+            reportedUnhandledRejections.push(promise);
+        }
+    });
+}
+...</pre></li>
     </ul>
-    
-    
+
+
 </div>
 
 <div class="apidocFooterDiv">
