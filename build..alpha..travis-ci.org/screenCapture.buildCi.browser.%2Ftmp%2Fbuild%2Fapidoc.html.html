@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/kriskowal/q"
-
-    >q (v1.5.0)</a>
+    <a href="https://github.com/kriskowal/q">q (v1.5.0)</a>
 </h1>
 <h4>A library for promises (CommonJS/Promises/A,B,D)</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.q">module q</a><ol>
 
@@ -2931,8 +2924,8 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function promise(resolver) {
-    if (typeof resolver !== &#x22;function&#x22;) {
-        throw new TypeError(&#x22;resolver must be a function.&#x22;);
+    if (typeof resolver !== "function") {
+        throw new TypeError("resolver must be a function.");
     }
     var deferred = defer();
     try {
@@ -2953,7 +2946,7 @@ function requestOkText(url) {
     return Q.<span class="apidocCodeKeywordSpan">Promise</span>(function(resolve, reject, notify) {
 var request = new XMLHttpRequest();
 
-request.open(&#x22;GET&#x22;, url, true);
+request.open("GET", url, true);
 request.onload = onload;
 request.onerror = onerror;
 request.onprogress = onprogress;
@@ -2977,8 +2970,8 @@ request.send();
         array_reduce(promises, function (undefined, promise, index) {
             var snapshot;
             if (
-                isPromise(promise) &#x26;&#x26;
-                (snapshot = promise.inspect()).state === &#x22;fulfilled&#x22;
+                isPromise(promise) &amp;&amp;
+                (snapshot = promise.inspect()).state === "fulfilled"
             ) {
                 promises[index] = snapshot.value;
             } else {
@@ -3019,7 +3012,7 @@ return Q.<span class="apidocCodeKeywordSpan">all</span>([
 ```
 
 If you have a promise for an array, you can use ``spread`` as a
-replacement for ``then``.  The ``spread`` function “spreads” the
+replacement for ``then``.  The ``spread`` function â€œspreadsâ€ the
 ...</pre></li>
     </ul>
 
@@ -3033,10 +3026,10 @@ replacement for ``then``.  The ``spread`` function “spreads” the
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">allResolved = function () {
-    if (typeof console !== &#x22;undefined&#x22; &#x26;&#x26;
-        typeof console.warn === &#x22;function&#x22;) {
-        console.warn(name + &#x22; is deprecated, use &#x22; + alternative +
-                     &#x22; instead.&#x22;, new Error(&#x22;&#x22;).stack);
+    if (typeof console !== "undefined" &amp;&amp;
+        typeof console.warn === "function") {
+        console.warn(name + " is deprecated, use " + alternative +
+                     " instead.", new Error("").stack);
     }
     return callback.apply(callback, arguments);
 }</pre></li>
@@ -3066,7 +3059,7 @@ fulfilled or rejected, you can use ``allSettled``.
 Q.<span class="apidocCodeKeywordSpan">allSettled</span>(promises)
 .then(function (results) {
 results.forEach(function (result) {
-    if (result.state === &#x22;fulfilled&#x22;) {
+    if (result.state === "fulfilled") {
         var value = result.value;
     } else {
         var reason = result.reason;
@@ -3102,8 +3095,8 @@ results.forEach(function (result) {
         function onRejected(err) {
             pendingCount--;
             if (pendingCount === 0) {
-                err.message = (&#x22;Q can&#x27;t get fulfillment value from any promise, all &#x22; +
-                    &#x22;promises were rejected. Last error message: &#x22; + err.message);
+                err.message = ("Q can't get fulfillment value from any promise, all " +
+                    "promises were rejected. Last error message: " + err.message);
                 deferred.reject(err);
             }
         }
@@ -3146,20 +3139,20 @@ Q.<span class="apidocCodeKeywordSpan">any</span>(promises)
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function async(makeGenerator) {
     return function () {
-        // when verb is &#x22;send&#x22;, arg is a value
-        // when verb is &#x22;throw&#x22;, arg is an exception
+        // when verb is "send", arg is a value
+        // when verb is "throw", arg is an exception
         function continuer(verb, arg) {
             var result;
 
             // Until V8 3.19 / Chromium 29 is released, SpiderMonkey is the only
             // engine that has a deployed base of browsers that support generators.
-            // However, SM&#x27;s generators use the Python-inspired semantics of
-            // outdated ES6 drafts.  We would like to support ES6, but we&#x27;d also
+            // However, SM's generators use the Python-inspired semantics of
+            // outdated ES6 drafts.  We would like to support ES6, but we'd also
             // like to make it possible to use generators in deployed browsers, so
             // we also support Python-style generators.  At some point we can remove
             // this block.
 
-            if (typeof StopIteration === &#x22;undefined&#x22;) {
+            if (typeof StopIteration === "undefined") {
                 // ES6 Generators
                 try {
                     result = generator[verb](arg);
@@ -3187,15 +3180,15 @@ Q.<span class="apidocCodeKeywordSpan">any</span>(promises)
             }
         }
         var generator = makeGenerator.apply(this, arguments);
-        var callback = continuer.bind(continuer, &#x22;next&#x22;);
-        var errback = continuer.bind(continuer, &#x22;throw&#x22;);
+        var callback = continuer.bind(continuer, "next");
+        var errback = continuer.bind(continuer, "throw");
         return callback();
     };
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 * calls the generator and also ends the promise chain, so that any
 * unhandled errors are thrown instead of forwarded to the error
-* handler. This is useful because it&#x27;s extremely common to run
+* handler. This is useful because it's extremely common to run
 * generators at the top-level to work with libraries.
 */
 Q.spawn = spawn;
@@ -3252,8 +3245,8 @@ With this approach, you also get implicit error propagation, just like `try`,
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function defer() {
-    // if &#x22;messages&#x22; is an &#x22;Array&#x22;, that indicates that the promise has not yet
-    // been resolved.  If it is &#x22;undefined&#x22;, it has been resolved.  Each
+    // if "messages" is an "Array", that indicates that the promise has not yet
+    // been resolved.  If it is "undefined", it has been resolved.  Each
     // element of the messages array is itself an array of complete arguments to
     // forward to the resolved promise.  We coerce the resolution value to a
     // promise using the `resolve` function because it handles both fully
@@ -3267,7 +3260,7 @@ With this approach, you also get implicit error propagation, just like `try`,
         var args = array_slice(arguments);
         if (messages) {
             messages.push(args);
-            if (op === &#x22;when&#x22; &#x26;&#x26; operands[1]) { // progress operand
+            if (op === "when" &amp;&amp; operands[1]) { // progress operand
                 progressListeners.push(operands[1]);
             }
         } else {
@@ -3291,34 +3284,34 @@ With this approach, you also get implicit error propagation, just like `try`,
 
     promise.inspect = function () {
         if (!resolvedPromise) {
-            return { state: &#x22;pending&#x22; };
+            return { state: "pending" };
         }
         return resolvedPromise.inspect();
     };
 
-    if (Q.longStackSupport &#x26;&#x26; hasStacks) {
+    if (Q.longStackSupport &amp;&amp; hasStacks) {
         try {
             throw new Error();
         } catch (e) {
-            // NOTE: don&#x27;t try to use `Error.captureStackTrace` or transfer the
+            // NOTE: don't try to use `Error.captureStackTrace` or transfer the
             // accessor around; that causes memory leaks as per GH-111. Just
             // reify the stack trace as a string ASAP.
             //
-            // At the same time, cut off the first line; it&#x27;s always just
-            // &#x22;[object Promise]\n&#x22;, as per the `toString`.
-            promise.stack = e.stack.substring(e.stack.indexOf(&#x22;\n&#x22;) + 1);
+            // At the same time, cut off the first line; it's always just
+            // "[object Promise]\n", as per the `toString`.
+            promise.stack = e.stack.substring(e.stack.indexOf("\n") + 1);
             promise.stackCounter = longStackCounter++;
         }
     }
 
     // NOTE: we do the checks for `resolvedPromise` in each method, instead of
-    // consolidating them into `become`, since otherwise we&#x27;d create new
+    // consolidating them into `become`, since otherwise we'd create new
     // promises with the lines `become(whatever(value))`. See e.g. GH-252.
 
     function become(newPromise) {
         resolvedPromise = newPromise;
 
-        if (Q.longStackSupport &#x26;&#x26; hasStacks) {
+        if (Q.longStackSupport &amp;&amp; hasStacks) {
             // Only hold a reference to the new promise if long stacks
             // are enabled to reduce memory usage
             promise.source = newPromise;
@@ -3380,7 +3373,7 @@ friends). But much of the time, the solution will be to use *deferreds*.
 
 ```javascript
 var deferred = Q.<span class="apidocCodeKeywordSpan">defer</span>();
-FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
+FS.readFile("foo.txt", "utf-8", function (error, text) {
     if (error) {
         deferred.reject(new Error(error));
     } else {
@@ -3404,7 +3397,7 @@ FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
     return function (error, value) {
         if (error) {
             self.reject(error);
-        } else if (arguments.length &#x3e; 2) {
+        } else if (arguments.length &gt; 2) {
             self.resolve(array_slice(arguments, 1));
         } else {
             self.resolve(value);
@@ -3424,7 +3417,7 @@ FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">del = function (object, key) {
-    return Q(object).dispatch(&#x22;delete&#x22;, [key]);
+    return Q(object).dispatch("delete", [key]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 promises, so they can be chained.
@@ -3432,11 +3425,11 @@ promises, so they can be chained.
 ```
 direct manipulation         using a promise as a proxy
 --------------------------  -------------------------------
-value.foo                   promise.get(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.<span class="apidocCodeKeywordSpan">del</span>(&#x22;foo&#x22;)
-value.foo(...args)          promise.post(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
+value.foo                   promise.get("foo")
+value.foo = value           promise.put("foo", value)
+delete value.foo            promise.<span class="apidocCodeKeywordSpan">del</span>("foo")
+value.foo(...args)          promise.post("foo", [args])
+value.foo(...args)          promise.invoke("foo", ...args)
 value(...args)              promise.fapply([args])
 value(...args)              promise.fcall(...args)
 ```
@@ -3463,14 +3456,14 @@ If the promise is a proxy for a remote object, you can shave
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
-Q comes with optional support for “long stack traces,” wherein the `stack`
+Q comes with optional support for â€œlong stack traces,â€ wherein the `stack`
 property of `Error` rejection reasons is rewritten to be traced along
 asynchronous jumps instead of stopping at the most recent one. As an example:
 
 ```js
 function theDepthsOfMyProgram() {
   Q.<span class="apidocCodeKeywordSpan">delay</span>(100).done(function explode() {
-    throw new Error(&#x22;boo!&#x22;);
+    throw new Error("boo!");
   });
 }
 
@@ -3489,7 +3482,7 @@ theDepthsOfMyProgram();
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">delete = function (object, key) {
-    return Q(object).dispatch(&#x22;delete&#x22;, [key]);
+    return Q(object).dispatch("delete", [key]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -3505,7 +3498,7 @@ theDepthsOfMyProgram();
     <ul>
     <li>description and source-code<pre class="apidocCodePre">denodeify = function (callback) {
     if (callback === undefined) {
-        throw new Error(&#x22;Q can&#x27;t wrap an undefined function&#x22;);
+        throw new Error("Q can't wrap an undefined function");
     }
     var baseArgs = array_slice(arguments, 1);
     return function () {
@@ -3517,21 +3510,21 @@ theDepthsOfMyProgram();
     };
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-return Q.ninvoke(redisClient, &#x22;get&#x22;, &#x22;user:1:id&#x22;);
-return Q.npost(redisClient, &#x22;get&#x22;, [&#x22;user:1:id&#x22;]);
+return Q.ninvoke(redisClient, "get", "user:1:id");
+return Q.npost(redisClient, "get", ["user:1:id"]);
 ```
 
 You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
 
 ```javascript
 var readFile = Q.<span class="apidocCodeKeywordSpan">denodeify</span>(FS.readFile);
-return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
+return readFile("foo.txt", "utf-8");
 
 var redisClientGet = Q.nbind(redisClient.get, redisClient);
-return redisClientGet(&#x22;user:1:id&#x22;);
+return redisClientGet("user:1:id");
 ```
 
-Finally, if you&#x27;re working with raw deferred objects, there is a
+Finally, if you're working with raw deferred objects, there is a
 ...</pre></li>
     </ul>
 
@@ -3549,7 +3542,7 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
  * @param object* the recipient
- * @param op the name of the message operation, e.g., &#x22;when&#x22;,
+ * @param op the name of the message operation, e.g., "when",
  * @param args further arguments to be forwarded to the operation
  * @returns result {Promise} a promise for the result of the operation
  */
@@ -3591,7 +3584,7 @@ Q.nextTick(function () {
 
 With this approach, you also get implicit error propagation, just like `try`,
 `catch`, and `finally`.  An error in `promisedStep1` will flow all the way to
-the `catch` function, where it’s caught and handled.  (Here `promisedStepN` is
+the `catch` function, where itâ€™s caught and handled.  (Here `promisedStepN` is
 a version of `stepN` that returns a promise.)
 ...</pre></li>
     </ul>
@@ -3637,16 +3630,16 @@ Promises also have a ``fin`` function that is like a ``finally`` clause.
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">fapply = function (object, args) {
-    return Q(object).dispatch(&#x22;apply&#x22;, [void 0, args]);
+    return Q(object).dispatch("apply", [void 0, args]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 direct manipulation         using a promise as a proxy
 --------------------------  -------------------------------
-value.foo                   promise.get(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.del(&#x22;foo&#x22;)
-value.foo(...args)          promise.post(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
+value.foo                   promise.get("foo")
+value.foo = value           promise.put("foo", value)
+delete value.foo            promise.del("foo")
+value.foo(...args)          promise.post("foo", [args])
+value.foo(...args)          promise.invoke("foo", ...args)
 value(...args)              promise.<span class="apidocCodeKeywordSpan">fapply</span>([args])
 value(...args)              promise.fcall(...args)
 ```
@@ -3670,7 +3663,7 @@ advantage of promises for remote objects, check out [Q-Connection][].
     var promise = Q(object);
     var args = array_slice(arguments, 1);
     return function fbound() {
-        return promise.dispatch(&#x22;apply&#x22;, [
+        return promise.dispatch("apply", [
             this,
             args.concat(array_slice(arguments))
         ]);
@@ -3689,7 +3682,7 @@ advantage of promises for remote objects, check out [Q-Connection][].
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">fcall = function (object) {
-    return Q(object).dispatch(&#x22;apply&#x22;, [void 0, array_slice(arguments, 1)]);
+    return Q(object).dispatch("apply", [void 0, array_slice(arguments, 1)]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
     });
@@ -3720,7 +3713,7 @@ Q.<span class="apidocCodeKeywordSpan">fcall</span>(promisedStep1)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">fin = function (object, callback) {
-    return Q(object)[&#x22;finally&#x22;](callback);
+    return Q(object)["finally"](callback);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 returned by ``getInputPromise()`` either returns a value or throws an
@@ -3751,7 +3744,7 @@ var outputPromise = getInputPromise()
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">finally = function (object, callback) {
-    return Q(object)[&#x22;finally&#x22;](callback);
+    return Q(object)["finally"](callback);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -3767,19 +3760,19 @@ var outputPromise = getInputPromise()
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function fulfill(value) {
     return Promise({
-        &#x22;when&#x22;: function () {
+        "when": function () {
             return value;
         },
-        &#x22;get&#x22;: function (name) {
+        "get": function (name) {
             return value[name];
         },
-        &#x22;set&#x22;: function (name, rhs) {
+        "set": function (name, rhs) {
             value[name] = rhs;
         },
-        &#x22;delete&#x22;: function (name) {
+        "delete": function (name) {
             delete value[name];
         },
-        &#x22;post&#x22;: function (name, args) {
+        "post": function (name, args) {
             // Mark Miller proposes that post with no name should apply a
             // promised function.
             if (name === null || name === void 0) {
@@ -3788,14 +3781,14 @@ var outputPromise = getInputPromise()
                 return value[name].apply(value, args);
             }
         },
-        &#x22;apply&#x22;: function (thisp, args) {
+        "apply": function (thisp, args) {
             return value.apply(thisp, args);
         },
-        &#x22;keys&#x22;: function () {
+        "keys": function () {
             return object_keys(value);
         }
     }, void 0, function inspect() {
-        return { state: &#x22;fulfilled&#x22;, value: value };
+        return { state: "fulfilled", value: value };
     });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -3811,7 +3804,7 @@ var outputPromise = getInputPromise()
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">get = function (object, key) {
-    return Q(object).dispatch(&#x22;get&#x22;, [key]);
+    return Q(object).dispatch("get", [key]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 object.  There are methods that allow you to optimistically manipulate
@@ -3821,11 +3814,11 @@ promises, so they can be chained.
 ```
 direct manipulation         using a promise as a proxy
 --------------------------  -------------------------------
-value.foo                   promise.<span class="apidocCodeKeywordSpan">get</span>(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.del(&#x22;foo&#x22;)
-value.foo(...args)          promise.post(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
+value.foo                   promise.<span class="apidocCodeKeywordSpan">get</span>("foo")
+value.foo = value           promise.put("foo", value)
+delete value.foo            promise.del("foo")
+value.foo(...args)          promise.post("foo", [args])
+value.foo(...args)          promise.invoke("foo", ...args)
 value(...args)              promise.fapply([args])
 value(...args)              promise.fcall(...args)
 ```
@@ -3842,7 +3835,7 @@ value(...args)              promise.fcall(...args)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getUnhandledReasons = function () {
-    // Make a copy so that consumers can&#x27;t interfere with our internal state.
+    // Make a copy so that consumers can't interfere with our internal state.
     return unhandledReasons.slice();
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -3858,7 +3851,7 @@ value(...args)              promise.fcall(...args)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">invoke = function (object, name) {
-    return Q(object).dispatch(&#x22;post&#x22;, [name, array_slice(arguments, 2)]);
+    return Q(object).dispatch("post", [name, array_slice(arguments, 2)]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```
@@ -3868,7 +3861,7 @@ as provided by your library, you should wrap it using a Q function.
 You can even use ``Q.invoke`` as a shorthand.
 
 ```javascript
-return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, ...)
+return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, 'ajax', ...)
 .then(function () {
 });
 ```
@@ -3888,7 +3881,7 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function isFulfilled(object) {
-    return !isPromise(object) || object.inspect().state === &#x22;fulfilled&#x22;;
+    return !isPromise(object) || object.inspect().state === "fulfilled";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -3903,7 +3896,7 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function isPending(object) {
-    return isPromise(object) &#x26;&#x26; object.inspect().state === &#x22;pending&#x22;;
+    return isPromise(object) &amp;&amp; object.inspect().state === "pending";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -3933,7 +3926,7 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function isPromiseAlike(object) {
-    return isObject(object) &#x26;&#x26; typeof object.then === &#x22;function&#x22;;
+    return isObject(object) &amp;&amp; typeof object.then === "function";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -3948,7 +3941,7 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function isRejected(object) {
-    return isPromise(object) &#x26;&#x26; object.inspect().state === &#x22;rejected&#x22;;
+    return isPromise(object) &amp;&amp; object.inspect().state === "rejected";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -3966,22 +3959,22 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
     return Q(x).join(y);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-        if (p.stack &#x26;&#x26; (!error.__minimumStackCounter__ || error.__minimumStackCounter__ &#x3e; p.stackCounter)) {
-            object_defineProperty(error, &#x22;__minimumStackCounter__&#x22;, {value: p.stackCounter, configurable: true});
+        if (p.stack &amp;&amp; (!error.__minimumStackCounter__ || error.__minimumStackCounter__ &gt; p.stackCounter)) {
+            object_defineProperty(error, "__minimumStackCounter__", {value: p.stackCounter, configurable: true});
             stacks.unshift(p.stack);
         }
     }
     stacks.unshift(error.stack);
 
-    var concatedStacks = stacks.<span class="apidocCodeKeywordSpan">join</span>(&#x22;\n&#x22; + STACK_JUMP_SEPARATOR + &#x22;\n
-&#x22;);
+    var concatedStacks = stacks.<span class="apidocCodeKeywordSpan">join</span>("\n" + STACK_JUMP_SEPARATOR + "\n
+");
     var stack = filterStackString(concatedStacks);
-    object_defineProperty(error, &#x22;stack&#x22;, {value: stack, configurable: true});
+    object_defineProperty(error, "stack", {value: stack, configurable: true});
 }
 }
 
 function filterStackString(stackString) {
-var lines = stackString.split(&#x22;\n&#x22;);
+var lines = stackString.split("\n");
 ...</pre></li>
     </ul>
 
@@ -3995,7 +3988,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">keys = function (object) {
-    return Q(object).dispatch(&#x22;keys&#x22;, []);
+    return Q(object).dispatch("keys", []);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4013,13 +4006,13 @@ var lines = stackString.split(&#x22;\n&#x22;);
     if (fallback === void 0) {
         fallback = function (op) {
             return reject(new Error(
-                &#x22;Promise does not support operation: &#x22; + op
+                "Promise does not support operation: " + op
             ));
         };
     }
     if (inspect === void 0) {
         inspect = function () {
-            return {state: &#x22;unknown&#x22;};
+            return {state: "unknown"};
         };
     }
 
@@ -4046,14 +4039,14 @@ var lines = stackString.split(&#x22;\n&#x22;);
     // XXX deprecated `valueOf` and `exception` support
     if (inspect) {
         var inspected = inspect();
-        if (inspected.state === &#x22;rejected&#x22;) {
+        if (inspected.state === "rejected") {
             promise.exception = inspected.reason;
         }
 
         promise.valueOf = function () {
             var inspected = inspect();
-            if (inspected.state === &#x22;pending&#x22; ||
-                inspected.state === &#x22;rejected&#x22;) {
+            if (inspected.state === "pending" ||
+                inspected.state === "rejected") {
                 return promise;
             }
             return inspected.value;
@@ -4179,7 +4172,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">makePromise.prototype.delete = function (key) {
-    return this.dispatch(&#x22;delete&#x22;, [key]);
+    return this.dispatch("delete", [key]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4249,7 +4242,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
         this.then(fulfilled, rejected, progress) :
         this;
 
-    if (typeof process === &#x22;object&#x22; &#x26;&#x26; process &#x26;&#x26; process.domain) {
+    if (typeof process === "object" &amp;&amp; process &amp;&amp; process.domain) {
         onUnhandledError = process.domain.bind(onUnhandledError);
     }
 
@@ -4268,7 +4261,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">makePromise.prototype.fapply = function (args) {
-    return this.dispatch(&#x22;apply&#x22;, [void 0, args]);
+    return this.dispatch("apply", [void 0, args]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4286,7 +4279,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     var promise = this;
     var args = array_slice(arguments);
     return function fbound() {
-        return promise.dispatch(&#x22;apply&#x22;, [
+        return promise.dispatch("apply", [
             this,
             args.concat(array_slice(arguments))
         ]);
@@ -4305,7 +4298,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">makePromise.prototype.fcall = function () {
-    return this.dispatch(&#x22;apply&#x22;, [void 0, array_slice(arguments)]);
+    return this.dispatch("apply", [void 0, array_slice(arguments)]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4320,8 +4313,8 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">makePromise.prototype.finally = function (callback) {
-    if (!callback || typeof callback.apply !== &#x22;function&#x22;) {
-        throw new Error(&#x22;Q can&#x27;t apply finally callback&#x22;);
+    if (!callback || typeof callback.apply !== "function") {
+        throw new Error("Q can't apply finally callback");
     }
     callback = Q(callback);
     return this.then(function (value) {
@@ -4329,7 +4322,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
             return value;
         });
     }, function (reason) {
-        // TODO attempt to recycle the rejection with &#x22;this&#x22;.
+        // TODO attempt to recycle the rejection with "this".
         return callback.fcall().then(function () {
             throw reason;
         });
@@ -4348,7 +4341,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">makePromise.prototype.get = function (key) {
-    return this.dispatch(&#x22;get&#x22;, [key]);
+    return this.dispatch("get", [key]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4363,7 +4356,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">makePromise.prototype.invoke = function (name) {
-    return this.dispatch(&#x22;post&#x22;, [name, array_slice(arguments, 1)]);
+    return this.dispatch("post", [name, array_slice(arguments, 1)]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4378,7 +4371,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">makePromise.prototype.isFulfilled = function () {
-    return this.inspect().state === &#x22;fulfilled&#x22;;
+    return this.inspect().state === "fulfilled";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4393,7 +4386,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">makePromise.prototype.isPending = function () {
-    return this.inspect().state === &#x22;pending&#x22;;
+    return this.inspect().state === "pending";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4408,7 +4401,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">makePromise.prototype.isRejected = function () {
-    return this.inspect().state === &#x22;rejected&#x22;;
+    return this.inspect().state === "rejected";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4425,10 +4418,10 @@ var lines = stackString.split(&#x22;\n&#x22;);
     <li>description and source-code<pre class="apidocCodePre">makePromise.prototype.join = function (that) {
     return Q([this, that]).spread(function (x, y) {
         if (x === y) {
-            // TODO: &#x22;===&#x22; should be Object.is or equiv
+            // TODO: "===" should be Object.is or equiv
             return x;
         } else {
-            throw new Error(&#x22;Q can&#x27;t join: not the same: &#x22; + x + &#x22; &#x22; + y);
+            throw new Error("Q can't join: not the same: " + x + " " + y);
         }
     });
 }</pre></li>
@@ -4445,7 +4438,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">makePromise.prototype.keys = function () {
-    return this.dispatch(&#x22;keys&#x22;, []);
+    return this.dispatch("keys", []);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4518,7 +4511,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     var nodeArgs = array_slice(arguments, 1);
     var deferred = defer();
     nodeArgs.push(deferred.makeNodeResolver());
-    this.dispatch(&#x22;post&#x22;, [name, nodeArgs]).fail(deferred.reject);
+    this.dispatch("post", [name, nodeArgs]).fail(deferred.reject);
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -4564,7 +4557,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     var nodeArgs = array_slice(args || []);
     var deferred = defer();
     nodeArgs.push(deferred.makeNodeResolver());
-    this.dispatch(&#x22;post&#x22;, [name, nodeArgs]).fail(deferred.reject);
+    this.dispatch("post", [name, nodeArgs]).fail(deferred.reject);
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -4597,7 +4590,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">makePromise.prototype.post = function (name, args) {
-    return this.dispatch(&#x22;post&#x22;, [name, args]);
+    return this.dispatch("post", [name, args]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4642,7 +4635,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">makePromise.prototype.set = function (key, value) {
-    return this.dispatch(&#x22;set&#x22;, [key, value]);
+    return this.dispatch("set", [key, value]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4700,14 +4693,14 @@ var lines = stackString.split(&#x22;\n&#x22;);
 
     function _fulfilled(value) {
         try {
-            return typeof fulfilled === &#x22;function&#x22; ? fulfilled(value) : value;
+            return typeof fulfilled === "function" ? fulfilled(value) : value;
         } catch (exception) {
             return reject(exception);
         }
     }
 
     function _rejected(exception) {
-        if (typeof rejected === &#x22;function&#x22;) {
+        if (typeof rejected === "function") {
             makeStackTraceLong(exception, self);
             try {
                 return rejected(exception);
@@ -4719,7 +4712,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     }
 
     function _progressed(value) {
-        return typeof progressed === &#x22;function&#x22; ? progressed(value) : value;
+        return typeof progressed === "function" ? progressed(value) : value;
     }
 
     Q.nextTick(function () {
@@ -4730,7 +4723,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
             done = true;
 
             deferred.resolve(_fulfilled(value));
-        }, &#x22;when&#x22;, [function (exception) {
+        }, "when", [function (exception) {
             if (done) {
                 return;
             }
@@ -4741,7 +4734,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     });
 
     // Progress propagator need to be attached in the current tick.
-    self.promiseDispatch(void 0, &#x22;when&#x22;, [void 0, function (value) {
+    self.promiseDispatch(void 0, "when", [void 0, function (value) {
         var newValue;
         var threw = false;
         try {
@@ -4807,9 +4800,9 @@ var lines = stackString.split(&#x22;\n&#x22;);
     <li>description and source-code<pre class="apidocCodePre">makePromise.prototype.timeout = function (ms, error) {
     var deferred = defer();
     var timeoutId = setTimeout(function () {
-        if (!error || &#x22;string&#x22; === typeof error) {
-            error = new Error(error || &#x22;Timed out after &#x22; + ms + &#x22; ms&#x22;);
-            error.code = &#x22;ETIMEDOUT&#x22;;
+        if (!error || "string" === typeof error) {
+            error = new Error(error || "Timed out after " + ms + " ms");
+            error.code = "ETIMEDOUT";
         }
         deferred.reject(error);
     }, ms);
@@ -4837,7 +4830,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">makePromise.prototype.toString = function () {
-    return &#x22;[object Promise]&#x22;;
+    return "[object Promise]";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4852,7 +4845,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">mapply = function (object, name, args) {
-    return Q(object).dispatch(&#x22;post&#x22;, [name, args]);
+    return Q(object).dispatch("post", [name, args]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4868,7 +4861,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function master(object) {
     return Promise({
-        &#x22;isDef&#x22;: function () {}
+        "isDef": function () {}
     }, function fallback(op, args) {
         return dispatch(object, op, args);
     }, function () {
@@ -4888,7 +4881,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">mcall = function (object, name) {
-    return Q(object).dispatch(&#x22;post&#x22;, [name, array_slice(arguments, 2)]);
+    return Q(object).dispatch("post", [name, array_slice(arguments, 2)]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4921,13 +4914,13 @@ You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
 
 ```javascript
 var readFile = Q.denodeify(FS.readFile);
-return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
+return readFile("foo.txt", "utf-8");
 
 var redisClientGet = Q.<span class="apidocCodeKeywordSpan">nbind</span>(redisClient.get, redisClient);
-return redisClientGet(&#x22;user:1:id&#x22;);
+return redisClientGet("user:1:id");
 ```
 
-Finally, if you&#x27;re working with raw deferred objects, there is a
+Finally, if you're working with raw deferred objects, there is a
 `makeNodeResolver` method on deferreds that can be handy:
 
 ```javascript
@@ -4946,7 +4939,7 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
     <li>description and source-code<pre class="apidocCodePre">function nearer(value) {
     if (isPromise(value)) {
         var inspected = value.inspect();
-        if (inspected.state === &#x22;fulfilled&#x22;) {
+        if (inspected.state === "fulfilled") {
             return inspected.value;
         }
     }
@@ -4967,7 +4960,7 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
     <li>description and source-code<pre class="apidocCodePre">nextTick = function (task) {
     tail = tail.next = {
         task: task,
-        domain: isNodeJS &#x26;&#x26; process.domain,
+        domain: isNodeJS &amp;&amp; process.domain,
         next: null
     };
 
@@ -4978,18 +4971,18 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
     //   `setTimeout`. In this case `setImmediate` is preferred because
-    //    it is faster. Browserify&#x27;s `process.toString()` yields
-    //   &#x22;[object Object]&#x22;, while in a real Node environment
-    //   `process.toString()` yields &#x22;[object process]&#x22;.
+    //    it is faster. Browserify's `process.toString()` yields
+    //   "[object Object]", while in a real Node environment
+    //   `process.toString()` yields "[object process]".
     isNodeJS = true;
 
     requestTick = function () {
         process.<span class="apidocCodeKeywordSpan">nextTick</span>(flush);
     };
 
-} else if (typeof setImmediate === &#x22;function&#x22;) {
+} else if (typeof setImmediate === "function") {
     // In IE10, Node.js 0.9+, or https://github.com/NobleJS/setImmediate
-    if (typeof window !== &#x22;undefined&#x22;) {
+    if (typeof window !== "undefined") {
         requestTick = setImmediate.bind(window, flush);
     } else {
 ...</pre></li>
@@ -5018,10 +5011,10 @@ function trackRejection(promise, reason) {
 if (!trackUnhandledRejections) {
     return;
 }
-if (typeof process === &#x22;object&#x22; &#x26;&#x26; typeof process.emit === &#x22;function&#x22;) {
+if (typeof process === "object" &amp;&amp; typeof process.emit === "function") {
     Q.<span class="apidocCodeKeywordSpan">nextTick.runAfter</span>(function () {
         if (array_indexOf(unhandledRejections, promise) !== -1) {
-            process.emit(&#x22;unhandledRejection&#x22;, reason, promise);
+            process.emit("unhandledRejection", reason, promise);
             reportedUnhandledRejections.push(promise);
         }
     });
@@ -5044,17 +5037,17 @@ if (typeof process === &#x22;object&#x22; &#x26;&#x26; typeof process.emit === &
     <li>example usage<pre class="apidocCodePre">...
 where callbacks are in the form of `function(err, result)`, Q provides a few
 useful utility functions for converting between them. The most straightforward
-are probably `Q.nfcall` and `Q.nfapply` (&#x22;Node function call/apply&#x22;) for calling
+are probably `Q.nfcall` and `Q.nfapply` ("Node function call/apply") for calling
 Node.js-style functions and getting back a promise:
 
 ```javascript
-return Q.nfcall(FS.readFile, &#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
-return Q.<span class="apidocCodeKeywordSpan">nfapply</span>(FS.readFile, [&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;]);
+return Q.nfcall(FS.readFile, "foo.txt", "utf-8");
+return Q.<span class="apidocCodeKeywordSpan">nfapply</span>(FS.readFile, ["foo.txt", "utf-8"]);
 ```
 
 If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
+run in to the usual problems where passing a method to another functionâ€”like
+`Q.nfcall`â€”"un-binds" the method from its owner. To avoid this, you can either
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 ...</pre></li>
     </ul>
@@ -5070,7 +5063,7 @@ use `Function.prototype.bind` or some nice shortcut methods we provide:
     <ul>
     <li>description and source-code<pre class="apidocCodePre">nfbind = function (callback) {
     if (callback === undefined) {
-        throw new Error(&#x22;Q can&#x27;t wrap an undefined function&#x22;);
+        throw new Error("Q can't wrap an undefined function");
     }
     var baseArgs = array_slice(arguments, 1);
     return function () {
@@ -5089,14 +5082,14 @@ return deferred.promise;
  * Wraps a NodeJS continuation passing function and returns an equivalent
  * version that returns a promise.
  * @example
- * Q.<span class="apidocCodeKeywordSpan">nfbind</span>(FS.readFile, __filename)(&#x22;utf-8&#x22;)
+ * Q.<span class="apidocCodeKeywordSpan">nfbind</span>(FS.readFile, __filename)("utf-8")
  * .then(console.log)
  * .done()
  */
 Q.nfbind =
 Q.denodeify = function (callback /*...args*/) {
 if (callback === undefined) {
-    throw new Error(&#x22;Q can&#x27;t wrap an undefined function&#x22;);
+    throw new Error("Q can't wrap an undefined function");
 ...</pre></li>
     </ul>
 
@@ -5114,20 +5107,20 @@ if (callback === undefined) {
     return Q(callback).nfapply(args);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-If you&#x27;re working with functions that make use of the Node.js callback pattern,
+If you're working with functions that make use of the Node.js callback pattern,
 where callbacks are in the form of `function(err, result)`, Q provides a few
 useful utility functions for converting between them. The most straightforward
-are probably `Q.nfcall` and `Q.nfapply` (&#x22;Node function call/apply&#x22;) for calling
+are probably `Q.nfcall` and `Q.nfapply` ("Node function call/apply") for calling
 Node.js-style functions and getting back a promise:
 
 ```javascript
-return Q.<span class="apidocCodeKeywordSpan">nfcall</span>(FS.readFile, &#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
-return Q.nfapply(FS.readFile, [&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;]);
+return Q.<span class="apidocCodeKeywordSpan">nfcall</span>(FS.readFile, "foo.txt", "utf-8");
+return Q.nfapply(FS.readFile, ["foo.txt", "utf-8"]);
 ```
 
 If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
+run in to the usual problems where passing a method to another functionâ€”like
+`Q.nfcall`â€”"un-binds" the method from its owner. To avoid this, you can either
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 ...</pre></li>
     </ul>
@@ -5145,19 +5138,19 @@ use `Function.prototype.bind` or some nice shortcut methods we provide:
     var nodeArgs = array_slice(arguments, 2);
     var deferred = defer();
     nodeArgs.push(deferred.makeNodeResolver());
-    Q(object).dispatch(&#x22;post&#x22;, [name, nodeArgs]).fail(deferred.reject);
+    Q(object).dispatch("post", [name, nodeArgs]).fail(deferred.reject);
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
 If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
+run in to the usual problems where passing a method to another functionâ€”like
+`Q.nfcall`â€”"un-binds" the method from its owner. To avoid this, you can either
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 
 ```javascript
-return Q.<span class="apidocCodeKeywordSpan">ninvoke</span>(redisClient, &#x22;get&#x22;, &#x22;user:1:id&#x22;);
-return Q.npost(redisClient, &#x22;get&#x22;, [&#x22;user:1:id&#x22;]);
+return Q.<span class="apidocCodeKeywordSpan">ninvoke</span>(redisClient, "get", "user:1:id");
+return Q.npost(redisClient, "get", ["user:1:id"]);
 ```
 
 You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
@@ -5195,7 +5188,7 @@ var readFile = Q.denodeify(FS.readFile);
     var nodeArgs = array_slice(arguments, 2);
     var deferred = defer();
     nodeArgs.push(deferred.makeNodeResolver());
-    Q(object).dispatch(&#x22;post&#x22;, [name, nodeArgs]).fail(deferred.reject);
+    Q(object).dispatch("post", [name, nodeArgs]).fail(deferred.reject);
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5211,7 +5204,7 @@ var readFile = Q.denodeify(FS.readFile);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">noConflict = function () {
-    throw new Error(&#x22;Q.noConflict only works when Q is used as a global&#x22;);
+    throw new Error("Q.noConflict only works when Q is used as a global");
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -5261,20 +5254,20 @@ if (nodeback) {
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
+run in to the usual problems where passing a method to another functionâ€”like
+`Q.nfcall`â€”"un-binds" the method from its owner. To avoid this, you can either
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 
 ```javascript
-return Q.ninvoke(redisClient, &#x22;get&#x22;, &#x22;user:1:id&#x22;);
-return Q.<span class="apidocCodeKeywordSpan">npost</span>(redisClient, &#x22;get&#x22;, [&#x22;user:1:id&#x22;]);
+return Q.ninvoke(redisClient, "get", "user:1:id");
+return Q.<span class="apidocCodeKeywordSpan">npost</span>(redisClient, "get", ["user:1:id"]);
 ```
 
 You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
 
 ```javascript
 var readFile = Q.denodeify(FS.readFile);
-return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
+return readFile("foo.txt", "utf-8");
 ...</pre></li>
     </ul>
 
@@ -5291,7 +5284,7 @@ return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
     var nodeArgs = array_slice(arguments, 2);
     var deferred = defer();
     nodeArgs.push(deferred.makeNodeResolver());
-    Q(object).dispatch(&#x22;post&#x22;, [name, nodeArgs]).fail(deferred.reject);
+    Q(object).dispatch("post", [name, nodeArgs]).fail(deferred.reject);
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5324,18 +5317,18 @@ return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">post = function (object, name, args) {
-    return Q(object).dispatch(&#x22;post&#x22;, [name, args]);
+    return Q(object).dispatch("post", [name, args]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
 ```
 direct manipulation         using a promise as a proxy
 --------------------------  -------------------------------
-value.foo                   promise.get(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.del(&#x22;foo&#x22;)
-value.foo(...args)          promise.<span class="apidocCodeKeywordSpan">post</span>(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
+value.foo                   promise.get("foo")
+value.foo = value           promise.put("foo", value)
+delete value.foo            promise.del("foo")
+value.foo(...args)          promise.<span class="apidocCodeKeywordSpan">post</span>("foo", [args])
+value.foo(...args)          promise.invoke("foo", ...args)
 value(...args)              promise.fapply([args])
 value(...args)              promise.fcall(...args)
 ```
@@ -5366,7 +5359,7 @@ called `progress`:
 
 ```javascript
 return uploadFile().<span class="apidocCodeKeywordSpan">progress</span>(function (progress) {
-    // We get notified of the upload&#x27;s progress
+    // We get notified of the upload's progress
 });
 ```
 
@@ -5386,8 +5379,8 @@ When you get to the end of a chain of promises, you should either
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function promise(resolver) {
-    if (typeof resolver !== &#x22;function&#x22;) {
-        throw new TypeError(&#x22;resolver must be a function.&#x22;);
+    if (typeof resolver !== "function") {
+        throw new TypeError("resolver must be a function.");
     }
     var deferred = defer();
     try {
@@ -5457,8 +5450,8 @@ When you get to the end of a chain of promises, you should either
             ends.resolve = next.resolve;
         },
         get: function () {
-            var result = ends.promise.get(&#x22;head&#x22;);
-            ends.promise = ends.promise.get(&#x22;tail&#x22;);
+            var result = ends.promise.get("head");
+            ends.promise = ends.promise.get("tail");
             return result.fail(function (error) {
                 closed.resolve(error);
                 throw error;
@@ -5466,7 +5459,7 @@ When you get to the end of a chain of promises, you should either
         },
         closed: closed.promise,
         close: function (error) {
-            error = error || new Error(&#x22;Can&#x27;t get value from closed queue&#x22;);
+            error = error || new Error("Can't get value from closed queue");
             var end = {head: Q.reject(error)};
             end.tail = end;
             ends.resolve(end);
@@ -5493,7 +5486,7 @@ When you get to the end of a chain of promises, you should either
         //     Q(answerP).then(resolve, reject);
         // });
         // Use this in the meantime
-        for (var i = 0, len = answerPs.length; i &#x3c; len; i++) {
+        for (var i = 0, len = answerPs.length; i &lt; len; i++) {
             Q(answerPs[i]).then(resolve, reject);
         }
     });
@@ -5512,7 +5505,7 @@ When you get to the end of a chain of promises, you should either
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function reject(reason) {
     var rejection = Promise({
-        &#x22;when&#x22;: function (rejected) {
+        "when": function (rejected) {
             // note that the error has been handled
             if (rejected) {
                 untrackRejection(this);
@@ -5522,7 +5515,7 @@ When you get to the end of a chain of promises, you should either
     }, function fallback() {
         return this;
     }, function inspect() {
-        return { state: &#x22;rejected&#x22;, reason: reason };
+        return { state: "rejected", reason: reason };
     });
 
     // Note that the reason has not been handled.
@@ -5536,7 +5529,7 @@ friends). But much of the time, the solution will be to use *deferreds*.
 
 ```javascript
 var deferred = Q.defer();
-FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
+FS.readFile("foo.txt", "utf-8", function (error, text) {
     if (error) {
         deferred.<span class="apidocCodeKeywordSpan">reject</span>(new Error(error));
     } else {
@@ -5596,7 +5589,7 @@ return deferred.promise;
 
 ```javascript
 var deferred = Q.defer();
-FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
+FS.readFile("foo.txt", "utf-8", function (error, text) {
     if (error) {
         deferred.reject(new Error(error));
     } else {
@@ -5634,7 +5627,7 @@ Note that a deferred can be resolved with a value or a promise.  The
  *      Q.<span class="apidocCodeKeywordSpan">return</span>(foo + bar);
  * })
  */
-Q[&#x22;return&#x22;] = _return;
+Q["return"] = _return;
 function _return(value) {
     throw new QReturnValue(value);
 }
@@ -5651,13 +5644,13 @@ function _return(value) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">send = function (object, name) {
-    return Q(object).dispatch(&#x22;post&#x22;, [name, array_slice(arguments, 2)]);
+    return Q(object).dispatch("post", [name, array_slice(arguments, 2)]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 var request = new XMLHttpRequest();
 var deferred = Q.defer();
 
-request.open(&#x22;GET&#x22;, url, true);
+request.open("GET", url, true);
 request.onload = onload;
 request.onerror = onerror;
 request.onprogress = onprogress;
@@ -5667,7 +5660,7 @@ function onload() {
     if (request.status === 200) {
         deferred.resolve(request.responseText);
     } else {
-        deferred.reject(new Error(&#x22;Status code was &#x22; + request.status));
+        deferred.reject(new Error("Status code was " + request.status));
     }
 ...</pre></li>
     </ul>
@@ -5682,7 +5675,7 @@ function onload() {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">set = function (object, key, value) {
-    return Q(object).dispatch(&#x22;set&#x22;, [key, value]);
+    return Q(object).dispatch("set", [key, value]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 promise.resolve = Q; // ES6
@@ -5731,7 +5724,7 @@ return this;
     return Q(value).spread(fulfilled, rejected);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-replacement for ``then``.  The ``spread`` function “spreads” the
+replacement for ``then``.  The ``spread`` function â€œspreadsâ€ the
 values over the arguments of the fulfillment handler.  The rejection handler
 will get called at the first sign of failure.  That is, whichever of
 the received promises fails first gets handled by the rejection handler.
@@ -5788,7 +5781,7 @@ Q.tap = function (promise, callback) {
 };
 
 /**
-* Works almost like &#x22;finally&#x22;, but not called for rejections.
+* Works almost like "finally", but not called for rejections.
 * Original resolution value is passed through callback unaffected.
 * Callback may return a promise that will be awaited for.
 * @param {Function} callback
@@ -5819,10 +5812,10 @@ Q.thenReject = function (promise, reason) {
 };
 
 /**
-* If an object is not a promise, it is as &#x22;near&#x22; as possible.
-* If a promise is rejected, it is as &#x22;near&#x22; as possible too.
-* If it’s a fulfilled promise, the fulfillment value is nearer.
-* If it’s a deferred promise and the deferred has been resolved, the
+* If an object is not a promise, it is as "near" as possible.
+* If a promise is rejected, it is as "near" as possible too.
+* If itâ€™s a fulfilled promise, the fulfillment value is nearer.
+* If itâ€™s a deferred promise and the deferred has been resolved, the
 ...</pre></li>
     </ul>
 
@@ -5883,8 +5876,8 @@ return Q(object).<span class="apidocCodeKeywordSpan">timeout</span>(ms, error);
 Promise.prototype.timeout = function (ms, error) {
 var deferred = defer();
 var timeoutId = setTimeout(function () {
-    if (!error || &#x22;string&#x22; === typeof error) {
-        error = new Error(error || &#x22;Timed out after &#x22; + ms + &#x22; ms&#x22;);
+    if (!error || "string" === typeof error) {
+        error = new Error(error || "Timed out after " + ms + " ms");
 ...</pre></li>
     </ul>
 
@@ -5907,16 +5900,16 @@ var timeoutId = setTimeout(function () {
     }
 };
 
-if (typeof process === &#x22;object&#x22; &#x26;&#x26;
-    process.<span class="apidocCodeKeywordSpan">toString</span>() === &#x22;[object process]&#x22; &#x26;&#x26; process.nextTick
+if (typeof process === "object" &amp;&amp;
+    process.<span class="apidocCodeKeywordSpan">toString</span>() === "[object process]" &amp;&amp; process.nextTick
 ) {
     // Ensure Q is in a real Node environment, with a `process.nextTick`.
     // To see through fake Node environments:
     // * Mocha test runner - exposes a `process` global without a `nextTick`
     // * Browserify - exposes a `process.nexTick` function that uses
     //   `setTimeout`. In this case `setImmediate` is preferred because
-    //    it is faster. Browserify&#x27;s `process.toString()` yields
-    //   &#x22;[object Object]&#x22;, while in a real Node environment
+    //    it is faster. Browserify's `process.toString()` yields
+    //   "[object Object]", while in a real Node environment
 ...</pre></li>
     </ul>
 
@@ -5930,7 +5923,7 @@ if (typeof process === &#x22;object&#x22; &#x26;&#x26;
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">try = function (object) {
-    return Q(object).dispatch(&#x22;apply&#x22;, [void 0, array_slice(arguments, 1)]);
+    return Q(object).dispatch("apply", [void 0, array_slice(arguments, 1)]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -5957,7 +5950,7 @@ function timeout(promise, ms) {
     var deferred = Q.defer();
     Q.<span class="apidocCodeKeywordSpan">when</span>(promise, deferred.resolve);
     delay(ms).then(function () {
-        deferred.reject(new Error(&#x22;Timed out&#x22;));
+        deferred.reject(new Error("Timed out"));
     });
     return deferred.promise;
 }
@@ -5984,8 +5977,8 @@ function timeout(promise, ms) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function promise(resolver) {
-    if (typeof resolver !== &#x22;function&#x22;) {
-        throw new TypeError(&#x22;resolver must be a function.&#x22;);
+    if (typeof resolver !== "function") {
+        throw new TypeError("resolver must be a function.");
     }
     var deferred = defer();
     try {
@@ -6006,7 +5999,7 @@ function requestOkText(url) {
     return Q.<span class="apidocCodeKeywordSpan">Promise</span>(function(resolve, reject, notify) {
 var request = new XMLHttpRequest();
 
-request.open(&#x22;GET&#x22;, url, true);
+request.open("GET", url, true);
 request.onload = onload;
 request.onerror = onerror;
 request.onprogress = onprogress;
@@ -6030,8 +6023,8 @@ request.send();
         array_reduce(promises, function (undefined, promise, index) {
             var snapshot;
             if (
-                isPromise(promise) &#x26;&#x26;
-                (snapshot = promise.inspect()).state === &#x22;fulfilled&#x22;
+                isPromise(promise) &amp;&amp;
+                (snapshot = promise.inspect()).state === "fulfilled"
             ) {
                 promises[index] = snapshot.value;
             } else {
@@ -6072,7 +6065,7 @@ return Q.<span class="apidocCodeKeywordSpan">all</span>([
 ```
 
 If you have a promise for an array, you can use ``spread`` as a
-replacement for ``then``.  The ``spread`` function “spreads” the
+replacement for ``then``.  The ``spread`` function â€œspreadsâ€ the
 ...</pre></li>
     </ul>
 
@@ -6092,7 +6085,7 @@ replacement for ``then``.  The ``spread`` function “spreads” the
         //     Q(answerP).then(resolve, reject);
         // });
         // Use this in the meantime
-        for (var i = 0, len = answerPs.length; i &#x3c; len; i++) {
+        for (var i = 0, len = answerPs.length; i &lt; len; i++) {
             Q(answerPs[i]).then(resolve, reject);
         }
     });
@@ -6111,7 +6104,7 @@ replacement for ``then``.  The ``spread`` function “spreads” the
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function reject(reason) {
     var rejection = Promise({
-        &#x22;when&#x22;: function (rejected) {
+        "when": function (rejected) {
             // note that the error has been handled
             if (rejected) {
                 untrackRejection(this);
@@ -6121,7 +6114,7 @@ replacement for ``then``.  The ``spread`` function “spreads” the
     }, function fallback() {
         return this;
     }, function inspect() {
-        return { state: &#x22;rejected&#x22;, reason: reason };
+        return { state: "rejected", reason: reason };
     });
 
     // Note that the reason has not been handled.
@@ -6135,7 +6128,7 @@ friends). But much of the time, the solution will be to use *deferreds*.
 
 ```javascript
 var deferred = Q.defer();
-FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
+FS.readFile("foo.txt", "utf-8", function (error, text) {
     if (error) {
         deferred.<span class="apidocCodeKeywordSpan">reject</span>(new Error(error));
     } else {
@@ -6175,7 +6168,7 @@ return deferred.promise;
 
 ```javascript
 var deferred = Q.defer();
-FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
+FS.readFile("foo.txt", "utf-8", function (error, text) {
     if (error) {
         deferred.reject(new Error(error));
     } else {
@@ -6211,8 +6204,8 @@ Note that a deferred can be resolved with a value or a promise.  The
         array_reduce(promises, function (undefined, promise, index) {
             var snapshot;
             if (
-                isPromise(promise) &#x26;&#x26;
-                (snapshot = promise.inspect()).state === &#x22;fulfilled&#x22;
+                isPromise(promise) &amp;&amp;
+                (snapshot = promise.inspect()).state === "fulfilled"
             ) {
                 promises[index] = snapshot.value;
             } else {
@@ -6253,7 +6246,7 @@ return Q.<span class="apidocCodeKeywordSpan">all</span>([
 ```
 
 If you have a promise for an array, you can use ``spread`` as a
-replacement for ``then``.  The ``spread`` function “spreads” the
+replacement for ``then``.  The ``spread`` function â€œspreadsâ€ the
 ...</pre></li>
     </ul>
 
@@ -6272,10 +6265,10 @@ replacement for ``then``.  The ``spread`` function “spreads” the
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">allResolved = function () {
-    if (typeof console !== &#x22;undefined&#x22; &#x26;&#x26;
-        typeof console.warn === &#x22;function&#x22;) {
-        console.warn(name + &#x22; is deprecated, use &#x22; + alternative +
-                     &#x22; instead.&#x22;, new Error(&#x22;&#x22;).stack);
+    if (typeof console !== "undefined" &amp;&amp;
+        typeof console.warn === "function") {
+        console.warn(name + " is deprecated, use " + alternative +
+                     " instead.", new Error("").stack);
     }
     return callback.apply(callback, arguments);
 }</pre></li>
@@ -6310,7 +6303,7 @@ fulfilled or rejected, you can use ``allSettled``.
 Q.<span class="apidocCodeKeywordSpan">allSettled</span>(promises)
 .then(function (results) {
 results.forEach(function (result) {
-    if (result.state === &#x22;fulfilled&#x22;) {
+    if (result.state === "fulfilled") {
         var value = result.value;
     } else {
         var reason = result.reason;
@@ -6351,8 +6344,8 @@ results.forEach(function (result) {
         function onRejected(err) {
             pendingCount--;
             if (pendingCount === 0) {
-                err.message = (&#x22;Q can&#x27;t get fulfillment value from any promise, all &#x22; +
-                    &#x22;promises were rejected. Last error message: &#x22; + err.message);
+                err.message = ("Q can't get fulfillment value from any promise, all " +
+                    "promises were rejected. Last error message: " + err.message);
                 deferred.reject(err);
             }
         }
@@ -6400,20 +6393,20 @@ Q.<span class="apidocCodeKeywordSpan">any</span>(promises)
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function async(makeGenerator) {
     return function () {
-        // when verb is &#x22;send&#x22;, arg is a value
-        // when verb is &#x22;throw&#x22;, arg is an exception
+        // when verb is "send", arg is a value
+        // when verb is "throw", arg is an exception
         function continuer(verb, arg) {
             var result;
 
             // Until V8 3.19 / Chromium 29 is released, SpiderMonkey is the only
             // engine that has a deployed base of browsers that support generators.
-            // However, SM&#x27;s generators use the Python-inspired semantics of
-            // outdated ES6 drafts.  We would like to support ES6, but we&#x27;d also
+            // However, SM's generators use the Python-inspired semantics of
+            // outdated ES6 drafts.  We would like to support ES6, but we'd also
             // like to make it possible to use generators in deployed browsers, so
             // we also support Python-style generators.  At some point we can remove
             // this block.
 
-            if (typeof StopIteration === &#x22;undefined&#x22;) {
+            if (typeof StopIteration === "undefined") {
                 // ES6 Generators
                 try {
                     result = generator[verb](arg);
@@ -6441,15 +6434,15 @@ Q.<span class="apidocCodeKeywordSpan">any</span>(promises)
             }
         }
         var generator = makeGenerator.apply(this, arguments);
-        var callback = continuer.bind(continuer, &#x22;next&#x22;);
-        var errback = continuer.bind(continuer, &#x22;throw&#x22;);
+        var callback = continuer.bind(continuer, "next");
+        var errback = continuer.bind(continuer, "throw");
         return callback();
     };
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 * calls the generator and also ends the promise chain, so that any
 * unhandled errors are thrown instead of forwarded to the error
-* handler. This is useful because it&#x27;s extremely common to run
+* handler. This is useful because it's extremely common to run
 * generators at the top-level to work with libraries.
 */
 Q.spawn = spawn;
@@ -6516,8 +6509,8 @@ With this approach, you also get implicit error propagation, just like `try`,
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function defer() {
-    // if &#x22;messages&#x22; is an &#x22;Array&#x22;, that indicates that the promise has not yet
-    // been resolved.  If it is &#x22;undefined&#x22;, it has been resolved.  Each
+    // if "messages" is an "Array", that indicates that the promise has not yet
+    // been resolved.  If it is "undefined", it has been resolved.  Each
     // element of the messages array is itself an array of complete arguments to
     // forward to the resolved promise.  We coerce the resolution value to a
     // promise using the `resolve` function because it handles both fully
@@ -6531,7 +6524,7 @@ With this approach, you also get implicit error propagation, just like `try`,
         var args = array_slice(arguments);
         if (messages) {
             messages.push(args);
-            if (op === &#x22;when&#x22; &#x26;&#x26; operands[1]) { // progress operand
+            if (op === "when" &amp;&amp; operands[1]) { // progress operand
                 progressListeners.push(operands[1]);
             }
         } else {
@@ -6555,34 +6548,34 @@ With this approach, you also get implicit error propagation, just like `try`,
 
     promise.inspect = function () {
         if (!resolvedPromise) {
-            return { state: &#x22;pending&#x22; };
+            return { state: "pending" };
         }
         return resolvedPromise.inspect();
     };
 
-    if (Q.longStackSupport &#x26;&#x26; hasStacks) {
+    if (Q.longStackSupport &amp;&amp; hasStacks) {
         try {
             throw new Error();
         } catch (e) {
-            // NOTE: don&#x27;t try to use `Error.captureStackTrace` or transfer the
+            // NOTE: don't try to use `Error.captureStackTrace` or transfer the
             // accessor around; that causes memory leaks as per GH-111. Just
             // reify the stack trace as a string ASAP.
             //
-            // At the same time, cut off the first line; it&#x27;s always just
-            // &#x22;[object Promise]\n&#x22;, as per the `toString`.
-            promise.stack = e.stack.substring(e.stack.indexOf(&#x22;\n&#x22;) + 1);
+            // At the same time, cut off the first line; it's always just
+            // "[object Promise]\n", as per the `toString`.
+            promise.stack = e.stack.substring(e.stack.indexOf("\n") + 1);
             promise.stackCounter = longStackCounter++;
         }
     }
 
     // NOTE: we do the checks for `resolvedPromise` in each method, instead of
-    // consolidating them into `become`, since otherwise we&#x27;d create new
+    // consolidating them into `become`, since otherwise we'd create new
     // promises with the lines `become(whatever(value))`. See e.g. GH-252.
 
     function become(newPromise) {
         resolvedPromise = newPromise;
 
-        if (Q.longStackSupport &#x26;&#x26; hasStacks) {
+        if (Q.longStackSupport &amp;&amp; hasStacks) {
             // Only hold a reference to the new promise if long stacks
             // are enabled to reduce memory usage
             promise.source = newPromise;
@@ -6644,7 +6637,7 @@ friends). But much of the time, the solution will be to use *deferreds*.
 
 ```javascript
 var deferred = Q.<span class="apidocCodeKeywordSpan">defer</span>();
-FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
+FS.readFile("foo.txt", "utf-8", function (error, text) {
     if (error) {
         deferred.reject(new Error(error));
     } else {
@@ -6673,7 +6666,7 @@ FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
     return function (error, value) {
         if (error) {
             self.reject(error);
-        } else if (arguments.length &#x3e; 2) {
+        } else if (arguments.length &gt; 2) {
             self.resolve(array_slice(arguments, 1));
         } else {
             self.resolve(value);
@@ -6683,18 +6676,18 @@ FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
     <li>example usage<pre class="apidocCodePre">...
 ```
 
-Finally, if you&#x27;re working with raw deferred objects, there is a
+Finally, if you're working with raw deferred objects, there is a
 `makeNodeResolver` method on deferreds that can be handy:
 
 ```javascript
 var deferred = Q.defer();
-FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, deferred.<span class="apidocCodeKeywordSpan">makeNodeResolver</span>());
+FS.readFile("foo.txt", "utf-8", deferred.<span class="apidocCodeKeywordSpan">makeNodeResolver</span>());
 return deferred.promise;
 ```
 
 ### Long Stack Traces
 
-Q comes with optional support for “long stack traces,” wherein the `stack`
+Q comes with optional support for â€œlong stack traces,â€ wherein the `stack`
 property of `Error` rejection reasons is rewritten to be traced along
 ...</pre></li>
     </ul>
@@ -6718,7 +6711,7 @@ property of `Error` rejection reasons is rewritten to be traced along
     return function (error, value) {
         if (error) {
             self.reject(error);
-        } else if (arguments.length &#x3e; 2) {
+        } else if (arguments.length &gt; 2) {
             self.resolve(array_slice(arguments, 1));
         } else {
             self.resolve(value);
@@ -6728,18 +6721,18 @@ property of `Error` rejection reasons is rewritten to be traced along
     <li>example usage<pre class="apidocCodePre">...
 ```
 
-Finally, if you&#x27;re working with raw deferred objects, there is a
+Finally, if you're working with raw deferred objects, there is a
 `makeNodeResolver` method on deferreds that can be handy:
 
 ```javascript
 var deferred = Q.defer();
-FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, deferred.<span class="apidocCodeKeywordSpan">makeNodeResolver</span>());
+FS.readFile("foo.txt", "utf-8", deferred.<span class="apidocCodeKeywordSpan">makeNodeResolver</span>());
 return deferred.promise;
 ```
 
 ### Long Stack Traces
 
-Q comes with optional support for “long stack traces,” wherein the `stack`
+Q comes with optional support for â€œlong stack traces,â€ wherein the `stack`
 property of `Error` rejection reasons is rewritten to be traced along
 ...</pre></li>
     </ul>
@@ -6767,14 +6760,14 @@ property of `Error` rejection reasons is rewritten to be traced along
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
-Q comes with optional support for “long stack traces,” wherein the `stack`
+Q comes with optional support for â€œlong stack traces,â€ wherein the `stack`
 property of `Error` rejection reasons is rewritten to be traced along
 asynchronous jumps instead of stopping at the most recent one. As an example:
 
 ```js
 function theDepthsOfMyProgram() {
   Q.<span class="apidocCodeKeywordSpan">delay</span>(100).done(function explode() {
-    throw new Error(&#x22;boo!&#x22;);
+    throw new Error("boo!");
   });
 }
 
@@ -6798,7 +6791,7 @@ theDepthsOfMyProgram();
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">delete = function (object, key) {
-    return Q(object).dispatch(&#x22;delete&#x22;, [key]);
+    return Q(object).dispatch("delete", [key]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -6819,7 +6812,7 @@ theDepthsOfMyProgram();
     <ul>
     <li>description and source-code<pre class="apidocCodePre">denodeify = function (callback) {
     if (callback === undefined) {
-        throw new Error(&#x22;Q can&#x27;t wrap an undefined function&#x22;);
+        throw new Error("Q can't wrap an undefined function");
     }
     var baseArgs = array_slice(arguments, 1);
     return function () {
@@ -6831,21 +6824,21 @@ theDepthsOfMyProgram();
     };
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-return Q.ninvoke(redisClient, &#x22;get&#x22;, &#x22;user:1:id&#x22;);
-return Q.npost(redisClient, &#x22;get&#x22;, [&#x22;user:1:id&#x22;]);
+return Q.ninvoke(redisClient, "get", "user:1:id");
+return Q.npost(redisClient, "get", ["user:1:id"]);
 ```
 
 You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
 
 ```javascript
 var readFile = Q.<span class="apidocCodeKeywordSpan">denodeify</span>(FS.readFile);
-return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
+return readFile("foo.txt", "utf-8");
 
 var redisClientGet = Q.nbind(redisClient.get, redisClient);
-return redisClientGet(&#x22;user:1:id&#x22;);
+return redisClientGet("user:1:id");
 ```
 
-Finally, if you&#x27;re working with raw deferred objects, there is a
+Finally, if you're working with raw deferred objects, there is a
 ...</pre></li>
     </ul>
 
@@ -6868,7 +6861,7 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
  * @param object* the recipient
- * @param op the name of the message operation, e.g., &#x22;when&#x22;,
+ * @param op the name of the message operation, e.g., "when",
  * @param args further arguments to be forwarded to the operation
  * @returns result {Promise} a promise for the result of the operation
  */
@@ -6915,7 +6908,7 @@ Q.nextTick(function () {
 
 With this approach, you also get implicit error propagation, just like `try`,
 `catch`, and `finally`.  An error in `promisedStep1` will flow all the way to
-the `catch` function, where it’s caught and handled.  (Here `promisedStepN` is
+the `catch` function, where itâ€™s caught and handled.  (Here `promisedStepN` is
 a version of `stepN` that returns a promise.)
 ...</pre></li>
     </ul>
@@ -6935,16 +6928,16 @@ a version of `stepN` that returns a promise.)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">fapply = function (object, args) {
-    return Q(object).dispatch(&#x22;apply&#x22;, [void 0, args]);
+    return Q(object).dispatch("apply", [void 0, args]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 direct manipulation         using a promise as a proxy
 --------------------------  -------------------------------
-value.foo                   promise.get(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.del(&#x22;foo&#x22;)
-value.foo(...args)          promise.post(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
+value.foo                   promise.get("foo")
+value.foo = value           promise.put("foo", value)
+delete value.foo            promise.del("foo")
+value.foo(...args)          promise.post("foo", [args])
+value.foo(...args)          promise.invoke("foo", ...args)
 value(...args)              promise.<span class="apidocCodeKeywordSpan">fapply</span>([args])
 value(...args)              promise.fcall(...args)
 ```
@@ -6973,7 +6966,7 @@ advantage of promises for remote objects, check out [Q-Connection][].
     var promise = Q(object);
     var args = array_slice(arguments, 1);
     return function fbound() {
-        return promise.dispatch(&#x22;apply&#x22;, [
+        return promise.dispatch("apply", [
             this,
             args.concat(array_slice(arguments))
         ]);
@@ -6997,7 +6990,7 @@ advantage of promises for remote objects, check out [Q-Connection][].
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">fcall = function (object) {
-    return Q(object).dispatch(&#x22;apply&#x22;, [void 0, array_slice(arguments, 1)]);
+    return Q(object).dispatch("apply", [void 0, array_slice(arguments, 1)]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
     });
@@ -7033,7 +7026,7 @@ Q.<span class="apidocCodeKeywordSpan">fcall</span>(promisedStep1)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">finally = function (object, callback) {
-    return Q(object)[&#x22;finally&#x22;](callback);
+    return Q(object)["finally"](callback);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -7054,19 +7047,19 @@ Q.<span class="apidocCodeKeywordSpan">fcall</span>(promisedStep1)
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function fulfill(value) {
     return Promise({
-        &#x22;when&#x22;: function () {
+        "when": function () {
             return value;
         },
-        &#x22;get&#x22;: function (name) {
+        "get": function (name) {
             return value[name];
         },
-        &#x22;set&#x22;: function (name, rhs) {
+        "set": function (name, rhs) {
             value[name] = rhs;
         },
-        &#x22;delete&#x22;: function (name) {
+        "delete": function (name) {
             delete value[name];
         },
-        &#x22;post&#x22;: function (name, args) {
+        "post": function (name, args) {
             // Mark Miller proposes that post with no name should apply a
             // promised function.
             if (name === null || name === void 0) {
@@ -7075,14 +7068,14 @@ Q.<span class="apidocCodeKeywordSpan">fcall</span>(promisedStep1)
                 return value[name].apply(value, args);
             }
         },
-        &#x22;apply&#x22;: function (thisp, args) {
+        "apply": function (thisp, args) {
             return value.apply(thisp, args);
         },
-        &#x22;keys&#x22;: function () {
+        "keys": function () {
             return object_keys(value);
         }
     }, void 0, function inspect() {
-        return { state: &#x22;fulfilled&#x22;, value: value };
+        return { state: "fulfilled", value: value };
     });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -7103,7 +7096,7 @@ Q.<span class="apidocCodeKeywordSpan">fcall</span>(promisedStep1)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">get = function (object, key) {
-    return Q(object).dispatch(&#x22;get&#x22;, [key]);
+    return Q(object).dispatch("get", [key]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 object.  There are methods that allow you to optimistically manipulate
@@ -7113,11 +7106,11 @@ promises, so they can be chained.
 ```
 direct manipulation         using a promise as a proxy
 --------------------------  -------------------------------
-value.foo                   promise.<span class="apidocCodeKeywordSpan">get</span>(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.del(&#x22;foo&#x22;)
-value.foo(...args)          promise.post(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
+value.foo                   promise.<span class="apidocCodeKeywordSpan">get</span>("foo")
+value.foo = value           promise.put("foo", value)
+delete value.foo            promise.del("foo")
+value.foo(...args)          promise.post("foo", [args])
+value.foo(...args)          promise.invoke("foo", ...args)
 value(...args)              promise.fapply([args])
 value(...args)              promise.fcall(...args)
 ```
@@ -7139,7 +7132,7 @@ value(...args)              promise.fcall(...args)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getUnhandledReasons = function () {
-    // Make a copy so that consumers can&#x27;t interfere with our internal state.
+    // Make a copy so that consumers can't interfere with our internal state.
     return unhandledReasons.slice();
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -7160,7 +7153,7 @@ value(...args)              promise.fcall(...args)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">invoke = function (object, name) {
-    return Q(object).dispatch(&#x22;post&#x22;, [name, array_slice(arguments, 2)]);
+    return Q(object).dispatch("post", [name, array_slice(arguments, 2)]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```
@@ -7170,7 +7163,7 @@ as provided by your library, you should wrap it using a Q function.
 You can even use ``Q.invoke`` as a shorthand.
 
 ```javascript
-return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, ...)
+return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, 'ajax', ...)
 .then(function () {
 });
 ```
@@ -7195,7 +7188,7 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function isFulfilled(object) {
-    return !isPromise(object) || object.inspect().state === &#x22;fulfilled&#x22;;
+    return !isPromise(object) || object.inspect().state === "fulfilled";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -7215,7 +7208,7 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function isPending(object) {
-    return isPromise(object) &#x26;&#x26; object.inspect().state === &#x22;pending&#x22;;
+    return isPromise(object) &amp;&amp; object.inspect().state === "pending";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -7255,7 +7248,7 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function isPromiseAlike(object) {
-    return isObject(object) &#x26;&#x26; typeof object.then === &#x22;function&#x22;;
+    return isObject(object) &amp;&amp; typeof object.then === "function";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -7275,7 +7268,7 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function isRejected(object) {
-    return isPromise(object) &#x26;&#x26; object.inspect().state === &#x22;rejected&#x22;;
+    return isPromise(object) &amp;&amp; object.inspect().state === "rejected";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -7298,22 +7291,22 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
     return Q(x).join(y);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-        if (p.stack &#x26;&#x26; (!error.__minimumStackCounter__ || error.__minimumStackCounter__ &#x3e; p.stackCounter)) {
-            object_defineProperty(error, &#x22;__minimumStackCounter__&#x22;, {value: p.stackCounter, configurable: true});
+        if (p.stack &amp;&amp; (!error.__minimumStackCounter__ || error.__minimumStackCounter__ &gt; p.stackCounter)) {
+            object_defineProperty(error, "__minimumStackCounter__", {value: p.stackCounter, configurable: true});
             stacks.unshift(p.stack);
         }
     }
     stacks.unshift(error.stack);
 
-    var concatedStacks = stacks.<span class="apidocCodeKeywordSpan">join</span>(&#x22;\n&#x22; + STACK_JUMP_SEPARATOR + &#x22;\n
-&#x22;);
+    var concatedStacks = stacks.<span class="apidocCodeKeywordSpan">join</span>("\n" + STACK_JUMP_SEPARATOR + "\n
+");
     var stack = filterStackString(concatedStacks);
-    object_defineProperty(error, &#x22;stack&#x22;, {value: stack, configurable: true});
+    object_defineProperty(error, "stack", {value: stack, configurable: true});
 }
 }
 
 function filterStackString(stackString) {
-var lines = stackString.split(&#x22;\n&#x22;);
+var lines = stackString.split("\n");
 ...</pre></li>
     </ul>
 
@@ -7332,7 +7325,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">keys = function (object) {
-    return Q(object).dispatch(&#x22;keys&#x22;, []);
+    return Q(object).dispatch("keys", []);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -7355,13 +7348,13 @@ var lines = stackString.split(&#x22;\n&#x22;);
     if (fallback === void 0) {
         fallback = function (op) {
             return reject(new Error(
-                &#x22;Promise does not support operation: &#x22; + op
+                "Promise does not support operation: " + op
             ));
         };
     }
     if (inspect === void 0) {
         inspect = function () {
-            return {state: &#x22;unknown&#x22;};
+            return {state: "unknown"};
         };
     }
 
@@ -7388,14 +7381,14 @@ var lines = stackString.split(&#x22;\n&#x22;);
     // XXX deprecated `valueOf` and `exception` support
     if (inspect) {
         var inspected = inspect();
-        if (inspected.state === &#x22;rejected&#x22;) {
+        if (inspected.state === "rejected") {
             promise.exception = inspected.reason;
         }
 
         promise.valueOf = function () {
             var inspected = inspect();
-            if (inspected.state === &#x22;pending&#x22; ||
-                inspected.state === &#x22;rejected&#x22;) {
+            if (inspected.state === "pending" ||
+                inspected.state === "rejected") {
                 return promise;
             }
             return inspected.value;
@@ -7439,7 +7432,7 @@ return Q.<span class="apidocCodeKeywordSpan">all</span>([
 ```
 
 If you have a promise for an array, you can use ``spread`` as a
-replacement for ``then``.  The ``spread`` function “spreads” the
+replacement for ``then``.  The ``spread`` function â€œspreadsâ€ the
 ...</pre></li>
     </ul>
 
@@ -7489,7 +7482,7 @@ fulfilled or rejected, you can use ``allSettled``.
 Q.<span class="apidocCodeKeywordSpan">allSettled</span>(promises)
 .then(function (results) {
 results.forEach(function (result) {
-    if (result.state === &#x22;fulfilled&#x22;) {
+    if (result.state === "fulfilled") {
         var value = result.value;
     } else {
         var reason = result.reason;
@@ -7568,7 +7561,7 @@ With this approach, you also get implicit error propagation, just like `try`,
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">del = function (key) {
-    return this.dispatch(&#x22;delete&#x22;, [key]);
+    return this.dispatch("delete", [key]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 promises, so they can be chained.
@@ -7576,11 +7569,11 @@ promises, so they can be chained.
 ```
 direct manipulation         using a promise as a proxy
 --------------------------  -------------------------------
-value.foo                   promise.get(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.<span class="apidocCodeKeywordSpan">del</span>(&#x22;foo&#x22;)
-value.foo(...args)          promise.post(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
+value.foo                   promise.get("foo")
+value.foo = value           promise.put("foo", value)
+delete value.foo            promise.<span class="apidocCodeKeywordSpan">del</span>("foo")
+value.foo(...args)          promise.post("foo", [args])
+value.foo(...args)          promise.invoke("foo", ...args)
 value(...args)              promise.fapply([args])
 value(...args)              promise.fcall(...args)
 ```
@@ -7609,14 +7602,14 @@ If the promise is a proxy for a remote object, you can shave
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
-Q comes with optional support for “long stack traces,” wherein the `stack`
+Q comes with optional support for â€œlong stack traces,â€ wherein the `stack`
 property of `Error` rejection reasons is rewritten to be traced along
 asynchronous jumps instead of stopping at the most recent one. As an example:
 
 ```js
 function theDepthsOfMyProgram() {
   Q.<span class="apidocCodeKeywordSpan">delay</span>(100).done(function explode() {
-    throw new Error(&#x22;boo!&#x22;);
+    throw new Error("boo!");
   });
 }
 
@@ -7635,7 +7628,7 @@ theDepthsOfMyProgram();
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">delete = function (key) {
-    return this.dispatch(&#x22;delete&#x22;, [key]);
+    return this.dispatch("delete", [key]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -7655,21 +7648,21 @@ theDepthsOfMyProgram();
     return Q.denodeify.apply(void 0, args);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-return Q.ninvoke(redisClient, &#x22;get&#x22;, &#x22;user:1:id&#x22;);
-return Q.npost(redisClient, &#x22;get&#x22;, [&#x22;user:1:id&#x22;]);
+return Q.ninvoke(redisClient, "get", "user:1:id");
+return Q.npost(redisClient, "get", ["user:1:id"]);
 ```
 
 You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
 
 ```javascript
 var readFile = Q.<span class="apidocCodeKeywordSpan">denodeify</span>(FS.readFile);
-return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
+return readFile("foo.txt", "utf-8");
 
 var redisClientGet = Q.nbind(redisClient.get, redisClient);
-return redisClientGet(&#x22;user:1:id&#x22;);
+return redisClientGet("user:1:id");
 ```
 
-Finally, if you&#x27;re working with raw deferred objects, there is a
+Finally, if you're working with raw deferred objects, there is a
 ...</pre></li>
     </ul>
 
@@ -7692,7 +7685,7 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
  * @param object* the recipient
- * @param op the name of the message operation, e.g., &#x22;when&#x22;,
+ * @param op the name of the message operation, e.g., "when",
  * @param args further arguments to be forwarded to the operation
  * @returns result {Promise} a promise for the result of the operation
  */
@@ -7737,7 +7730,7 @@ Q.nextTick(function () {
         this.then(fulfilled, rejected, progress) :
         this;
 
-    if (typeof process === &#x22;object&#x22; &#x26;&#x26; process &#x26;&#x26; process.domain) {
+    if (typeof process === "object" &amp;&amp; process &amp;&amp; process.domain) {
         onUnhandledError = process.domain.bind(onUnhandledError);
     }
 
@@ -7756,7 +7749,7 @@ Q.nextTick(function () {
 
 With this approach, you also get implicit error propagation, just like `try`,
 `catch`, and `finally`.  An error in `promisedStep1` will flow all the way to
-the `catch` function, where it’s caught and handled.  (Here `promisedStepN` is
+the `catch` function, where itâ€™s caught and handled.  (Here `promisedStepN` is
 a version of `stepN` that returns a promise.)
 ...</pre></li>
     </ul>
@@ -7802,16 +7795,16 @@ Promises also have a ``fin`` function that is like a ``finally`` clause.
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">fapply = function (args) {
-    return this.dispatch(&#x22;apply&#x22;, [void 0, args]);
+    return this.dispatch("apply", [void 0, args]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 direct manipulation         using a promise as a proxy
 --------------------------  -------------------------------
-value.foo                   promise.get(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.del(&#x22;foo&#x22;)
-value.foo(...args)          promise.post(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
+value.foo                   promise.get("foo")
+value.foo = value           promise.put("foo", value)
+delete value.foo            promise.del("foo")
+value.foo(...args)          promise.post("foo", [args])
+value.foo(...args)          promise.invoke("foo", ...args)
 value(...args)              promise.<span class="apidocCodeKeywordSpan">fapply</span>([args])
 value(...args)              promise.fcall(...args)
 ```
@@ -7835,7 +7828,7 @@ advantage of promises for remote objects, check out [Q-Connection][].
     var promise = this;
     var args = array_slice(arguments);
     return function fbound() {
-        return promise.dispatch(&#x22;apply&#x22;, [
+        return promise.dispatch("apply", [
             this,
             args.concat(array_slice(arguments))
         ]);
@@ -7854,7 +7847,7 @@ advantage of promises for remote objects, check out [Q-Connection][].
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">fcall = function () {
-    return this.dispatch(&#x22;apply&#x22;, [void 0, array_slice(arguments)]);
+    return this.dispatch("apply", [void 0, array_slice(arguments)]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
     });
@@ -7885,8 +7878,8 @@ Q.<span class="apidocCodeKeywordSpan">fcall</span>(promisedStep1)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">fin = function (callback) {
-    if (!callback || typeof callback.apply !== &#x22;function&#x22;) {
-        throw new Error(&#x22;Q can&#x27;t apply finally callback&#x22;);
+    if (!callback || typeof callback.apply !== "function") {
+        throw new Error("Q can't apply finally callback");
     }
     callback = Q(callback);
     return this.then(function (value) {
@@ -7894,7 +7887,7 @@ Q.<span class="apidocCodeKeywordSpan">fcall</span>(promisedStep1)
             return value;
         });
     }, function (reason) {
-        // TODO attempt to recycle the rejection with &#x22;this&#x22;.
+        // TODO attempt to recycle the rejection with "this".
         return callback.fcall().then(function () {
             throw reason;
         });
@@ -7929,8 +7922,8 @@ var outputPromise = getInputPromise()
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">finally = function (callback) {
-    if (!callback || typeof callback.apply !== &#x22;function&#x22;) {
-        throw new Error(&#x22;Q can&#x27;t apply finally callback&#x22;);
+    if (!callback || typeof callback.apply !== "function") {
+        throw new Error("Q can't apply finally callback");
     }
     callback = Q(callback);
     return this.then(function (value) {
@@ -7938,7 +7931,7 @@ var outputPromise = getInputPromise()
             return value;
         });
     }, function (reason) {
-        // TODO attempt to recycle the rejection with &#x22;this&#x22;.
+        // TODO attempt to recycle the rejection with "this".
         return callback.fcall().then(function () {
             throw reason;
         });
@@ -7957,7 +7950,7 @@ var outputPromise = getInputPromise()
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">get = function (key) {
-    return this.dispatch(&#x22;get&#x22;, [key]);
+    return this.dispatch("get", [key]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 object.  There are methods that allow you to optimistically manipulate
@@ -7967,11 +7960,11 @@ promises, so they can be chained.
 ```
 direct manipulation         using a promise as a proxy
 --------------------------  -------------------------------
-value.foo                   promise.<span class="apidocCodeKeywordSpan">get</span>(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.del(&#x22;foo&#x22;)
-value.foo(...args)          promise.post(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
+value.foo                   promise.<span class="apidocCodeKeywordSpan">get</span>("foo")
+value.foo = value           promise.put("foo", value)
+delete value.foo            promise.del("foo")
+value.foo(...args)          promise.post("foo", [args])
+value.foo(...args)          promise.invoke("foo", ...args)
 value(...args)              promise.fapply([args])
 value(...args)              promise.fcall(...args)
 ```
@@ -7988,7 +7981,7 @@ value(...args)              promise.fcall(...args)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">invoke = function (name) {
-    return this.dispatch(&#x22;post&#x22;, [name, array_slice(arguments, 1)]);
+    return this.dispatch("post", [name, array_slice(arguments, 1)]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```
@@ -7998,7 +7991,7 @@ as provided by your library, you should wrap it using a Q function.
 You can even use ``Q.invoke`` as a shorthand.
 
 ```javascript
-return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, ...)
+return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, 'ajax', ...)
 .then(function () {
 });
 ```
@@ -8018,7 +8011,7 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">isFulfilled = function () {
-    return this.inspect().state === &#x22;fulfilled&#x22;;
+    return this.inspect().state === "fulfilled";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -8033,7 +8026,7 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">isPending = function () {
-    return this.inspect().state === &#x22;pending&#x22;;
+    return this.inspect().state === "pending";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -8048,7 +8041,7 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">isRejected = function () {
-    return this.inspect().state === &#x22;rejected&#x22;;
+    return this.inspect().state === "rejected";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -8065,30 +8058,30 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
     <li>description and source-code<pre class="apidocCodePre">join = function (that) {
     return Q([this, that]).spread(function (x, y) {
         if (x === y) {
-            // TODO: &#x22;===&#x22; should be Object.is or equiv
+            // TODO: "===" should be Object.is or equiv
             return x;
         } else {
-            throw new Error(&#x22;Q can&#x27;t join: not the same: &#x22; + x + &#x22; &#x22; + y);
+            throw new Error("Q can't join: not the same: " + x + " " + y);
         }
     });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-        if (p.stack &#x26;&#x26; (!error.__minimumStackCounter__ || error.__minimumStackCounter__ &#x3e; p.stackCounter)) {
-            object_defineProperty(error, &#x22;__minimumStackCounter__&#x22;, {value: p.stackCounter, configurable: true});
+        if (p.stack &amp;&amp; (!error.__minimumStackCounter__ || error.__minimumStackCounter__ &gt; p.stackCounter)) {
+            object_defineProperty(error, "__minimumStackCounter__", {value: p.stackCounter, configurable: true});
             stacks.unshift(p.stack);
         }
     }
     stacks.unshift(error.stack);
 
-    var concatedStacks = stacks.<span class="apidocCodeKeywordSpan">join</span>(&#x22;\n&#x22; + STACK_JUMP_SEPARATOR + &#x22;\n
-&#x22;);
+    var concatedStacks = stacks.<span class="apidocCodeKeywordSpan">join</span>("\n" + STACK_JUMP_SEPARATOR + "\n
+");
     var stack = filterStackString(concatedStacks);
-    object_defineProperty(error, &#x22;stack&#x22;, {value: stack, configurable: true});
+    object_defineProperty(error, "stack", {value: stack, configurable: true});
 }
 }
 
 function filterStackString(stackString) {
-var lines = stackString.split(&#x22;\n&#x22;);
+var lines = stackString.split("\n");
 ...</pre></li>
     </ul>
 
@@ -8102,7 +8095,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">keys = function () {
-    return this.dispatch(&#x22;keys&#x22;, []);
+    return this.dispatch("keys", []);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -8117,7 +8110,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">mapply = function (name, args) {
-    return this.dispatch(&#x22;post&#x22;, [name, args]);
+    return this.dispatch("post", [name, args]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -8132,7 +8125,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">mcall = function (name) {
-    return this.dispatch(&#x22;post&#x22;, [name, array_slice(arguments, 1)]);
+    return this.dispatch("post", [name, array_slice(arguments, 1)]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -8157,13 +8150,13 @@ You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
 
 ```javascript
 var readFile = Q.denodeify(FS.readFile);
-return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
+return readFile("foo.txt", "utf-8");
 
 var redisClientGet = Q.<span class="apidocCodeKeywordSpan">nbind</span>(redisClient.get, redisClient);
-return redisClientGet(&#x22;user:1:id&#x22;);
+return redisClientGet("user:1:id");
 ```
 
-Finally, if you&#x27;re working with raw deferred objects, there is a
+Finally, if you're working with raw deferred objects, there is a
 `makeNodeResolver` method on deferreds that can be handy:
 
 ```javascript
@@ -8189,17 +8182,17 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
     <li>example usage<pre class="apidocCodePre">...
 where callbacks are in the form of `function(err, result)`, Q provides a few
 useful utility functions for converting between them. The most straightforward
-are probably `Q.nfcall` and `Q.nfapply` (&#x22;Node function call/apply&#x22;) for calling
+are probably `Q.nfcall` and `Q.nfapply` ("Node function call/apply") for calling
 Node.js-style functions and getting back a promise:
 
 ```javascript
-return Q.nfcall(FS.readFile, &#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
-return Q.<span class="apidocCodeKeywordSpan">nfapply</span>(FS.readFile, [&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;]);
+return Q.nfcall(FS.readFile, "foo.txt", "utf-8");
+return Q.<span class="apidocCodeKeywordSpan">nfapply</span>(FS.readFile, ["foo.txt", "utf-8"]);
 ```
 
 If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
+run in to the usual problems where passing a method to another functionâ€”like
+`Q.nfcall`â€”"un-binds" the method from its owner. To avoid this, you can either
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 ...</pre></li>
     </ul>
@@ -8226,14 +8219,14 @@ return deferred.promise;
  * Wraps a NodeJS continuation passing function and returns an equivalent
  * version that returns a promise.
  * @example
- * Q.<span class="apidocCodeKeywordSpan">nfbind</span>(FS.readFile, __filename)(&#x22;utf-8&#x22;)
+ * Q.<span class="apidocCodeKeywordSpan">nfbind</span>(FS.readFile, __filename)("utf-8")
  * .then(console.log)
  * .done()
  */
 Q.nfbind =
 Q.denodeify = function (callback /*...args*/) {
 if (callback === undefined) {
-    throw new Error(&#x22;Q can&#x27;t wrap an undefined function&#x22;);
+    throw new Error("Q can't wrap an undefined function");
 ...</pre></li>
     </ul>
 
@@ -8254,20 +8247,20 @@ if (callback === undefined) {
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-If you&#x27;re working with functions that make use of the Node.js callback pattern,
+If you're working with functions that make use of the Node.js callback pattern,
 where callbacks are in the form of `function(err, result)`, Q provides a few
 useful utility functions for converting between them. The most straightforward
-are probably `Q.nfcall` and `Q.nfapply` (&#x22;Node function call/apply&#x22;) for calling
+are probably `Q.nfcall` and `Q.nfapply` ("Node function call/apply") for calling
 Node.js-style functions and getting back a promise:
 
 ```javascript
-return Q.<span class="apidocCodeKeywordSpan">nfcall</span>(FS.readFile, &#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
-return Q.nfapply(FS.readFile, [&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;]);
+return Q.<span class="apidocCodeKeywordSpan">nfcall</span>(FS.readFile, "foo.txt", "utf-8");
+return Q.nfapply(FS.readFile, ["foo.txt", "utf-8"]);
 ```
 
 If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
+run in to the usual problems where passing a method to another functionâ€”like
+`Q.nfcall`â€”"un-binds" the method from its owner. To avoid this, you can either
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 ...</pre></li>
     </ul>
@@ -8285,19 +8278,19 @@ use `Function.prototype.bind` or some nice shortcut methods we provide:
     var nodeArgs = array_slice(arguments, 1);
     var deferred = defer();
     nodeArgs.push(deferred.makeNodeResolver());
-    this.dispatch(&#x22;post&#x22;, [name, nodeArgs]).fail(deferred.reject);
+    this.dispatch("post", [name, nodeArgs]).fail(deferred.reject);
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
 If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
+run in to the usual problems where passing a method to another functionâ€”like
+`Q.nfcall`â€”"un-binds" the method from its owner. To avoid this, you can either
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 
 ```javascript
-return Q.<span class="apidocCodeKeywordSpan">ninvoke</span>(redisClient, &#x22;get&#x22;, &#x22;user:1:id&#x22;);
-return Q.npost(redisClient, &#x22;get&#x22;, [&#x22;user:1:id&#x22;]);
+return Q.<span class="apidocCodeKeywordSpan">ninvoke</span>(redisClient, "get", "user:1:id");
+return Q.npost(redisClient, "get", ["user:1:id"]);
 ```
 
 You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
@@ -8320,7 +8313,7 @@ var readFile = Q.denodeify(FS.readFile);
     var nodeArgs = array_slice(args || []);
     var deferred = defer();
     nodeArgs.push(deferred.makeNodeResolver());
-    this.dispatch(&#x22;post&#x22;, [name, nodeArgs]).fail(deferred.reject);
+    this.dispatch("post", [name, nodeArgs]).fail(deferred.reject);
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -8339,7 +8332,7 @@ var readFile = Q.denodeify(FS.readFile);
     var nodeArgs = array_slice(arguments, 1);
     var deferred = defer();
     nodeArgs.push(deferred.makeNodeResolver());
-    this.dispatch(&#x22;post&#x22;, [name, nodeArgs]).fail(deferred.reject);
+    this.dispatch("post", [name, nodeArgs]).fail(deferred.reject);
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -8401,25 +8394,25 @@ if (nodeback) {
     var nodeArgs = array_slice(args || []);
     var deferred = defer();
     nodeArgs.push(deferred.makeNodeResolver());
-    this.dispatch(&#x22;post&#x22;, [name, nodeArgs]).fail(deferred.reject);
+    this.dispatch("post", [name, nodeArgs]).fail(deferred.reject);
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
+run in to the usual problems where passing a method to another functionâ€”like
+`Q.nfcall`â€”"un-binds" the method from its owner. To avoid this, you can either
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 
 ```javascript
-return Q.ninvoke(redisClient, &#x22;get&#x22;, &#x22;user:1:id&#x22;);
-return Q.<span class="apidocCodeKeywordSpan">npost</span>(redisClient, &#x22;get&#x22;, [&#x22;user:1:id&#x22;]);
+return Q.ninvoke(redisClient, "get", "user:1:id");
+return Q.<span class="apidocCodeKeywordSpan">npost</span>(redisClient, "get", ["user:1:id"]);
 ```
 
 You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
 
 ```javascript
 var readFile = Q.denodeify(FS.readFile);
-return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
+return readFile("foo.txt", "utf-8");
 ...</pre></li>
     </ul>
 
@@ -8436,7 +8429,7 @@ return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
     var nodeArgs = array_slice(arguments, 1);
     var deferred = defer();
     nodeArgs.push(deferred.makeNodeResolver());
-    this.dispatch(&#x22;post&#x22;, [name, nodeArgs]).fail(deferred.reject);
+    this.dispatch("post", [name, nodeArgs]).fail(deferred.reject);
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -8469,18 +8462,18 @@ return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">post = function (name, args) {
-    return this.dispatch(&#x22;post&#x22;, [name, args]);
+    return this.dispatch("post", [name, args]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
 ```
 direct manipulation         using a promise as a proxy
 --------------------------  -------------------------------
-value.foo                   promise.get(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.del(&#x22;foo&#x22;)
-value.foo(...args)          promise.<span class="apidocCodeKeywordSpan">post</span>(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
+value.foo                   promise.get("foo")
+value.foo = value           promise.put("foo", value)
+delete value.foo            promise.del("foo")
+value.foo(...args)          promise.<span class="apidocCodeKeywordSpan">post</span>("foo", [args])
+value.foo(...args)          promise.invoke("foo", ...args)
 value(...args)              promise.fapply([args])
 value(...args)              promise.fcall(...args)
 ```
@@ -8511,7 +8504,7 @@ called `progress`:
 
 ```javascript
 return uploadFile().<span class="apidocCodeKeywordSpan">progress</span>(function (progress) {
-    // We get notified of the upload&#x27;s progress
+    // We get notified of the upload's progress
 });
 ```
 
@@ -8546,13 +8539,13 @@ When you get to the end of a chain of promises, you should either
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">send = function (name) {
-    return this.dispatch(&#x22;post&#x22;, [name, array_slice(arguments, 1)]);
+    return this.dispatch("post", [name, array_slice(arguments, 1)]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 var request = new XMLHttpRequest();
 var deferred = Q.defer();
 
-request.open(&#x22;GET&#x22;, url, true);
+request.open("GET", url, true);
 request.onload = onload;
 request.onerror = onerror;
 request.onprogress = onprogress;
@@ -8562,7 +8555,7 @@ function onload() {
     if (request.status === 200) {
         deferred.resolve(request.responseText);
     } else {
-        deferred.reject(new Error(&#x22;Status code was &#x22; + request.status));
+        deferred.reject(new Error("Status code was " + request.status));
     }
 ...</pre></li>
     </ul>
@@ -8577,7 +8570,7 @@ function onload() {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">set = function (key, value) {
-    return this.dispatch(&#x22;set&#x22;, [key, value]);
+    return this.dispatch("set", [key, value]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 promise.resolve = Q; // ES6
@@ -8613,7 +8606,7 @@ return this;
     }, rejected);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-replacement for ``then``.  The ``spread`` function “spreads” the
+replacement for ``then``.  The ``spread`` function â€œspreadsâ€ the
 values over the arguments of the fulfillment handler.  The rejection handler
 will get called at the first sign of failure.  That is, whichever of
 the received promises fails first gets handled by the rejection handler.
@@ -8658,7 +8651,7 @@ Q.tap = function (promise, callback) {
 };
 
 /**
-* Works almost like &#x22;finally&#x22;, but not called for rejections.
+* Works almost like "finally", but not called for rejections.
 * Original resolution value is passed through callback unaffected.
 * Callback may return a promise that will be awaited for.
 * @param {Function} callback
@@ -8682,14 +8675,14 @@ Q.tap = function (promise, callback) {
 
     function _fulfilled(value) {
         try {
-            return typeof fulfilled === &#x22;function&#x22; ? fulfilled(value) : value;
+            return typeof fulfilled === "function" ? fulfilled(value) : value;
         } catch (exception) {
             return reject(exception);
         }
     }
 
     function _rejected(exception) {
-        if (typeof rejected === &#x22;function&#x22;) {
+        if (typeof rejected === "function") {
             makeStackTraceLong(exception, self);
             try {
                 return rejected(exception);
@@ -8701,7 +8694,7 @@ Q.tap = function (promise, callback) {
     }
 
     function _progressed(value) {
-        return typeof progressed === &#x22;function&#x22; ? progressed(value) : value;
+        return typeof progressed === "function" ? progressed(value) : value;
     }
 
     Q.nextTick(function () {
@@ -8712,7 +8705,7 @@ Q.tap = function (promise, callback) {
             done = true;
 
             deferred.resolve(_fulfilled(value));
-        }, &#x22;when&#x22;, [function (exception) {
+        }, "when", [function (exception) {
             if (done) {
                 return;
             }
@@ -8723,7 +8716,7 @@ Q.tap = function (promise, callback) {
     });
 
     // Progress propagator need to be attached in the current tick.
-    self.promiseDispatch(void 0, &#x22;when&#x22;, [void 0, function (value) {
+    self.promiseDispatch(void 0, "when", [void 0, function (value) {
         var newValue;
         var threw = false;
         try {
@@ -8787,10 +8780,10 @@ Q.thenReject = function (promise, reason) {
 };
 
 /**
-* If an object is not a promise, it is as &#x22;near&#x22; as possible.
-* If a promise is rejected, it is as &#x22;near&#x22; as possible too.
-* If it’s a fulfilled promise, the fulfillment value is nearer.
-* If it’s a deferred promise and the deferred has been resolved, the
+* If an object is not a promise, it is as "near" as possible.
+* If a promise is rejected, it is as "near" as possible too.
+* If itâ€™s a fulfilled promise, the fulfillment value is nearer.
+* If itâ€™s a deferred promise and the deferred has been resolved, the
 ...</pre></li>
     </ul>
 
@@ -8837,9 +8830,9 @@ Promise.prototype.tap = function (callback) {
     <li>description and source-code<pre class="apidocCodePre">timeout = function (ms, error) {
     var deferred = defer();
     var timeoutId = setTimeout(function () {
-        if (!error || &#x22;string&#x22; === typeof error) {
-            error = new Error(error || &#x22;Timed out after &#x22; + ms + &#x22; ms&#x22;);
-            error.code = &#x22;ETIMEDOUT&#x22;;
+        if (!error || "string" === typeof error) {
+            error = new Error(error || "Timed out after " + ms + " ms");
+            error.code = "ETIMEDOUT";
         }
         deferred.reject(error);
     }, ms);
@@ -8868,8 +8861,8 @@ return Q(object).<span class="apidocCodeKeywordSpan">timeout</span>(ms, error);
 Promise.prototype.timeout = function (ms, error) {
 var deferred = defer();
 var timeoutId = setTimeout(function () {
-    if (!error || &#x22;string&#x22; === typeof error) {
-        error = new Error(error || &#x22;Timed out after &#x22; + ms + &#x22; ms&#x22;);
+    if (!error || "string" === typeof error) {
+        error = new Error(error || "Timed out after " + ms + " ms");
 ...</pre></li>
     </ul>
 
@@ -8883,7 +8876,7 @@ var timeoutId = setTimeout(function () {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">toString = function () {
-    return &#x22;[object Promise]&#x22;;
+    return "[object Promise]";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
     if (!flushing) {
@@ -8892,16 +8885,16 @@ var timeoutId = setTimeout(function () {
     }
 };
 
-if (typeof process === &#x22;object&#x22; &#x26;&#x26;
-    process.<span class="apidocCodeKeywordSpan">toString</span>() === &#x22;[object process]&#x22; &#x26;&#x26; process.nextTick
+if (typeof process === "object" &amp;&amp;
+    process.<span class="apidocCodeKeywordSpan">toString</span>() === "[object process]" &amp;&amp; process.nextTick
 ) {
     // Ensure Q is in a real Node environment, with a `process.nextTick`.
     // To see through fake Node environments:
     // * Mocha test runner - exposes a `process` global without a `nextTick`
     // * Browserify - exposes a `process.nexTick` function that uses
     //   `setTimeout`. In this case `setImmediate` is preferred because
-    //    it is faster. Browserify&#x27;s `process.toString()` yields
-    //   &#x22;[object Object]&#x22;, while in a real Node environment
+    //    it is faster. Browserify's `process.toString()` yields
+    //   "[object Object]", while in a real Node environment
 ...</pre></li>
     </ul>
 
@@ -8937,7 +8930,7 @@ return Q.<span class="apidocCodeKeywordSpan">all</span>([
 ```
 
 If you have a promise for an array, you can use ``spread`` as a
-replacement for ``then``.  The ``spread`` function “spreads” the
+replacement for ``then``.  The ``spread`` function â€œspreadsâ€ the
 ...</pre></li>
     </ul>
 
@@ -8997,7 +8990,7 @@ fulfilled or rejected, you can use ``allSettled``.
 Q.<span class="apidocCodeKeywordSpan">allSettled</span>(promises)
 .then(function (results) {
 results.forEach(function (result) {
-    if (result.state === &#x22;fulfilled&#x22;) {
+    if (result.state === "fulfilled") {
         var value = result.value;
     } else {
         var reason = result.reason;
@@ -9101,14 +9094,14 @@ With this approach, you also get implicit error propagation, just like `try`,
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
-Q comes with optional support for “long stack traces,” wherein the `stack`
+Q comes with optional support for â€œlong stack traces,â€ wherein the `stack`
 property of `Error` rejection reasons is rewritten to be traced along
 asynchronous jumps instead of stopping at the most recent one. As an example:
 
 ```js
 function theDepthsOfMyProgram() {
   Q.<span class="apidocCodeKeywordSpan">delay</span>(100).done(function explode() {
-    throw new Error(&#x22;boo!&#x22;);
+    throw new Error("boo!");
   });
 }
 
@@ -9132,7 +9125,7 @@ theDepthsOfMyProgram();
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">delete = function (key) {
-    return this.dispatch(&#x22;delete&#x22;, [key]);
+    return this.dispatch("delete", [key]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -9157,21 +9150,21 @@ theDepthsOfMyProgram();
     return Q.denodeify.apply(void 0, args);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-return Q.ninvoke(redisClient, &#x22;get&#x22;, &#x22;user:1:id&#x22;);
-return Q.npost(redisClient, &#x22;get&#x22;, [&#x22;user:1:id&#x22;]);
+return Q.ninvoke(redisClient, "get", "user:1:id");
+return Q.npost(redisClient, "get", ["user:1:id"]);
 ```
 
 You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
 
 ```javascript
 var readFile = Q.<span class="apidocCodeKeywordSpan">denodeify</span>(FS.readFile);
-return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
+return readFile("foo.txt", "utf-8");
 
 var redisClientGet = Q.nbind(redisClient.get, redisClient);
-return redisClientGet(&#x22;user:1:id&#x22;);
+return redisClientGet("user:1:id");
 ```
 
-Finally, if you&#x27;re working with raw deferred objects, there is a
+Finally, if you're working with raw deferred objects, there is a
 ...</pre></li>
     </ul>
 
@@ -9199,7 +9192,7 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
  * @param object* the recipient
- * @param op the name of the message operation, e.g., &#x22;when&#x22;,
+ * @param op the name of the message operation, e.g., "when",
  * @param args further arguments to be forwarded to the operation
  * @returns result {Promise} a promise for the result of the operation
  */
@@ -9249,7 +9242,7 @@ Q.nextTick(function () {
         this.then(fulfilled, rejected, progress) :
         this;
 
-    if (typeof process === &#x22;object&#x22; &#x26;&#x26; process &#x26;&#x26; process.domain) {
+    if (typeof process === "object" &amp;&amp; process &amp;&amp; process.domain) {
         onUnhandledError = process.domain.bind(onUnhandledError);
     }
 
@@ -9268,7 +9261,7 @@ Q.nextTick(function () {
 
 With this approach, you also get implicit error propagation, just like `try`,
 `catch`, and `finally`.  An error in `promisedStep1` will flow all the way to
-the `catch` function, where it’s caught and handled.  (Here `promisedStepN` is
+the `catch` function, where itâ€™s caught and handled.  (Here `promisedStepN` is
 a version of `stepN` that returns a promise.)
 ...</pre></li>
     </ul>
@@ -9288,16 +9281,16 @@ a version of `stepN` that returns a promise.)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">fapply = function (args) {
-    return this.dispatch(&#x22;apply&#x22;, [void 0, args]);
+    return this.dispatch("apply", [void 0, args]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 direct manipulation         using a promise as a proxy
 --------------------------  -------------------------------
-value.foo                   promise.get(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.del(&#x22;foo&#x22;)
-value.foo(...args)          promise.post(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
+value.foo                   promise.get("foo")
+value.foo = value           promise.put("foo", value)
+delete value.foo            promise.del("foo")
+value.foo(...args)          promise.post("foo", [args])
+value.foo(...args)          promise.invoke("foo", ...args)
 value(...args)              promise.<span class="apidocCodeKeywordSpan">fapply</span>([args])
 value(...args)              promise.fcall(...args)
 ```
@@ -9326,7 +9319,7 @@ advantage of promises for remote objects, check out [Q-Connection][].
     var promise = this;
     var args = array_slice(arguments);
     return function fbound() {
-        return promise.dispatch(&#x22;apply&#x22;, [
+        return promise.dispatch("apply", [
             this,
             args.concat(array_slice(arguments))
         ]);
@@ -9350,7 +9343,7 @@ advantage of promises for remote objects, check out [Q-Connection][].
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">fcall = function () {
-    return this.dispatch(&#x22;apply&#x22;, [void 0, array_slice(arguments)]);
+    return this.dispatch("apply", [void 0, array_slice(arguments)]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
     });
@@ -9386,8 +9379,8 @@ Q.<span class="apidocCodeKeywordSpan">fcall</span>(promisedStep1)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">finally = function (callback) {
-    if (!callback || typeof callback.apply !== &#x22;function&#x22;) {
-        throw new Error(&#x22;Q can&#x27;t apply finally callback&#x22;);
+    if (!callback || typeof callback.apply !== "function") {
+        throw new Error("Q can't apply finally callback");
     }
     callback = Q(callback);
     return this.then(function (value) {
@@ -9395,7 +9388,7 @@ Q.<span class="apidocCodeKeywordSpan">fcall</span>(promisedStep1)
             return value;
         });
     }, function (reason) {
-        // TODO attempt to recycle the rejection with &#x22;this&#x22;.
+        // TODO attempt to recycle the rejection with "this".
         return callback.fcall().then(function () {
             throw reason;
         });
@@ -9419,7 +9412,7 @@ Q.<span class="apidocCodeKeywordSpan">fcall</span>(promisedStep1)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">get = function (key) {
-    return this.dispatch(&#x22;get&#x22;, [key]);
+    return this.dispatch("get", [key]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 object.  There are methods that allow you to optimistically manipulate
@@ -9429,11 +9422,11 @@ promises, so they can be chained.
 ```
 direct manipulation         using a promise as a proxy
 --------------------------  -------------------------------
-value.foo                   promise.<span class="apidocCodeKeywordSpan">get</span>(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.del(&#x22;foo&#x22;)
-value.foo(...args)          promise.post(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
+value.foo                   promise.<span class="apidocCodeKeywordSpan">get</span>("foo")
+value.foo = value           promise.put("foo", value)
+delete value.foo            promise.del("foo")
+value.foo(...args)          promise.post("foo", [args])
+value.foo(...args)          promise.invoke("foo", ...args)
 value(...args)              promise.fapply([args])
 value(...args)              promise.fcall(...args)
 ```
@@ -9455,7 +9448,7 @@ value(...args)              promise.fcall(...args)
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">invoke = function (name) {
-    return this.dispatch(&#x22;post&#x22;, [name, array_slice(arguments, 1)]);
+    return this.dispatch("post", [name, array_slice(arguments, 1)]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```
@@ -9465,7 +9458,7 @@ as provided by your library, you should wrap it using a Q function.
 You can even use ``Q.invoke`` as a shorthand.
 
 ```javascript
-return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, ...)
+return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, 'ajax', ...)
 .then(function () {
 });
 ```
@@ -9490,7 +9483,7 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">isFulfilled = function () {
-    return this.inspect().state === &#x22;fulfilled&#x22;;
+    return this.inspect().state === "fulfilled";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -9510,7 +9503,7 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">isPending = function () {
-    return this.inspect().state === &#x22;pending&#x22;;
+    return this.inspect().state === "pending";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -9530,7 +9523,7 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">isRejected = function () {
-    return this.inspect().state === &#x22;rejected&#x22;;
+    return this.inspect().state === "rejected";
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -9552,30 +9545,30 @@ return Q.<span class="apidocCodeKeywordSpan">invoke</span>($, &#x27;ajax&#x27;, 
     <li>description and source-code<pre class="apidocCodePre">join = function (that) {
     return Q([this, that]).spread(function (x, y) {
         if (x === y) {
-            // TODO: &#x22;===&#x22; should be Object.is or equiv
+            // TODO: "===" should be Object.is or equiv
             return x;
         } else {
-            throw new Error(&#x22;Q can&#x27;t join: not the same: &#x22; + x + &#x22; &#x22; + y);
+            throw new Error("Q can't join: not the same: " + x + " " + y);
         }
     });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-        if (p.stack &#x26;&#x26; (!error.__minimumStackCounter__ || error.__minimumStackCounter__ &#x3e; p.stackCounter)) {
-            object_defineProperty(error, &#x22;__minimumStackCounter__&#x22;, {value: p.stackCounter, configurable: true});
+        if (p.stack &amp;&amp; (!error.__minimumStackCounter__ || error.__minimumStackCounter__ &gt; p.stackCounter)) {
+            object_defineProperty(error, "__minimumStackCounter__", {value: p.stackCounter, configurable: true});
             stacks.unshift(p.stack);
         }
     }
     stacks.unshift(error.stack);
 
-    var concatedStacks = stacks.<span class="apidocCodeKeywordSpan">join</span>(&#x22;\n&#x22; + STACK_JUMP_SEPARATOR + &#x22;\n
-&#x22;);
+    var concatedStacks = stacks.<span class="apidocCodeKeywordSpan">join</span>("\n" + STACK_JUMP_SEPARATOR + "\n
+");
     var stack = filterStackString(concatedStacks);
-    object_defineProperty(error, &#x22;stack&#x22;, {value: stack, configurable: true});
+    object_defineProperty(error, "stack", {value: stack, configurable: true});
 }
 }
 
 function filterStackString(stackString) {
-var lines = stackString.split(&#x22;\n&#x22;);
+var lines = stackString.split("\n");
 ...</pre></li>
     </ul>
 
@@ -9594,7 +9587,7 @@ var lines = stackString.split(&#x22;\n&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">keys = function () {
-    return this.dispatch(&#x22;keys&#x22;, []);
+    return this.dispatch("keys", []);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -9624,13 +9617,13 @@ You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
 
 ```javascript
 var readFile = Q.denodeify(FS.readFile);
-return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
+return readFile("foo.txt", "utf-8");
 
 var redisClientGet = Q.<span class="apidocCodeKeywordSpan">nbind</span>(redisClient.get, redisClient);
-return redisClientGet(&#x22;user:1:id&#x22;);
+return redisClientGet("user:1:id");
 ```
 
-Finally, if you&#x27;re working with raw deferred objects, there is a
+Finally, if you're working with raw deferred objects, there is a
 `makeNodeResolver` method on deferreds that can be handy:
 
 ```javascript
@@ -9661,17 +9654,17 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
     <li>example usage<pre class="apidocCodePre">...
 where callbacks are in the form of `function(err, result)`, Q provides a few
 useful utility functions for converting between them. The most straightforward
-are probably `Q.nfcall` and `Q.nfapply` (&#x22;Node function call/apply&#x22;) for calling
+are probably `Q.nfcall` and `Q.nfapply` ("Node function call/apply") for calling
 Node.js-style functions and getting back a promise:
 
 ```javascript
-return Q.nfcall(FS.readFile, &#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
-return Q.<span class="apidocCodeKeywordSpan">nfapply</span>(FS.readFile, [&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;]);
+return Q.nfcall(FS.readFile, "foo.txt", "utf-8");
+return Q.<span class="apidocCodeKeywordSpan">nfapply</span>(FS.readFile, ["foo.txt", "utf-8"]);
 ```
 
 If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
+run in to the usual problems where passing a method to another functionâ€”like
+`Q.nfcall`â€”"un-binds" the method from its owner. To avoid this, you can either
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 ...</pre></li>
     </ul>
@@ -9698,20 +9691,20 @@ use `Function.prototype.bind` or some nice shortcut methods we provide:
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-If you&#x27;re working with functions that make use of the Node.js callback pattern,
+If you're working with functions that make use of the Node.js callback pattern,
 where callbacks are in the form of `function(err, result)`, Q provides a few
 useful utility functions for converting between them. The most straightforward
-are probably `Q.nfcall` and `Q.nfapply` (&#x22;Node function call/apply&#x22;) for calling
+are probably `Q.nfcall` and `Q.nfapply` ("Node function call/apply") for calling
 Node.js-style functions and getting back a promise:
 
 ```javascript
-return Q.<span class="apidocCodeKeywordSpan">nfcall</span>(FS.readFile, &#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
-return Q.nfapply(FS.readFile, [&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;]);
+return Q.<span class="apidocCodeKeywordSpan">nfcall</span>(FS.readFile, "foo.txt", "utf-8");
+return Q.nfapply(FS.readFile, ["foo.txt", "utf-8"]);
 ```
 
 If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
+run in to the usual problems where passing a method to another functionâ€”like
+`Q.nfcall`â€”"un-binds" the method from its owner. To avoid this, you can either
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 ...</pre></li>
     </ul>
@@ -9734,19 +9727,19 @@ use `Function.prototype.bind` or some nice shortcut methods we provide:
     var nodeArgs = array_slice(arguments, 1);
     var deferred = defer();
     nodeArgs.push(deferred.makeNodeResolver());
-    this.dispatch(&#x22;post&#x22;, [name, nodeArgs]).fail(deferred.reject);
+    this.dispatch("post", [name, nodeArgs]).fail(deferred.reject);
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
 If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
+run in to the usual problems where passing a method to another functionâ€”like
+`Q.nfcall`â€”"un-binds" the method from its owner. To avoid this, you can either
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 
 ```javascript
-return Q.<span class="apidocCodeKeywordSpan">ninvoke</span>(redisClient, &#x22;get&#x22;, &#x22;user:1:id&#x22;);
-return Q.npost(redisClient, &#x22;get&#x22;, [&#x22;user:1:id&#x22;]);
+return Q.<span class="apidocCodeKeywordSpan">ninvoke</span>(redisClient, "get", "user:1:id");
+return Q.npost(redisClient, "get", ["user:1:id"]);
 ```
 
 You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
@@ -9822,25 +9815,25 @@ if (nodeback) {
     var nodeArgs = array_slice(args || []);
     var deferred = defer();
     nodeArgs.push(deferred.makeNodeResolver());
-    this.dispatch(&#x22;post&#x22;, [name, nodeArgs]).fail(deferred.reject);
+    this.dispatch("post", [name, nodeArgs]).fail(deferred.reject);
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
+run in to the usual problems where passing a method to another functionâ€”like
+`Q.nfcall`â€”"un-binds" the method from its owner. To avoid this, you can either
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 
 ```javascript
-return Q.ninvoke(redisClient, &#x22;get&#x22;, &#x22;user:1:id&#x22;);
-return Q.<span class="apidocCodeKeywordSpan">npost</span>(redisClient, &#x22;get&#x22;, [&#x22;user:1:id&#x22;]);
+return Q.ninvoke(redisClient, "get", "user:1:id");
+return Q.<span class="apidocCodeKeywordSpan">npost</span>(redisClient, "get", ["user:1:id"]);
 ```
 
 You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
 
 ```javascript
 var readFile = Q.denodeify(FS.readFile);
-return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
+return readFile("foo.txt", "utf-8");
 ...</pre></li>
     </ul>
 
@@ -9881,18 +9874,18 @@ return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">post = function (name, args) {
-    return this.dispatch(&#x22;post&#x22;, [name, args]);
+    return this.dispatch("post", [name, args]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
 ```
 direct manipulation         using a promise as a proxy
 --------------------------  -------------------------------
-value.foo                   promise.get(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.del(&#x22;foo&#x22;)
-value.foo(...args)          promise.<span class="apidocCodeKeywordSpan">post</span>(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
+value.foo                   promise.get("foo")
+value.foo = value           promise.put("foo", value)
+delete value.foo            promise.del("foo")
+value.foo(...args)          promise.<span class="apidocCodeKeywordSpan">post</span>("foo", [args])
+value.foo(...args)          promise.invoke("foo", ...args)
 value(...args)              promise.fapply([args])
 value(...args)              promise.fcall(...args)
 ```
@@ -9928,7 +9921,7 @@ called `progress`:
 
 ```javascript
 return uploadFile().<span class="apidocCodeKeywordSpan">progress</span>(function (progress) {
-    // We get notified of the upload&#x27;s progress
+    // We get notified of the upload's progress
 });
 ```
 
@@ -9973,7 +9966,7 @@ When you get to the end of a chain of promises, you should either
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">set = function (key, value) {
-    return this.dispatch(&#x22;set&#x22;, [key, value]);
+    return this.dispatch("set", [key, value]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 promise.resolve = Q; // ES6
@@ -10014,7 +10007,7 @@ return this;
     }, rejected);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-replacement for ``then``.  The ``spread`` function “spreads” the
+replacement for ``then``.  The ``spread`` function â€œspreadsâ€ the
 values over the arguments of the fulfillment handler.  The rejection handler
 will get called at the first sign of failure.  That is, whichever of
 the received promises fails first gets handled by the rejection handler.
@@ -10064,7 +10057,7 @@ Q.tap = function (promise, callback) {
 };
 
 /**
-* Works almost like &#x22;finally&#x22;, but not called for rejections.
+* Works almost like "finally", but not called for rejections.
 * Original resolution value is passed through callback unaffected.
 * Callback may return a promise that will be awaited for.
 * @param {Function} callback
@@ -10093,14 +10086,14 @@ Q.tap = function (promise, callback) {
 
     function _fulfilled(value) {
         try {
-            return typeof fulfilled === &#x22;function&#x22; ? fulfilled(value) : value;
+            return typeof fulfilled === "function" ? fulfilled(value) : value;
         } catch (exception) {
             return reject(exception);
         }
     }
 
     function _rejected(exception) {
-        if (typeof rejected === &#x22;function&#x22;) {
+        if (typeof rejected === "function") {
             makeStackTraceLong(exception, self);
             try {
                 return rejected(exception);
@@ -10112,7 +10105,7 @@ Q.tap = function (promise, callback) {
     }
 
     function _progressed(value) {
-        return typeof progressed === &#x22;function&#x22; ? progressed(value) : value;
+        return typeof progressed === "function" ? progressed(value) : value;
     }
 
     Q.nextTick(function () {
@@ -10123,7 +10116,7 @@ Q.tap = function (promise, callback) {
             done = true;
 
             deferred.resolve(_fulfilled(value));
-        }, &#x22;when&#x22;, [function (exception) {
+        }, "when", [function (exception) {
             if (done) {
                 return;
             }
@@ -10134,7 +10127,7 @@ Q.tap = function (promise, callback) {
     });
 
     // Progress propagator need to be attached in the current tick.
-    self.promiseDispatch(void 0, &#x22;when&#x22;, [void 0, function (value) {
+    self.promiseDispatch(void 0, "when", [void 0, function (value) {
         var newValue;
         var threw = false;
         try {
@@ -10203,10 +10196,10 @@ Q.thenReject = function (promise, reason) {
 };
 
 /**
-* If an object is not a promise, it is as &#x22;near&#x22; as possible.
-* If a promise is rejected, it is as &#x22;near&#x22; as possible too.
-* If it’s a fulfilled promise, the fulfillment value is nearer.
-* If it’s a deferred promise and the deferred has been resolved, the
+* If an object is not a promise, it is as "near" as possible.
+* If a promise is rejected, it is as "near" as possible too.
+* If itâ€™s a fulfilled promise, the fulfillment value is nearer.
+* If itâ€™s a deferred promise and the deferred has been resolved, the
 ...</pre></li>
     </ul>
 
@@ -10263,9 +10256,9 @@ Promise.prototype.tap = function (callback) {
     <li>description and source-code<pre class="apidocCodePre">timeout = function (ms, error) {
     var deferred = defer();
     var timeoutId = setTimeout(function () {
-        if (!error || &#x22;string&#x22; === typeof error) {
-            error = new Error(error || &#x22;Timed out after &#x22; + ms + &#x22; ms&#x22;);
-            error.code = &#x22;ETIMEDOUT&#x22;;
+        if (!error || "string" === typeof error) {
+            error = new Error(error || "Timed out after " + ms + " ms");
+            error.code = "ETIMEDOUT";
         }
         deferred.reject(error);
     }, ms);
@@ -10294,8 +10287,8 @@ return Q(object).<span class="apidocCodeKeywordSpan">timeout</span>(ms, error);
 Promise.prototype.timeout = function (ms, error) {
 var deferred = defer();
 var timeoutId = setTimeout(function () {
-    if (!error || &#x22;string&#x22; === typeof error) {
-        error = new Error(error || &#x22;Timed out after &#x22; + ms + &#x22; ms&#x22;);
+    if (!error || "string" === typeof error) {
+        error = new Error(error || "Timed out after " + ms + " ms");
 ...</pre></li>
     </ul>
 
@@ -10321,16 +10314,16 @@ var timeoutId = setTimeout(function () {
     }
 };
 
-if (typeof process === &#x22;object&#x22; &#x26;&#x26;
-    process.<span class="apidocCodeKeywordSpan">toString</span>() === &#x22;[object process]&#x22; &#x26;&#x26; process.nextTick
+if (typeof process === "object" &amp;&amp;
+    process.<span class="apidocCodeKeywordSpan">toString</span>() === "[object process]" &amp;&amp; process.nextTick
 ) {
     // Ensure Q is in a real Node environment, with a `process.nextTick`.
     // To see through fake Node environments:
     // * Mocha test runner - exposes a `process` global without a `nextTick`
     // * Browserify - exposes a `process.nexTick` function that uses
     //   `setTimeout`. In this case `setImmediate` is preferred because
-    //    it is faster. Browserify&#x27;s `process.toString()` yields
-    //   &#x22;[object Object]&#x22;, while in a real Node environment
+    //    it is faster. Browserify's `process.toString()` yields
+    //   "[object Object]", while in a real Node environment
 ...</pre></li>
     </ul>
 
@@ -10350,7 +10343,7 @@ if (typeof process === &#x22;object&#x22; &#x26;&#x26;
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function master(object) {
     return Promise({
-        &#x22;isDef&#x22;: function () {}
+        "isDef": function () {}
     }, function fallback(op, args) {
         return dispatch(object, op, args);
     }, function () {
@@ -10393,13 +10386,13 @@ You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
 
 ```javascript
 var readFile = Q.denodeify(FS.readFile);
-return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
+return readFile("foo.txt", "utf-8");
 
 var redisClientGet = Q.<span class="apidocCodeKeywordSpan">nbind</span>(redisClient.get, redisClient);
-return redisClientGet(&#x22;user:1:id&#x22;);
+return redisClientGet("user:1:id");
 ```
 
-Finally, if you&#x27;re working with raw deferred objects, there is a
+Finally, if you're working with raw deferred objects, there is a
 `makeNodeResolver` method on deferreds that can be handy:
 
 ```javascript
@@ -10423,7 +10416,7 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
     <li>description and source-code<pre class="apidocCodePre">function nearer(value) {
     if (isPromise(value)) {
         var inspected = value.inspect();
-        if (inspected.state === &#x22;fulfilled&#x22;) {
+        if (inspected.state === "fulfilled") {
             return inspected.value;
         }
     }
@@ -10449,7 +10442,7 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
     <li>description and source-code<pre class="apidocCodePre">nextTick = function (task) {
     tail = tail.next = {
         task: task,
-        domain: isNodeJS &#x26;&#x26; process.domain,
+        domain: isNodeJS &amp;&amp; process.domain,
         next: null
     };
 
@@ -10460,18 +10453,18 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
     //   `setTimeout`. In this case `setImmediate` is preferred because
-    //    it is faster. Browserify&#x27;s `process.toString()` yields
-    //   &#x22;[object Object]&#x22;, while in a real Node environment
-    //   `process.toString()` yields &#x22;[object process]&#x22;.
+    //    it is faster. Browserify's `process.toString()` yields
+    //   "[object Object]", while in a real Node environment
+    //   `process.toString()` yields "[object process]".
     isNodeJS = true;
 
     requestTick = function () {
         process.<span class="apidocCodeKeywordSpan">nextTick</span>(flush);
     };
 
-} else if (typeof setImmediate === &#x22;function&#x22;) {
+} else if (typeof setImmediate === "function") {
     // In IE10, Node.js 0.9+, or https://github.com/NobleJS/setImmediate
-    if (typeof window !== &#x22;undefined&#x22;) {
+    if (typeof window !== "undefined") {
         requestTick = setImmediate.bind(window, flush);
     } else {
 ...</pre></li>
@@ -10500,10 +10493,10 @@ function trackRejection(promise, reason) {
 if (!trackUnhandledRejections) {
     return;
 }
-if (typeof process === &#x22;object&#x22; &#x26;&#x26; typeof process.emit === &#x22;function&#x22;) {
+if (typeof process === "object" &amp;&amp; typeof process.emit === "function") {
     Q.nextTick.<span class="apidocCodeKeywordSpan">runAfter</span>(function () {
         if (array_indexOf(unhandledRejections, promise) !== -1) {
-            process.emit(&#x22;unhandledRejection&#x22;, reason, promise);
+            process.emit("unhandledRejection", reason, promise);
             reportedUnhandledRejections.push(promise);
         }
     });
@@ -10539,10 +10532,10 @@ function trackRejection(promise, reason) {
 if (!trackUnhandledRejections) {
     return;
 }
-if (typeof process === &#x22;object&#x22; &#x26;&#x26; typeof process.emit === &#x22;function&#x22;) {
+if (typeof process === "object" &amp;&amp; typeof process.emit === "function") {
     Q.nextTick.<span class="apidocCodeKeywordSpan">runAfter</span>(function () {
         if (array_indexOf(unhandledRejections, promise) !== -1) {
-            process.emit(&#x22;unhandledRejection&#x22;, reason, promise);
+            process.emit("unhandledRejection", reason, promise);
             reportedUnhandledRejections.push(promise);
         }
     });
@@ -10570,17 +10563,17 @@ if (typeof process === &#x22;object&#x22; &#x26;&#x26; typeof process.emit === &
     <li>example usage<pre class="apidocCodePre">...
 where callbacks are in the form of `function(err, result)`, Q provides a few
 useful utility functions for converting between them. The most straightforward
-are probably `Q.nfcall` and `Q.nfapply` (&#x22;Node function call/apply&#x22;) for calling
+are probably `Q.nfcall` and `Q.nfapply` ("Node function call/apply") for calling
 Node.js-style functions and getting back a promise:
 
 ```javascript
-return Q.nfcall(FS.readFile, &#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
-return Q.<span class="apidocCodeKeywordSpan">nfapply</span>(FS.readFile, [&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;]);
+return Q.nfcall(FS.readFile, "foo.txt", "utf-8");
+return Q.<span class="apidocCodeKeywordSpan">nfapply</span>(FS.readFile, ["foo.txt", "utf-8"]);
 ```
 
 If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
+run in to the usual problems where passing a method to another functionâ€”like
+`Q.nfcall`â€”"un-binds" the method from its owner. To avoid this, you can either
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 ...</pre></li>
     </ul>
@@ -10604,20 +10597,20 @@ use `Function.prototype.bind` or some nice shortcut methods we provide:
     return Q(callback).nfapply(args);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-If you&#x27;re working with functions that make use of the Node.js callback pattern,
+If you're working with functions that make use of the Node.js callback pattern,
 where callbacks are in the form of `function(err, result)`, Q provides a few
 useful utility functions for converting between them. The most straightforward
-are probably `Q.nfcall` and `Q.nfapply` (&#x22;Node function call/apply&#x22;) for calling
+are probably `Q.nfcall` and `Q.nfapply` ("Node function call/apply") for calling
 Node.js-style functions and getting back a promise:
 
 ```javascript
-return Q.<span class="apidocCodeKeywordSpan">nfcall</span>(FS.readFile, &#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
-return Q.nfapply(FS.readFile, [&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;]);
+return Q.<span class="apidocCodeKeywordSpan">nfcall</span>(FS.readFile, "foo.txt", "utf-8");
+return Q.nfapply(FS.readFile, ["foo.txt", "utf-8"]);
 ```
 
 If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
+run in to the usual problems where passing a method to another functionâ€”like
+`Q.nfcall`â€”"un-binds" the method from its owner. To avoid this, you can either
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 ...</pre></li>
     </ul>
@@ -10640,19 +10633,19 @@ use `Function.prototype.bind` or some nice shortcut methods we provide:
     var nodeArgs = array_slice(arguments, 2);
     var deferred = defer();
     nodeArgs.push(deferred.makeNodeResolver());
-    Q(object).dispatch(&#x22;post&#x22;, [name, nodeArgs]).fail(deferred.reject);
+    Q(object).dispatch("post", [name, nodeArgs]).fail(deferred.reject);
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
 If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
+run in to the usual problems where passing a method to another functionâ€”like
+`Q.nfcall`â€”"un-binds" the method from its owner. To avoid this, you can either
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 
 ```javascript
-return Q.<span class="apidocCodeKeywordSpan">ninvoke</span>(redisClient, &#x22;get&#x22;, &#x22;user:1:id&#x22;);
-return Q.npost(redisClient, &#x22;get&#x22;, [&#x22;user:1:id&#x22;]);
+return Q.<span class="apidocCodeKeywordSpan">ninvoke</span>(redisClient, "get", "user:1:id");
+return Q.npost(redisClient, "get", ["user:1:id"]);
 ```
 
 You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
@@ -10677,7 +10670,7 @@ var readFile = Q.denodeify(FS.readFile);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">noConflict = function () {
-    throw new Error(&#x22;Q.noConflict only works when Q is used as a global&#x22;);
+    throw new Error("Q.noConflict only works when Q is used as a global");
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -10737,20 +10730,20 @@ if (nodeback) {
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
+run in to the usual problems where passing a method to another functionâ€”like
+`Q.nfcall`â€”"un-binds" the method from its owner. To avoid this, you can either
 use `Function.prototype.bind` or some nice shortcut methods we provide:
 
 ```javascript
-return Q.ninvoke(redisClient, &#x22;get&#x22;, &#x22;user:1:id&#x22;);
-return Q.<span class="apidocCodeKeywordSpan">npost</span>(redisClient, &#x22;get&#x22;, [&#x22;user:1:id&#x22;]);
+return Q.ninvoke(redisClient, "get", "user:1:id");
+return Q.<span class="apidocCodeKeywordSpan">npost</span>(redisClient, "get", ["user:1:id"]);
 ```
 
 You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
 
 ```javascript
 var readFile = Q.denodeify(FS.readFile);
-return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
+return readFile("foo.txt", "utf-8");
 ...</pre></li>
     </ul>
 
@@ -10791,18 +10784,18 @@ return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">post = function (object, name, args) {
-    return Q(object).dispatch(&#x22;post&#x22;, [name, args]);
+    return Q(object).dispatch("post", [name, args]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
 ```
 direct manipulation         using a promise as a proxy
 --------------------------  -------------------------------
-value.foo                   promise.get(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.del(&#x22;foo&#x22;)
-value.foo(...args)          promise.<span class="apidocCodeKeywordSpan">post</span>(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
+value.foo                   promise.get("foo")
+value.foo = value           promise.put("foo", value)
+delete value.foo            promise.del("foo")
+value.foo(...args)          promise.<span class="apidocCodeKeywordSpan">post</span>("foo", [args])
+value.foo(...args)          promise.invoke("foo", ...args)
 value(...args)              promise.fapply([args])
 value(...args)              promise.fcall(...args)
 ```
@@ -10838,7 +10831,7 @@ called `progress`:
 
 ```javascript
 return uploadFile().<span class="apidocCodeKeywordSpan">progress</span>(function (progress) {
-    // We get notified of the upload&#x27;s progress
+    // We get notified of the upload's progress
 });
 ```
 
@@ -10915,8 +10908,8 @@ When you get to the end of a chain of promises, you should either
             ends.resolve = next.resolve;
         },
         get: function () {
-            var result = ends.promise.get(&#x22;head&#x22;);
-            ends.promise = ends.promise.get(&#x22;tail&#x22;);
+            var result = ends.promise.get("head");
+            ends.promise = ends.promise.get("tail");
             return result.fail(function (error) {
                 closed.resolve(error);
                 throw error;
@@ -10924,7 +10917,7 @@ When you get to the end of a chain of promises, you should either
         },
         closed: closed.promise,
         close: function (error) {
-            error = error || new Error(&#x22;Can&#x27;t get value from closed queue&#x22;);
+            error = error || new Error("Can't get value from closed queue");
             var end = {head: Q.reject(error)};
             end.tail = end;
             ends.resolve(end);
@@ -10956,7 +10949,7 @@ When you get to the end of a chain of promises, you should either
         //     Q(answerP).then(resolve, reject);
         // });
         // Use this in the meantime
-        for (var i = 0, len = answerPs.length; i &#x3c; len; i++) {
+        for (var i = 0, len = answerPs.length; i &lt; len; i++) {
             Q(answerPs[i]).then(resolve, reject);
         }
     });
@@ -10980,7 +10973,7 @@ When you get to the end of a chain of promises, you should either
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function reject(reason) {
     var rejection = Promise({
-        &#x22;when&#x22;: function (rejected) {
+        "when": function (rejected) {
             // note that the error has been handled
             if (rejected) {
                 untrackRejection(this);
@@ -10990,7 +10983,7 @@ When you get to the end of a chain of promises, you should either
     }, function fallback() {
         return this;
     }, function inspect() {
-        return { state: &#x22;rejected&#x22;, reason: reason };
+        return { state: "rejected", reason: reason };
     });
 
     // Note that the reason has not been handled.
@@ -11004,7 +10997,7 @@ friends). But much of the time, the solution will be to use *deferreds*.
 
 ```javascript
 var deferred = Q.defer();
-FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
+FS.readFile("foo.txt", "utf-8", function (error, text) {
     if (error) {
         deferred.<span class="apidocCodeKeywordSpan">reject</span>(new Error(error));
     } else {
@@ -11069,7 +11062,7 @@ return deferred.promise;
  *      Q.<span class="apidocCodeKeywordSpan">return</span>(foo + bar);
  * })
  */
-Q[&#x22;return&#x22;] = _return;
+Q["return"] = _return;
 function _return(value) {
     throw new QReturnValue(value);
 }
@@ -11091,7 +11084,7 @@ function _return(value) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">set = function (object, key, value) {
-    return Q(object).dispatch(&#x22;set&#x22;, [key, value]);
+    return Q(object).dispatch("set", [key, value]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 promise.resolve = Q; // ES6
@@ -11150,7 +11143,7 @@ return this;
     return Q(value).spread(fulfilled, rejected);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-replacement for ``then``.  The ``spread`` function “spreads” the
+replacement for ``then``.  The ``spread`` function â€œspreadsâ€ the
 values over the arguments of the fulfillment handler.  The rejection handler
 will get called at the first sign of failure.  That is, whichever of
 the received promises fails first gets handled by the rejection handler.
@@ -11217,7 +11210,7 @@ Q.tap = function (promise, callback) {
 };
 
 /**
-* Works almost like &#x22;finally&#x22;, but not called for rejections.
+* Works almost like "finally", but not called for rejections.
 * Original resolution value is passed through callback unaffected.
 * Callback may return a promise that will be awaited for.
 * @param {Function} callback
@@ -11253,10 +11246,10 @@ Q.thenReject = function (promise, reason) {
 };
 
 /**
-* If an object is not a promise, it is as &#x22;near&#x22; as possible.
-* If a promise is rejected, it is as &#x22;near&#x22; as possible too.
-* If it’s a fulfilled promise, the fulfillment value is nearer.
-* If it’s a deferred promise and the deferred has been resolved, the
+* If an object is not a promise, it is as "near" as possible.
+* If a promise is rejected, it is as "near" as possible too.
+* If itâ€™s a fulfilled promise, the fulfillment value is nearer.
+* If itâ€™s a deferred promise and the deferred has been resolved, the
 ...</pre></li>
     </ul>
 
@@ -11327,8 +11320,8 @@ return Q(object).<span class="apidocCodeKeywordSpan">timeout</span>(ms, error);
 Promise.prototype.timeout = function (ms, error) {
 var deferred = defer();
 var timeoutId = setTimeout(function () {
-    if (!error || &#x22;string&#x22; === typeof error) {
-        error = new Error(error || &#x22;Timed out after &#x22; + ms + &#x22; ms&#x22;);
+    if (!error || "string" === typeof error) {
+        error = new Error(error || "Timed out after " + ms + " ms");
 ...</pre></li>
     </ul>
 
@@ -11354,16 +11347,16 @@ var timeoutId = setTimeout(function () {
     }
 };
 
-if (typeof process === &#x22;object&#x22; &#x26;&#x26;
-    process.<span class="apidocCodeKeywordSpan">toString</span>() === &#x22;[object process]&#x22; &#x26;&#x26; process.nextTick
+if (typeof process === "object" &amp;&amp;
+    process.<span class="apidocCodeKeywordSpan">toString</span>() === "[object process]" &amp;&amp; process.nextTick
 ) {
     // Ensure Q is in a real Node environment, with a `process.nextTick`.
     // To see through fake Node environments:
     // * Mocha test runner - exposes a `process` global without a `nextTick`
     // * Browserify - exposes a `process.nexTick` function that uses
     //   `setTimeout`. In this case `setImmediate` is preferred because
-    //    it is faster. Browserify&#x27;s `process.toString()` yields
-    //   &#x22;[object Object]&#x22;, while in a real Node environment
+    //    it is faster. Browserify's `process.toString()` yields
+    //   "[object Object]", while in a real Node environment
 ...</pre></li>
     </ul>
 
@@ -11394,7 +11387,7 @@ function timeout(promise, ms) {
     var deferred = Q.defer();
     Q.<span class="apidocCodeKeywordSpan">when</span>(promise, deferred.resolve);
     delay(ms).then(function () {
-        deferred.reject(new Error(&#x22;Timed out&#x22;));
+        deferred.reject(new Error("Timed out"));
     });
     return deferred.promise;
 }
@@ -11411,3 +11404,4 @@ function timeout(promise, ms) {
     ]
 </div>
 </div>
+</body></html>
