@@ -2014,21 +2014,21 @@ request.send();
     });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
+- Deprecated ``ref`` in favor of ``resolve`` as recommended by
+  @domenic.
+- Update event-queue dependency.
 
-### Combination
+## 0.8.1
 
-You can turn an array of promises into a promise for the whole,
-fulfilled array using ``all``.
+- Fixed Opera bug. #35 @cadorn
+- Fixed ``Q.<span class="apidocCodeKeywordSpan">all</span>([])`` #32 @domenic
 
-```javascript
-return Q.<span class="apidocCodeKeywordSpan">all</span>([
-    eventualAdd(2, 2),
-    eventualAdd(10, 20)
-]);
-```
+## 0.8.0
 
-If you have a promise for an array, you can use ``spread`` as a
-replacement for ``then``.  The ``spread`` function “spreads” the
+- WARNING: ``enqueue`` removed.  Use ``nextTick`` instead.
+  This is more consistent with NodeJS and (subjectively)
+  more explicit and intuitive.
+- WARNING: ``def`` removed.  Use ``master`` instead.  The
 ...</pre></li>
     </ul>
 
@@ -2065,21 +2065,21 @@ replacement for ``then``.  The ``spread`` function “spreads” the
     return Q(promises).allSettled();
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-promise is fulfilled, the array contains the fulfillment values of the original
-promises, in the same order as those promises.  If one of the given promises
-is rejected, the returned promise is immediately rejected, not waiting for the
-rest of the batch.  If you want to wait for all of the promises to either be
-fulfilled or rejected, you can use ``allSettled``.
+};
 
-```javascript
-Q.<span class="apidocCodeKeywordSpan">allSettled</span>(promises)
-.then(function (results) {
-results.forEach(function (result) {
-    if (result.state === &#x22;fulfilled&#x22;) {
-        var value = result.value;
-    } else {
-        var reason = result.reason;
-    }
+/**
+* @see Promise#allSettled
+*/
+Q.allSettled = allSettled;
+function allSettled(promises) {
+   return Q(promises).<span class="apidocCodeKeywordSpan">allSettled</span>();
+}
+
+/**
+* Turns an array of promises into a promise for an array of their states (as
+* returned by `inspect`) when they have all settled.
+* @param {Array[Any*]} values an array (or promise for an array) of values (or
+* promises for values)
 ...</pre></li>
     </ul>
 
@@ -2127,20 +2127,21 @@ results.forEach(function (result) {
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-```
 
-The ``any`` function accepts an array of promises and returns a promise that is
-fulfilled by the first given promise to be fulfilled, or rejected if all of the
-given promises are rejected.
+## 1.2.1
 
-```javascript
-Q.<span class="apidocCodeKeywordSpan">any</span>(promises)
-.then(function (first) {
-    // Any of the promises was fulfilled.
-}, function (error) {
-    // All of the promises were rejected.
-});
-```
+- Fix Node.js environment detection for modern Browserify (@kahnjw).
+
+## 1.2.0
+
+- Added Q.<span class="apidocCodeKeywordSpan">any</span>(promisesArray) method (@vergara).
+  Returns a promise fulfilled with the value of the first resolved promise in
+  promisesArray. If all promises in promisesArray are rejected, it returns
+  a rejected promise.
+
+## 1.1.2
+
+- Removed extraneous files from the npm package by using the &#x22;files&#x22;
 ...</pre></li>
     </ul>
 
@@ -2381,21 +2382,21 @@ With this approach, you also get implicit error propagation, just like `try`,
     return deferred;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-#### Using Deferreds
+Q.any = any;
 
-If you have to interface with asynchronous functions that are callback-based
-instead of promise-based, Q provides a few shortcuts (like ``Q.nfcall`` and
-friends). But much of the time, the solution will be to use *deferreds*.
-
-```javascript
-var deferred = Q.<span class="apidocCodeKeywordSpan">defer</span>();
-FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
-    if (error) {
-        deferred.reject(new Error(error));
-    } else {
-        deferred.resolve(text);
+function any(promises) {
+    if (promises.length === 0) {
+return Q.resolve();
     }
-});
+
+    var deferred = Q.<span class="apidocCodeKeywordSpan">defer</span>();
+    var pendingCount = 0;
+    array_reduce(promises, function (prev, current, index) {
+var promise = promises[index];
+
+pendingCount++;
+
+when(promise, onFulfilled, onRejected, onProgress);
 ...</pre></li>
     </ul>
 
@@ -2447,20 +2448,21 @@ If the promise is a proxy for a remote object, you can shave
     return Q(object).delay(timeout);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-
-Q comes with optional support for “long stack traces,” wherein the `stack`
-property of `Error` rejection reasons is rewritten to be traced along
-asynchronous jumps instead of stopping at the most recent one. As an example:
-
-```js
-function theDepthsOfMyProgram() {
-  Q.<span class="apidocCodeKeywordSpan">delay</span>(100).done(function explode() {
-    throw new Error(&#x22;boo!&#x22;);
-  });
+ * If the given promise rejects, that is passed immediately.
+ */
+Q.delay = function (object, timeout) {
+if (timeout === void 0) {
+    timeout = object;
+    object = void 0;
 }
+return Q(object).<span class="apidocCodeKeywordSpan">delay</span>(timeout);
+};
 
-theDepthsOfMyProgram();
-```
+Promise.prototype.delay = function (timeout) {
+return this.then(function (value) {
+    var deferred = defer();
+    setTimeout(function () {
+        deferred.resolve(value);
 ...</pre></li>
     </ul>
 
@@ -2564,20 +2566,21 @@ Q.nextTick(function () {
     return Q(object).done(fulfilled, rejected, progress);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-.then(promisedStep4)
-.then(function (value4) {
-    // Do something with value4
-})
-.catch(function (error) {
-    // Handle any error from all above steps
-})
-.<span class="apidocCodeKeywordSpan">done</span>();
-```
+* calls the generator and also ends the promise chain, so that any
+* unhandled errors are thrown instead of forwarded to the error
+* handler. This is useful because it&#x27;s extremely common to run
+* generators at the top-level to work with libraries.
+*/
+Q.spawn = spawn;
+function spawn(makeGenerator) {
+   Q.<span class="apidocCodeKeywordSpan">done</span>(Q.async(makeGenerator)());
+}
 
-With this approach, you also get implicit error propagation, just like `try`,
-`catch`, and `finally`.  An error in `promisedStep1` will flow all the way to
-the `catch` function, where it’s caught and handled.  (Here `promisedStepN` is
-a version of `stepN` that returns a promise.)
+// FIXME: Remove this interface once ES6 generators are in SpiderMonkey.
+/**
+* Throws a ReturnValue exception to stop an asynchronous generator.
+*
+* This interface is a stop-gap measure to support generator return
 ...</pre></li>
     </ul>
 
@@ -2594,21 +2597,21 @@ a version of `stepN` that returns a promise.)
     return Q(object).then(void 0, rejected);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-```
+   return Q(callback).nfapply(args);
+};
 
-Q promises provide a ``fail`` shorthand for ``then`` when you are only
-interested in handling the error:
+Promise.prototype.nfapply = function (args) {
+   var deferred = defer();
+   var nodeArgs = array_slice(args);
+   nodeArgs.push(deferred.makeNodeResolver());
+   this.fapply(nodeArgs).<span class="apidocCodeKeywordSpan">fail</span>(deferred.reject);
+   return deferred.promise;
+};
 
-```javascript
-var outputPromise = getInputPromise()
-.<span class="apidocCodeKeywordSpan">fail</span>(function (error) {
-});
-```
-
-If you are writing JavaScript for modern engines only or using
-CoffeeScript, you may use `catch` instead of `fail`.
-
-Promises also have a ``fin`` function that is like a ``finally`` clause.
+/**
+* Passes a continuation to a Node function, which is called with the given
+* arguments provided individually, and returns a promise.
+* @example
 ...</pre></li>
     </ul>
 
@@ -2625,20 +2628,21 @@ Promises also have a ``fin`` function that is like a ``finally`` clause.
     return Q(object).dispatch(&#x22;apply&#x22;, [void 0, args]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-direct manipulation         using a promise as a proxy
---------------------------  -------------------------------
-value.foo                   promise.get(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.del(&#x22;foo&#x22;)
-value.foo(...args)          promise.post(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
-value(...args)              promise.<span class="apidocCodeKeywordSpan">fapply</span>([args])
-value(...args)              promise.fcall(...args)
-```
+   return Q(callback).nfapply(args);
+};
 
-If the promise is a proxy for a remote object, you can shave
-round-trips by using these functions instead of ``then``.  To take
-advantage of promises for remote objects, check out [Q-Connection][].
+Promise.prototype.nfapply = function (args) {
+   var deferred = defer();
+   var nodeArgs = array_slice(args);
+   nodeArgs.push(deferred.makeNodeResolver());
+   this.<span class="apidocCodeKeywordSpan">fapply</span>(nodeArgs).fail(deferred.reject);
+   return deferred.promise;
+};
+
+/**
+* Passes a continuation to a Node function, which is called with the given
+* arguments provided individually, and returns a promise.
+* @example
 ...</pre></li>
     </ul>
 
@@ -2677,21 +2681,21 @@ advantage of promises for remote objects, check out [Q-Connection][].
     return Q(object).dispatch(&#x22;apply&#x22;, [void 0, array_slice(arguments, 1)]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-    });
-});
-```
+*   .tap(console.log)
+*   .then(...);
+*/
+Promise.prototype.tap = function (callback) {
+   callback = Q(callback);
 
-With a promise library, you can flatten the pyramid.
+   return this.then(function (value) {
+       return callback.<span class="apidocCodeKeywordSpan">fcall</span>(value).thenResolve(value);
+   });
+};
 
-```javascript
-Q.<span class="apidocCodeKeywordSpan">fcall</span>(promisedStep1)
-.then(promisedStep2)
-.then(promisedStep3)
-.then(promisedStep4)
-.then(function (value4) {
-    // Do something with value4
-})
-.catch(function (error) {
+/**
+* Registers an observer on a promise.
+*
+* Guarantees:
 ...</pre></li>
     </ul>
 
@@ -2799,21 +2803,21 @@ var outputPromise = getInputPromise()
     return Q(object).dispatch(&#x22;get&#x22;, [key]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-object.  There are methods that allow you to optimistically manipulate
-properties or call functions.  All of these interactions return
-promises, so they can be chained.
 
-```
-direct manipulation         using a promise as a proxy
---------------------------  -------------------------------
-value.foo                   promise.<span class="apidocCodeKeywordSpan">get</span>(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.del(&#x22;foo&#x22;)
-value.foo(...args)          promise.post(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
-value(...args)              promise.fapply([args])
-value(...args)              promise.fcall(...args)
-```
+- WARNING: ``enqueue`` removed.  Use ``nextTick`` instead.
+  This is more consistent with NodeJS and (subjectively)
+  more explicit and intuitive.
+- WARNING: ``def`` removed.  Use ``master`` instead.  The
+  term ``def`` was too confusing to new users.
+- WARNING: ``spy`` removed in favor of ``fin``.
+- WARNING: ``wait`` removed. Do ``all(args).<span class="apidocCodeKeywordSpan">get</span>(0)`` instead.
+- WARNING: ``join`` removed. Do ``all(args).spread(callback)`` instead.
+- WARNING: Removed the ``Q`` function module.exports alias
+  for ``Q.ref``. It conflicts with ``Q.apply`` in weird
+  ways, making it uncallable.
+- Revised ``delay`` so that it accepts both ``(value,
+  timeout)`` and ``(timeout)`` variations based on
+  arguments length.
 ...</pre></li>
     </ul>
 
@@ -3216,20 +3220,21 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
     return Q(callback).nfapply(args);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-where callbacks are in the form of `function(err, result)`, Q provides a few
-useful utility functions for converting between them. The most straightforward
-are probably `Q.nfcall` and `Q.nfapply` (&#x22;Node function call/apply&#x22;) for calling
-Node.js-style functions and getting back a promise:
+    });
+};
 
-```javascript
-return Q.nfcall(FS.readFile, &#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
-return Q.<span class="apidocCodeKeywordSpan">nfapply</span>(FS.readFile, [&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;]);
-```
-
-If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
-use `Function.prototype.bind` or some nice shortcut methods we provide:
+/**
+ * Passes a continuation to a Node function, which is called with the given
+ * arguments provided as an array, and returns a promise.
+ *
+ *      Q.<span class="apidocCodeKeywordSpan">nfapply</span>(FS.readFile, [__filename])
+ *      .then(function (content) {
+ *      })
+ *
+ */
+Q.nfapply = function (callback, args) {
+    return Q(callback).nfapply(args);
+};
 ...</pre></li>
     </ul>
 
@@ -3288,21 +3293,21 @@ if (callback === undefined) {
     return Q(callback).nfapply(args);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-If you&#x27;re working with functions that make use of the Node.js callback pattern,
-where callbacks are in the form of `function(err, result)`, Q provides a few
-useful utility functions for converting between them. The most straightforward
-are probably `Q.nfcall` and `Q.nfapply` (&#x22;Node function call/apply&#x22;) for calling
-Node.js-style functions and getting back a promise:
+return deferred.promise;
+};
 
-```javascript
-return Q.<span class="apidocCodeKeywordSpan">nfcall</span>(FS.readFile, &#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
-return Q.nfapply(FS.readFile, [&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;]);
-```
-
-If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
-use `Function.prototype.bind` or some nice shortcut methods we provide:
+/**
+ * Passes a continuation to a Node function, which is called with the given
+ * arguments provided individually, and returns a promise.
+ * @example
+ * Q.<span class="apidocCodeKeywordSpan">nfcall</span>(FS.readFile, __filename)
+ * .then(function (content) {
+ * })
+ *
+ */
+Q.nfcall = function (callback /*...args*/) {
+var args = array_slice(arguments, 1);
+return Q(callback).nfapply(args);
 ...</pre></li>
     </ul>
 
@@ -3434,21 +3439,21 @@ if (nodeback) {
     return Q(object).npost(name, args);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
-use `Function.prototype.bind` or some nice shortcut methods we provide:
+ * @param {String} name name of the method of object
+ * @param {Array} args arguments to pass to the method; the callback
+ * will be provided by Q and appended to these arguments.
+ * @returns a promise for the value or error
+ */
+Q.nmapply = // XXX As proposed by &#x22;Redsandro&#x22;
+Q.npost = function (object, name, args) {
+return Q(object).<span class="apidocCodeKeywordSpan">npost</span>(name, args);
+};
 
-```javascript
-return Q.ninvoke(redisClient, &#x22;get&#x22;, &#x22;user:1:id&#x22;);
-return Q.<span class="apidocCodeKeywordSpan">npost</span>(redisClient, &#x22;get&#x22;, [&#x22;user:1:id&#x22;]);
-```
-
-You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
-
-```javascript
-var readFile = Q.denodeify(FS.readFile);
-return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
+Promise.prototype.nmapply = // XXX As proposed by &#x22;Redsandro&#x22;
+Promise.prototype.npost = function (name, args) {
+var nodeArgs = array_slice(args || []);
+var deferred = defer();
+nodeArgs.push(deferred.makeNodeResolver());
 ...</pre></li>
     </ul>
 
@@ -3532,21 +3537,21 @@ round-trips by using these functions instead of ``then``.  To take
     return Q(object).then(void 0, void 0, progressed);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-});
-```
+  promise.
 
-Like `fail`, Q also provides a shorthand for progress callbacks
-called `progress`:
+## 0.8.9
 
-```javascript
-return uploadFile().<span class="apidocCodeKeywordSpan">progress</span>(function (progress) {
-    // We get notified of the upload&#x27;s progress
-});
-```
+- Added ``nend``
+- Added preliminary progress notification support, via
+  ``promise.then(onFulfilled, onRejected, onProgress)``,
+  ``promise.<span class="apidocCodeKeywordSpan">progress</span>(onProgress)``, and ``deferred.notify(...progressData)``.
+- Made ``put`` and ``del`` return the object acted upon for easier chaining.
+  #84
+- Fixed coercion cycles with cooperating promises. #106
 
-### The End
+## 0.8.7
 
-When you get to the end of a chain of promises, you should either
+- Support [Montage Require](http://github.com/kriskowal/mr)
 ...</pre></li>
     </ul>
 
@@ -3571,7 +3576,23 @@ When you get to the end of a chain of promises, you should either
     }
     return deferred.promise;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  and the message now includes the duration of the timeout in
+  miliseconds.  This doesn&#x27;t constitute (in my opinion) a
+  backward-incompatibility since it is a change of an undocumented and
+  unspecified public behavior, but if you happened to depend on the
+  exception being a string, you will need to revise your code.
+- Added ``deferred.makeNodeResolver()`` to replace the more cryptic
+  ``deferred.node()`` method.
+- Added experimental ``Q.<span class="apidocCodeKeywordSpan">promise</span>(maker(resolve, reject))`` to make a
+  promise inside a callback, such that thrown exceptions in the
+  callback are converted and the resolver and rejecter are arguments.
+  This is a shorthand for making a deferred directly and inspired by
+  @gozala’s stream constructor pattern and the Microsoft Windows Metro
+  Promise constructor interface.
+- Added experimental ``Q.begin()`` that is intended to kick off chains
+  of ``.then`` so that each of these can be reordered without having to
+...</pre></li>
     </ul>
 
 
@@ -3663,20 +3684,21 @@ When you get to the end of a chain of promises, you should either
     return rejection;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-instead of promise-based, Q provides a few shortcuts (like ``Q.nfcall`` and
-friends). But much of the time, the solution will be to use *deferreds*.
-
-```javascript
-var deferred = Q.defer();
-FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
-    if (error) {
-        deferred.<span class="apidocCodeKeywordSpan">reject</span>(new Error(error));
-    } else {
-        deferred.resolve(text);
-    }
-});
-return deferred.promise;
-```
+ * promise.
+ * @returns a nodeback
+ */
+defer.prototype.makeNodeResolver = function () {
+    var self = this;
+    return function (error, value) {
+        if (error) {
+            self.<span class="apidocCodeKeywordSpan">reject</span>(error);
+        } else if (arguments.length &#x3e; 2) {
+            self.resolve(array_slice(arguments, 1));
+        } else {
+            self.resolve(value);
+        }
+    };
+};
 ...</pre></li>
     </ul>
 
@@ -3725,21 +3747,21 @@ return deferred.promise;
     }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
+ */
+defer.prototype.makeNodeResolver = function () {
+    var self = this;
+    return function (error, value) {
+        if (error) {
+            self.reject(error);
+        } else if (arguments.length &#x3e; 2) {
+            self.<span class="apidocCodeKeywordSpan">resolve</span>(array_slice(arguments, 1));
+        } else {
+            self.resolve(value);
+        }
+    };
+};
 
-```javascript
-var deferred = Q.defer();
-FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
-    if (error) {
-        deferred.reject(new Error(error));
-    } else {
-        deferred.<span class="apidocCodeKeywordSpan">resolve</span>(text);
-    }
-});
-return deferred.promise;
-```
-
-Note that a deferred can be resolved with a value or a promise.  The
-``reject`` function is a shorthand for resolving with a rejected
+/**
 ...</pre></li>
     </ul>
 
@@ -3863,20 +3885,21 @@ return this;
     return Q(value).spread(fulfilled, rejected);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-replacement for ``then``.  The ``spread`` function “spreads” the
-values over the arguments of the fulfillment handler.  The rejection handler
-will get called at the first sign of failure.  That is, whichever of
-the received promises fails first gets handled by the rejection handler.
-
-```javascript
-function eventualAdd(a, b) {
-    return Q.<span class="apidocCodeKeywordSpan">spread</span>([a, b], function (a, b) {
-        return a + b;
-    })
-}
-```
-
-But ``spread`` calls ``all`` initially, so you can skip it in chains.
+- WARNING: ``enqueue`` removed.  Use ``nextTick`` instead.
+  This is more consistent with NodeJS and (subjectively)
+  more explicit and intuitive.
+- WARNING: ``def`` removed.  Use ``master`` instead.  The
+  term ``def`` was too confusing to new users.
+- WARNING: ``spy`` removed in favor of ``fin``.
+- WARNING: ``wait`` removed. Do ``all(args).get(0)`` instead.
+- WARNING: ``join`` removed. Do ``all(args).<span class="apidocCodeKeywordSpan">spread</span>(callback)`` instead.
+- WARNING: Removed the ``Q`` function module.exports alias
+  for ``Q.ref``. It conflicts with ``Q.apply`` in weird
+  ways, making it uncallable.
+- Revised ``delay`` so that it accepts both ``(value,
+  timeout)`` and ``(timeout)`` variations based on
+  arguments length.
+- Added ``ref().spread(cb(...args))``, a variant of
 ...</pre></li>
     </ul>
 
@@ -4158,21 +4181,21 @@ request.send();
     });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
+- Deprecated ``ref`` in favor of ``resolve`` as recommended by
+  @domenic.
+- Update event-queue dependency.
 
-### Combination
+## 0.8.1
 
-You can turn an array of promises into a promise for the whole,
-fulfilled array using ``all``.
+- Fixed Opera bug. #35 @cadorn
+- Fixed ``Q.<span class="apidocCodeKeywordSpan">all</span>([])`` #32 @domenic
 
-```javascript
-return Q.<span class="apidocCodeKeywordSpan">all</span>([
-    eventualAdd(2, 2),
-    eventualAdd(10, 20)
-]);
-```
+## 0.8.0
 
-If you have a promise for an array, you can use ``spread`` as a
-replacement for ``then``.  The ``spread`` function “spreads” the
+- WARNING: ``enqueue`` removed.  Use ``nextTick`` instead.
+  This is more consistent with NodeJS and (subjectively)
+  more explicit and intuitive.
+- WARNING: ``def`` removed.  Use ``master`` instead.  The
 ...</pre></li>
     </ul>
 
@@ -4230,20 +4253,21 @@ replacement for ``then``.  The ``spread`` function “spreads” the
     return rejection;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-instead of promise-based, Q provides a few shortcuts (like ``Q.nfcall`` and
-friends). But much of the time, the solution will be to use *deferreds*.
-
-```javascript
-var deferred = Q.defer();
-FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
-    if (error) {
-        deferred.<span class="apidocCodeKeywordSpan">reject</span>(new Error(error));
-    } else {
-        deferred.resolve(text);
-    }
-});
-return deferred.promise;
-```
+ * promise.
+ * @returns a nodeback
+ */
+defer.prototype.makeNodeResolver = function () {
+    var self = this;
+    return function (error, value) {
+        if (error) {
+            self.<span class="apidocCodeKeywordSpan">reject</span>(error);
+        } else if (arguments.length &#x3e; 2) {
+            self.resolve(array_slice(arguments, 1));
+        } else {
+            self.resolve(value);
+        }
+    };
+};
 ...</pre></li>
     </ul>
 
@@ -4272,21 +4296,21 @@ return deferred.promise;
     }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
+ */
+defer.prototype.makeNodeResolver = function () {
+    var self = this;
+    return function (error, value) {
+        if (error) {
+            self.reject(error);
+        } else if (arguments.length &#x3e; 2) {
+            self.<span class="apidocCodeKeywordSpan">resolve</span>(array_slice(arguments, 1));
+        } else {
+            self.resolve(value);
+        }
+    };
+};
 
-```javascript
-var deferred = Q.defer();
-FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
-    if (error) {
-        deferred.reject(new Error(error));
-    } else {
-        deferred.<span class="apidocCodeKeywordSpan">resolve</span>(text);
-    }
-});
-return deferred.promise;
-```
-
-Note that a deferred can be resolved with a value or a promise.  The
-``reject`` function is a shorthand for resolving with a rejected
+/**
 ...</pre></li>
     </ul>
 
@@ -4425,21 +4449,21 @@ Note that a deferred can be resolved with a value or a promise.  The
     return deferred;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-#### Using Deferreds
+Q.any = any;
 
-If you have to interface with asynchronous functions that are callback-based
-instead of promise-based, Q provides a few shortcuts (like ``Q.nfcall`` and
-friends). But much of the time, the solution will be to use *deferreds*.
-
-```javascript
-var deferred = Q.<span class="apidocCodeKeywordSpan">defer</span>();
-FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
-    if (error) {
-        deferred.reject(new Error(error));
-    } else {
-        deferred.resolve(text);
+function any(promises) {
+    if (promises.length === 0) {
+return Q.resolve();
     }
-});
+
+    var deferred = Q.<span class="apidocCodeKeywordSpan">defer</span>();
+    var pendingCount = 0;
+    array_reduce(promises, function (prev, current, index) {
+var promise = promises[index];
+
+pendingCount++;
+
+when(promise, onFulfilled, onRejected, onProgress);
 ...</pre></li>
     </ul>
 
@@ -4470,21 +4494,21 @@ FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
     };
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-```
 
-Finally, if you&#x27;re working with raw deferred objects, there is a
-`makeNodeResolver` method on deferreds that can be handy:
-
-```javascript
-var deferred = Q.defer();
-FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, deferred.<span class="apidocCodeKeywordSpan">makeNodeResolver</span>());
-return deferred.promise;
-```
-
-### Long Stack Traces
-
-Q comes with optional support for “long stack traces,” wherein the `stack`
-property of `Error` rejection reasons is rewritten to be traced along
+- WARNING: ``promise.timeout`` is now rejected with an ``Error`` object
+  and the message now includes the duration of the timeout in
+  miliseconds.  This doesn&#x27;t constitute (in my opinion) a
+  backward-incompatibility since it is a change of an undocumented and
+  unspecified public behavior, but if you happened to depend on the
+  exception being a string, you will need to revise your code.
+- Added ``deferred.<span class="apidocCodeKeywordSpan">makeNodeResolver</span>()`` to replace the more cryptic
+  ``deferred.node()`` method.
+- Added experimental ``Q.promise(maker(resolve, reject))`` to make a
+  promise inside a callback, such that thrown exceptions in the
+  callback are converted and the resolver and rejecter are arguments.
+  This is a shorthand for making a deferred directly and inspired by
+  @gozala’s stream constructor pattern and the Microsoft Windows Metro
+  Promise constructor interface.
 ...</pre></li>
     </ul>
 
@@ -4576,21 +4600,21 @@ property of `Error` rejection reasons is rewritten to be traced along
     return all(this);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
+- Deprecated ``ref`` in favor of ``resolve`` as recommended by
+  @domenic.
+- Update event-queue dependency.
 
-### Combination
+## 0.8.1
 
-You can turn an array of promises into a promise for the whole,
-fulfilled array using ``all``.
+- Fixed Opera bug. #35 @cadorn
+- Fixed ``Q.<span class="apidocCodeKeywordSpan">all</span>([])`` #32 @domenic
 
-```javascript
-return Q.<span class="apidocCodeKeywordSpan">all</span>([
-    eventualAdd(2, 2),
-    eventualAdd(10, 20)
-]);
-```
+## 0.8.0
 
-If you have a promise for an array, you can use ``spread`` as a
-replacement for ``then``.  The ``spread`` function “spreads” the
+- WARNING: ``enqueue`` removed.  Use ``nextTick`` instead.
+  This is more consistent with NodeJS and (subjectively)
+  more explicit and intuitive.
+- WARNING: ``def`` removed.  Use ``master`` instead.  The
 ...</pre></li>
     </ul>
 
@@ -4630,21 +4654,21 @@ replacement for ``then``.  The ``spread`` function “spreads” the
     });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-promise is fulfilled, the array contains the fulfillment values of the original
-promises, in the same order as those promises.  If one of the given promises
-is rejected, the returned promise is immediately rejected, not waiting for the
-rest of the batch.  If you want to wait for all of the promises to either be
-fulfilled or rejected, you can use ``allSettled``.
+};
 
-```javascript
-Q.<span class="apidocCodeKeywordSpan">allSettled</span>(promises)
-.then(function (results) {
-results.forEach(function (result) {
-    if (result.state === &#x22;fulfilled&#x22;) {
-        var value = result.value;
-    } else {
-        var reason = result.reason;
-    }
+/**
+* @see Promise#allSettled
+*/
+Q.allSettled = allSettled;
+function allSettled(promises) {
+   return Q(promises).<span class="apidocCodeKeywordSpan">allSettled</span>();
+}
+
+/**
+* Turns an array of promises into a promise for an array of their states (as
+* returned by `inspect`) when they have all settled.
+* @param {Array[Any*]} values an array (or promise for an array) of values (or
+* promises for values)
 ...</pre></li>
     </ul>
 
@@ -4661,20 +4685,21 @@ results.forEach(function (result) {
     return any(this);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-```
 
-The ``any`` function accepts an array of promises and returns a promise that is
-fulfilled by the first given promise to be fulfilled, or rejected if all of the
-given promises are rejected.
+## 1.2.1
 
-```javascript
-Q.<span class="apidocCodeKeywordSpan">any</span>(promises)
-.then(function (first) {
-    // Any of the promises was fulfilled.
-}, function (error) {
-    // All of the promises were rejected.
-});
-```
+- Fix Node.js environment detection for modern Browserify (@kahnjw).
+
+## 1.2.0
+
+- Added Q.<span class="apidocCodeKeywordSpan">any</span>(promisesArray) method (@vergara).
+  Returns a promise fulfilled with the value of the first resolved promise in
+  promisesArray. If all promises in promisesArray are rejected, it returns
+  a rejected promise.
+
+## 1.1.2
+
+- Removed extraneous files from the npm package by using the &#x22;files&#x22;
 ...</pre></li>
     </ul>
 
@@ -4759,20 +4784,21 @@ If the promise is a proxy for a remote object, you can shave
     });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-
-Q comes with optional support for “long stack traces,” wherein the `stack`
-property of `Error` rejection reasons is rewritten to be traced along
-asynchronous jumps instead of stopping at the most recent one. As an example:
-
-```js
-function theDepthsOfMyProgram() {
-  Q.<span class="apidocCodeKeywordSpan">delay</span>(100).done(function explode() {
-    throw new Error(&#x22;boo!&#x22;);
-  });
+ * If the given promise rejects, that is passed immediately.
+ */
+Q.delay = function (object, timeout) {
+if (timeout === void 0) {
+    timeout = object;
+    object = void 0;
 }
+return Q(object).<span class="apidocCodeKeywordSpan">delay</span>(timeout);
+};
 
-theDepthsOfMyProgram();
-```
+Promise.prototype.delay = function (timeout) {
+return this.then(function (value) {
+    var deferred = defer();
+    setTimeout(function () {
+        deferred.resolve(value);
 ...</pre></li>
     </ul>
 
@@ -4895,20 +4921,21 @@ Q.nextTick(function () {
     promise.then(void 0, onUnhandledError);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-.then(promisedStep4)
-.then(function (value4) {
-    // Do something with value4
-})
-.catch(function (error) {
-    // Handle any error from all above steps
-})
-.<span class="apidocCodeKeywordSpan">done</span>();
-```
+* calls the generator and also ends the promise chain, so that any
+* unhandled errors are thrown instead of forwarded to the error
+* handler. This is useful because it&#x27;s extremely common to run
+* generators at the top-level to work with libraries.
+*/
+Q.spawn = spawn;
+function spawn(makeGenerator) {
+   Q.<span class="apidocCodeKeywordSpan">done</span>(Q.async(makeGenerator)());
+}
 
-With this approach, you also get implicit error propagation, just like `try`,
-`catch`, and `finally`.  An error in `promisedStep1` will flow all the way to
-the `catch` function, where it’s caught and handled.  (Here `promisedStepN` is
-a version of `stepN` that returns a promise.)
+// FIXME: Remove this interface once ES6 generators are in SpiderMonkey.
+/**
+* Throws a ReturnValue exception to stop an asynchronous generator.
+*
+* This interface is a stop-gap measure to support generator return
 ...</pre></li>
     </ul>
 
@@ -4925,21 +4952,21 @@ a version of `stepN` that returns a promise.)
     return this.then(void 0, rejected);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-```
+   return Q(callback).nfapply(args);
+};
 
-Q promises provide a ``fail`` shorthand for ``then`` when you are only
-interested in handling the error:
+Promise.prototype.nfapply = function (args) {
+   var deferred = defer();
+   var nodeArgs = array_slice(args);
+   nodeArgs.push(deferred.makeNodeResolver());
+   this.fapply(nodeArgs).<span class="apidocCodeKeywordSpan">fail</span>(deferred.reject);
+   return deferred.promise;
+};
 
-```javascript
-var outputPromise = getInputPromise()
-.<span class="apidocCodeKeywordSpan">fail</span>(function (error) {
-});
-```
-
-If you are writing JavaScript for modern engines only or using
-CoffeeScript, you may use `catch` instead of `fail`.
-
-Promises also have a ``fin`` function that is like a ``finally`` clause.
+/**
+* Passes a continuation to a Node function, which is called with the given
+* arguments provided individually, and returns a promise.
+* @example
 ...</pre></li>
     </ul>
 
@@ -4956,20 +4983,21 @@ Promises also have a ``fin`` function that is like a ``finally`` clause.
     return this.dispatch(&#x22;apply&#x22;, [void 0, args]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-direct manipulation         using a promise as a proxy
---------------------------  -------------------------------
-value.foo                   promise.get(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.del(&#x22;foo&#x22;)
-value.foo(...args)          promise.post(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
-value(...args)              promise.<span class="apidocCodeKeywordSpan">fapply</span>([args])
-value(...args)              promise.fcall(...args)
-```
+   return Q(callback).nfapply(args);
+};
 
-If the promise is a proxy for a remote object, you can shave
-round-trips by using these functions instead of ``then``.  To take
-advantage of promises for remote objects, check out [Q-Connection][].
+Promise.prototype.nfapply = function (args) {
+   var deferred = defer();
+   var nodeArgs = array_slice(args);
+   nodeArgs.push(deferred.makeNodeResolver());
+   this.<span class="apidocCodeKeywordSpan">fapply</span>(nodeArgs).fail(deferred.reject);
+   return deferred.promise;
+};
+
+/**
+* Passes a continuation to a Node function, which is called with the given
+* arguments provided individually, and returns a promise.
+* @example
 ...</pre></li>
     </ul>
 
@@ -5008,21 +5036,21 @@ advantage of promises for remote objects, check out [Q-Connection][].
     return this.dispatch(&#x22;apply&#x22;, [void 0, array_slice(arguments)]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-    });
-});
-```
+*   .tap(console.log)
+*   .then(...);
+*/
+Promise.prototype.tap = function (callback) {
+   callback = Q(callback);
 
-With a promise library, you can flatten the pyramid.
+   return this.then(function (value) {
+       return callback.<span class="apidocCodeKeywordSpan">fcall</span>(value).thenResolve(value);
+   });
+};
 
-```javascript
-Q.<span class="apidocCodeKeywordSpan">fcall</span>(promisedStep1)
-.then(promisedStep2)
-.then(promisedStep3)
-.then(promisedStep4)
-.then(function (value4) {
-    // Do something with value4
-})
-.catch(function (error) {
+/**
+* Registers an observer on a promise.
+*
+* Guarantees:
 ...</pre></li>
     </ul>
 
@@ -5111,21 +5139,21 @@ var outputPromise = getInputPromise()
     return this.dispatch(&#x22;get&#x22;, [key]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-object.  There are methods that allow you to optimistically manipulate
-properties or call functions.  All of these interactions return
-promises, so they can be chained.
 
-```
-direct manipulation         using a promise as a proxy
---------------------------  -------------------------------
-value.foo                   promise.<span class="apidocCodeKeywordSpan">get</span>(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.del(&#x22;foo&#x22;)
-value.foo(...args)          promise.post(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
-value(...args)              promise.fapply([args])
-value(...args)              promise.fcall(...args)
-```
+- WARNING: ``enqueue`` removed.  Use ``nextTick`` instead.
+  This is more consistent with NodeJS and (subjectively)
+  more explicit and intuitive.
+- WARNING: ``def`` removed.  Use ``master`` instead.  The
+  term ``def`` was too confusing to new users.
+- WARNING: ``spy`` removed in favor of ``fin``.
+- WARNING: ``wait`` removed. Do ``all(args).<span class="apidocCodeKeywordSpan">get</span>(0)`` instead.
+- WARNING: ``join`` removed. Do ``all(args).spread(callback)`` instead.
+- WARNING: Removed the ``Q`` function module.exports alias
+  for ``Q.ref``. It conflicts with ``Q.apply`` in weird
+  ways, making it uncallable.
+- Revised ``delay`` so that it accepts both ``(value,
+  timeout)`` and ``(timeout)`` variations based on
+  arguments length.
 ...</pre></li>
     </ul>
 
@@ -5338,20 +5366,21 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-where callbacks are in the form of `function(err, result)`, Q provides a few
-useful utility functions for converting between them. The most straightforward
-are probably `Q.nfcall` and `Q.nfapply` (&#x22;Node function call/apply&#x22;) for calling
-Node.js-style functions and getting back a promise:
+    });
+};
 
-```javascript
-return Q.nfcall(FS.readFile, &#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
-return Q.<span class="apidocCodeKeywordSpan">nfapply</span>(FS.readFile, [&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;]);
-```
-
-If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
-use `Function.prototype.bind` or some nice shortcut methods we provide:
+/**
+ * Passes a continuation to a Node function, which is called with the given
+ * arguments provided as an array, and returns a promise.
+ *
+ *      Q.<span class="apidocCodeKeywordSpan">nfapply</span>(FS.readFile, [__filename])
+ *      .then(function (content) {
+ *      })
+ *
+ */
+Q.nfapply = function (callback, args) {
+    return Q(callback).nfapply(args);
+};
 ...</pre></li>
     </ul>
 
@@ -5405,21 +5434,21 @@ if (callback === undefined) {
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-If you&#x27;re working with functions that make use of the Node.js callback pattern,
-where callbacks are in the form of `function(err, result)`, Q provides a few
-useful utility functions for converting between them. The most straightforward
-are probably `Q.nfcall` and `Q.nfapply` (&#x22;Node function call/apply&#x22;) for calling
-Node.js-style functions and getting back a promise:
+return deferred.promise;
+};
 
-```javascript
-return Q.<span class="apidocCodeKeywordSpan">nfcall</span>(FS.readFile, &#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
-return Q.nfapply(FS.readFile, [&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;]);
-```
-
-If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
-use `Function.prototype.bind` or some nice shortcut methods we provide:
+/**
+ * Passes a continuation to a Node function, which is called with the given
+ * arguments provided individually, and returns a promise.
+ * @example
+ * Q.<span class="apidocCodeKeywordSpan">nfcall</span>(FS.readFile, __filename)
+ * .then(function (content) {
+ * })
+ *
+ */
+Q.nfcall = function (callback /*...args*/) {
+var args = array_slice(arguments, 1);
+return Q(callback).nfapply(args);
 ...</pre></li>
     </ul>
 
@@ -5556,21 +5585,21 @@ if (nodeback) {
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
-use `Function.prototype.bind` or some nice shortcut methods we provide:
+ * @param {String} name name of the method of object
+ * @param {Array} args arguments to pass to the method; the callback
+ * will be provided by Q and appended to these arguments.
+ * @returns a promise for the value or error
+ */
+Q.nmapply = // XXX As proposed by &#x22;Redsandro&#x22;
+Q.npost = function (object, name, args) {
+return Q(object).<span class="apidocCodeKeywordSpan">npost</span>(name, args);
+};
 
-```javascript
-return Q.ninvoke(redisClient, &#x22;get&#x22;, &#x22;user:1:id&#x22;);
-return Q.<span class="apidocCodeKeywordSpan">npost</span>(redisClient, &#x22;get&#x22;, [&#x22;user:1:id&#x22;]);
-```
-
-You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
-
-```javascript
-var readFile = Q.denodeify(FS.readFile);
-return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
+Promise.prototype.nmapply = // XXX As proposed by &#x22;Redsandro&#x22;
+Promise.prototype.npost = function (name, args) {
+var nodeArgs = array_slice(args || []);
+var deferred = defer();
+nodeArgs.push(deferred.makeNodeResolver());
 ...</pre></li>
     </ul>
 
@@ -5654,21 +5683,21 @@ round-trips by using these functions instead of ``then``.  To take
     return this.then(void 0, void 0, progressed);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-});
-```
+  promise.
 
-Like `fail`, Q also provides a shorthand for progress callbacks
-called `progress`:
+## 0.8.9
 
-```javascript
-return uploadFile().<span class="apidocCodeKeywordSpan">progress</span>(function (progress) {
-    // We get notified of the upload&#x27;s progress
-});
-```
+- Added ``nend``
+- Added preliminary progress notification support, via
+  ``promise.then(onFulfilled, onRejected, onProgress)``,
+  ``promise.<span class="apidocCodeKeywordSpan">progress</span>(onProgress)``, and ``deferred.notify(...progressData)``.
+- Made ``put`` and ``del`` return the object acted upon for easier chaining.
+  #84
+- Fixed coercion cycles with cooperating promises. #106
 
-### The End
+## 0.8.7
 
-When you get to the end of a chain of promises, you should either
+- Support [Montage Require](http://github.com/kriskowal/mr)
 ...</pre></li>
     </ul>
 
@@ -5764,20 +5793,21 @@ return this;
     }, rejected);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-replacement for ``then``.  The ``spread`` function “spreads” the
-values over the arguments of the fulfillment handler.  The rejection handler
-will get called at the first sign of failure.  That is, whichever of
-the received promises fails first gets handled by the rejection handler.
-
-```javascript
-function eventualAdd(a, b) {
-    return Q.<span class="apidocCodeKeywordSpan">spread</span>([a, b], function (a, b) {
-        return a + b;
-    })
-}
-```
-
-But ``spread`` calls ``all`` initially, so you can skip it in chains.
+- WARNING: ``enqueue`` removed.  Use ``nextTick`` instead.
+  This is more consistent with NodeJS and (subjectively)
+  more explicit and intuitive.
+- WARNING: ``def`` removed.  Use ``master`` instead.  The
+  term ``def`` was too confusing to new users.
+- WARNING: ``spy`` removed in favor of ``fin``.
+- WARNING: ``wait`` removed. Do ``all(args).get(0)`` instead.
+- WARNING: ``join`` removed. Do ``all(args).<span class="apidocCodeKeywordSpan">spread</span>(callback)`` instead.
+- WARNING: Removed the ``Q`` function module.exports alias
+  for ``Q.ref``. It conflicts with ``Q.apply`` in weird
+  ways, making it uncallable.
+- Revised ``delay`` so that it accepts both ``(value,
+  timeout)`` and ``(timeout)`` variations based on
+  arguments length.
+- Added ``ref().spread(cb(...args))``, a variant of
 ...</pre></li>
     </ul>
 
@@ -5896,21 +5926,20 @@ Q.tap = function (promise, callback) {
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-});
-```
+ - Fixed ``spread`` not calling the passed rejection handler if given a rejected
+   promise.
 
-With a promise library, you can flatten the pyramid.
+## 0.8.9
 
-```javascript
-Q.fcall(promisedStep1)
-.<span class="apidocCodeKeywordSpan">then</span>(promisedStep2)
-.then(promisedStep3)
-.then(promisedStep4)
-.then(function (value4) {
-// Do something with value4
-})
-.catch(function (error) {
-// Handle any error from all above steps
+ - Added ``nend``
+ - Added preliminary progress notification support, via
+   ``promise.<span class="apidocCodeKeywordSpan">then</span>(onFulfilled, onRejected, onProgress)``,
+   ``promise.progress(onProgress)``, and ``deferred.notify(...progressData)``.
+ - Made ``put`` and ``del`` return the object acted upon for easier chaining.
+   #84
+ - Fixed coercion cycles with cooperating promises. #106
+
+## 0.8.7
 ...</pre></li>
     </ul>
 
@@ -6167,21 +6196,21 @@ if (typeof process === &#x22;object&#x22; &#x26;&#x26; typeof process.emit === &
     }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
+ */
+defer.prototype.makeNodeResolver = function () {
+    var self = this;
+    return function (error, value) {
+        if (error) {
+            self.reject(error);
+        } else if (arguments.length &#x3e; 2) {
+            self.<span class="apidocCodeKeywordSpan">resolve</span>(array_slice(arguments, 1));
+        } else {
+            self.resolve(value);
+        }
+    };
+};
 
-```javascript
-var deferred = Q.defer();
-FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
-    if (error) {
-        deferred.reject(new Error(error));
-    } else {
-        deferred.<span class="apidocCodeKeywordSpan">resolve</span>(text);
-    }
-});
-return deferred.promise;
-```
-
-Note that a deferred can be resolved with a value or a promise.  The
-``reject`` function is a shorthand for resolving with a rejected
+/**
 ...</pre></li>
     </ul>
 
@@ -6269,21 +6298,21 @@ request.send();
     });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
+- Deprecated ``ref`` in favor of ``resolve`` as recommended by
+  @domenic.
+- Update event-queue dependency.
 
-### Combination
+## 0.8.1
 
-You can turn an array of promises into a promise for the whole,
-fulfilled array using ``all``.
+- Fixed Opera bug. #35 @cadorn
+- Fixed ``Q.<span class="apidocCodeKeywordSpan">all</span>([])`` #32 @domenic
 
-```javascript
-return Q.<span class="apidocCodeKeywordSpan">all</span>([
-    eventualAdd(2, 2),
-    eventualAdd(10, 20)
-]);
-```
+## 0.8.0
 
-If you have a promise for an array, you can use ``spread`` as a
-replacement for ``then``.  The ``spread`` function “spreads” the
+- WARNING: ``enqueue`` removed.  Use ``nextTick`` instead.
+  This is more consistent with NodeJS and (subjectively)
+  more explicit and intuitive.
+- WARNING: ``def`` removed.  Use ``master`` instead.  The
 ...</pre></li>
     </ul>
 
@@ -6320,21 +6349,21 @@ replacement for ``then``.  The ``spread`` function “spreads” the
     return Q(promises).allSettled();
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-promise is fulfilled, the array contains the fulfillment values of the original
-promises, in the same order as those promises.  If one of the given promises
-is rejected, the returned promise is immediately rejected, not waiting for the
-rest of the batch.  If you want to wait for all of the promises to either be
-fulfilled or rejected, you can use ``allSettled``.
+};
 
-```javascript
-Q.<span class="apidocCodeKeywordSpan">allSettled</span>(promises)
-.then(function (results) {
-results.forEach(function (result) {
-    if (result.state === &#x22;fulfilled&#x22;) {
-        var value = result.value;
-    } else {
-        var reason = result.reason;
-    }
+/**
+* @see Promise#allSettled
+*/
+Q.allSettled = allSettled;
+function allSettled(promises) {
+   return Q(promises).<span class="apidocCodeKeywordSpan">allSettled</span>();
+}
+
+/**
+* Turns an array of promises into a promise for an array of their states (as
+* returned by `inspect`) when they have all settled.
+* @param {Array[Any*]} values an array (or promise for an array) of values (or
+* promises for values)
 ...</pre></li>
     </ul>
 
@@ -6382,20 +6411,21 @@ results.forEach(function (result) {
     return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-```
 
-The ``any`` function accepts an array of promises and returns a promise that is
-fulfilled by the first given promise to be fulfilled, or rejected if all of the
-given promises are rejected.
+## 1.2.1
 
-```javascript
-Q.<span class="apidocCodeKeywordSpan">any</span>(promises)
-.then(function (first) {
-    // Any of the promises was fulfilled.
-}, function (error) {
-    // All of the promises were rejected.
-});
-```
+- Fix Node.js environment detection for modern Browserify (@kahnjw).
+
+## 1.2.0
+
+- Added Q.<span class="apidocCodeKeywordSpan">any</span>(promisesArray) method (@vergara).
+  Returns a promise fulfilled with the value of the first resolved promise in
+  promisesArray. If all promises in promisesArray are rejected, it returns
+  a rejected promise.
+
+## 1.1.2
+
+- Removed extraneous files from the npm package by using the &#x22;files&#x22;
 ...</pre></li>
     </ul>
 
@@ -6636,21 +6666,21 @@ With this approach, you also get implicit error propagation, just like `try`,
     return deferred;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-#### Using Deferreds
+Q.any = any;
 
-If you have to interface with asynchronous functions that are callback-based
-instead of promise-based, Q provides a few shortcuts (like ``Q.nfcall`` and
-friends). But much of the time, the solution will be to use *deferreds*.
-
-```javascript
-var deferred = Q.<span class="apidocCodeKeywordSpan">defer</span>();
-FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
-    if (error) {
-        deferred.reject(new Error(error));
-    } else {
-        deferred.resolve(text);
+function any(promises) {
+    if (promises.length === 0) {
+return Q.resolve();
     }
-});
+
+    var deferred = Q.<span class="apidocCodeKeywordSpan">defer</span>();
+    var pendingCount = 0;
+    array_reduce(promises, function (prev, current, index) {
+var promise = promises[index];
+
+pendingCount++;
+
+when(promise, onFulfilled, onRejected, onProgress);
 ...</pre></li>
     </ul>
 
@@ -6702,20 +6732,21 @@ If the promise is a proxy for a remote object, you can shave
     return Q(object).delay(timeout);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-
-Q comes with optional support for “long stack traces,” wherein the `stack`
-property of `Error` rejection reasons is rewritten to be traced along
-asynchronous jumps instead of stopping at the most recent one. As an example:
-
-```js
-function theDepthsOfMyProgram() {
-  Q.<span class="apidocCodeKeywordSpan">delay</span>(100).done(function explode() {
-    throw new Error(&#x22;boo!&#x22;);
-  });
+ * If the given promise rejects, that is passed immediately.
+ */
+Q.delay = function (object, timeout) {
+if (timeout === void 0) {
+    timeout = object;
+    object = void 0;
 }
+return Q(object).<span class="apidocCodeKeywordSpan">delay</span>(timeout);
+};
 
-theDepthsOfMyProgram();
-```
+Promise.prototype.delay = function (timeout) {
+return this.then(function (value) {
+    var deferred = defer();
+    setTimeout(function () {
+        deferred.resolve(value);
 ...</pre></li>
     </ul>
 
@@ -6819,20 +6850,21 @@ Q.nextTick(function () {
     return Q(object).done(fulfilled, rejected, progress);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-.then(promisedStep4)
-.then(function (value4) {
-    // Do something with value4
-})
-.catch(function (error) {
-    // Handle any error from all above steps
-})
-.<span class="apidocCodeKeywordSpan">done</span>();
-```
+* calls the generator and also ends the promise chain, so that any
+* unhandled errors are thrown instead of forwarded to the error
+* handler. This is useful because it&#x27;s extremely common to run
+* generators at the top-level to work with libraries.
+*/
+Q.spawn = spawn;
+function spawn(makeGenerator) {
+   Q.<span class="apidocCodeKeywordSpan">done</span>(Q.async(makeGenerator)());
+}
 
-With this approach, you also get implicit error propagation, just like `try`,
-`catch`, and `finally`.  An error in `promisedStep1` will flow all the way to
-the `catch` function, where it’s caught and handled.  (Here `promisedStepN` is
-a version of `stepN` that returns a promise.)
+// FIXME: Remove this interface once ES6 generators are in SpiderMonkey.
+/**
+* Throws a ReturnValue exception to stop an asynchronous generator.
+*
+* This interface is a stop-gap measure to support generator return
 ...</pre></li>
     </ul>
 
@@ -6849,21 +6881,21 @@ a version of `stepN` that returns a promise.)
     return Q(object).then(void 0, rejected);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-```
+   return Q(callback).nfapply(args);
+};
 
-Q promises provide a ``fail`` shorthand for ``then`` when you are only
-interested in handling the error:
+Promise.prototype.nfapply = function (args) {
+   var deferred = defer();
+   var nodeArgs = array_slice(args);
+   nodeArgs.push(deferred.makeNodeResolver());
+   this.fapply(nodeArgs).<span class="apidocCodeKeywordSpan">fail</span>(deferred.reject);
+   return deferred.promise;
+};
 
-```javascript
-var outputPromise = getInputPromise()
-.<span class="apidocCodeKeywordSpan">fail</span>(function (error) {
-});
-```
-
-If you are writing JavaScript for modern engines only or using
-CoffeeScript, you may use `catch` instead of `fail`.
-
-Promises also have a ``fin`` function that is like a ``finally`` clause.
+/**
+* Passes a continuation to a Node function, which is called with the given
+* arguments provided individually, and returns a promise.
+* @example
 ...</pre></li>
     </ul>
 
@@ -6880,20 +6912,21 @@ Promises also have a ``fin`` function that is like a ``finally`` clause.
     return Q(object).dispatch(&#x22;apply&#x22;, [void 0, args]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-direct manipulation         using a promise as a proxy
---------------------------  -------------------------------
-value.foo                   promise.get(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.del(&#x22;foo&#x22;)
-value.foo(...args)          promise.post(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
-value(...args)              promise.<span class="apidocCodeKeywordSpan">fapply</span>([args])
-value(...args)              promise.fcall(...args)
-```
+   return Q(callback).nfapply(args);
+};
 
-If the promise is a proxy for a remote object, you can shave
-round-trips by using these functions instead of ``then``.  To take
-advantage of promises for remote objects, check out [Q-Connection][].
+Promise.prototype.nfapply = function (args) {
+   var deferred = defer();
+   var nodeArgs = array_slice(args);
+   nodeArgs.push(deferred.makeNodeResolver());
+   this.<span class="apidocCodeKeywordSpan">fapply</span>(nodeArgs).fail(deferred.reject);
+   return deferred.promise;
+};
+
+/**
+* Passes a continuation to a Node function, which is called with the given
+* arguments provided individually, and returns a promise.
+* @example
 ...</pre></li>
     </ul>
 
@@ -6932,21 +6965,21 @@ advantage of promises for remote objects, check out [Q-Connection][].
     return Q(object).dispatch(&#x22;apply&#x22;, [void 0, array_slice(arguments, 1)]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-    });
-});
-```
+*   .tap(console.log)
+*   .then(...);
+*/
+Promise.prototype.tap = function (callback) {
+   callback = Q(callback);
 
-With a promise library, you can flatten the pyramid.
+   return this.then(function (value) {
+       return callback.<span class="apidocCodeKeywordSpan">fcall</span>(value).thenResolve(value);
+   });
+};
 
-```javascript
-Q.<span class="apidocCodeKeywordSpan">fcall</span>(promisedStep1)
-.then(promisedStep2)
-.then(promisedStep3)
-.then(promisedStep4)
-.then(function (value4) {
-    // Do something with value4
-})
-.catch(function (error) {
+/**
+* Registers an observer on a promise.
+*
+* Guarantees:
 ...</pre></li>
     </ul>
 
@@ -7054,21 +7087,21 @@ var outputPromise = getInputPromise()
     return Q(object).dispatch(&#x22;get&#x22;, [key]);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-object.  There are methods that allow you to optimistically manipulate
-properties or call functions.  All of these interactions return
-promises, so they can be chained.
 
-```
-direct manipulation         using a promise as a proxy
---------------------------  -------------------------------
-value.foo                   promise.<span class="apidocCodeKeywordSpan">get</span>(&#x22;foo&#x22;)
-value.foo = value           promise.put(&#x22;foo&#x22;, value)
-delete value.foo            promise.del(&#x22;foo&#x22;)
-value.foo(...args)          promise.post(&#x22;foo&#x22;, [args])
-value.foo(...args)          promise.invoke(&#x22;foo&#x22;, ...args)
-value(...args)              promise.fapply([args])
-value(...args)              promise.fcall(...args)
-```
+- WARNING: ``enqueue`` removed.  Use ``nextTick`` instead.
+  This is more consistent with NodeJS and (subjectively)
+  more explicit and intuitive.
+- WARNING: ``def`` removed.  Use ``master`` instead.  The
+  term ``def`` was too confusing to new users.
+- WARNING: ``spy`` removed in favor of ``fin``.
+- WARNING: ``wait`` removed. Do ``all(args).<span class="apidocCodeKeywordSpan">get</span>(0)`` instead.
+- WARNING: ``join`` removed. Do ``all(args).spread(callback)`` instead.
+- WARNING: Removed the ``Q`` function module.exports alias
+  for ``Q.ref``. It conflicts with ``Q.apply`` in weird
+  ways, making it uncallable.
+- Revised ``delay`` so that it accepts both ``(value,
+  timeout)`` and ``(timeout)`` variations based on
+  arguments length.
 ...</pre></li>
     </ul>
 
@@ -7471,20 +7504,21 @@ Finally, if you&#x27;re working with raw deferred objects, there is a
     return Q(callback).nfapply(args);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-where callbacks are in the form of `function(err, result)`, Q provides a few
-useful utility functions for converting between them. The most straightforward
-are probably `Q.nfcall` and `Q.nfapply` (&#x22;Node function call/apply&#x22;) for calling
-Node.js-style functions and getting back a promise:
+    });
+};
 
-```javascript
-return Q.nfcall(FS.readFile, &#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
-return Q.<span class="apidocCodeKeywordSpan">nfapply</span>(FS.readFile, [&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;]);
-```
-
-If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
-use `Function.prototype.bind` or some nice shortcut methods we provide:
+/**
+ * Passes a continuation to a Node function, which is called with the given
+ * arguments provided as an array, and returns a promise.
+ *
+ *      Q.<span class="apidocCodeKeywordSpan">nfapply</span>(FS.readFile, [__filename])
+ *      .then(function (content) {
+ *      })
+ *
+ */
+Q.nfapply = function (callback, args) {
+    return Q(callback).nfapply(args);
+};
 ...</pre></li>
     </ul>
 
@@ -7543,21 +7577,21 @@ if (callback === undefined) {
     return Q(callback).nfapply(args);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-If you&#x27;re working with functions that make use of the Node.js callback pattern,
-where callbacks are in the form of `function(err, result)`, Q provides a few
-useful utility functions for converting between them. The most straightforward
-are probably `Q.nfcall` and `Q.nfapply` (&#x22;Node function call/apply&#x22;) for calling
-Node.js-style functions and getting back a promise:
+return deferred.promise;
+};
 
-```javascript
-return Q.<span class="apidocCodeKeywordSpan">nfcall</span>(FS.readFile, &#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
-return Q.nfapply(FS.readFile, [&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;]);
-```
-
-If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
-use `Function.prototype.bind` or some nice shortcut methods we provide:
+/**
+ * Passes a continuation to a Node function, which is called with the given
+ * arguments provided individually, and returns a promise.
+ * @example
+ * Q.<span class="apidocCodeKeywordSpan">nfcall</span>(FS.readFile, __filename)
+ * .then(function (content) {
+ * })
+ *
+ */
+Q.nfcall = function (callback /*...args*/) {
+var args = array_slice(arguments, 1);
+return Q(callback).nfapply(args);
 ...</pre></li>
     </ul>
 
@@ -7689,21 +7723,21 @@ if (nodeback) {
     return Q(object).npost(name, args);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-If you are working with methods, instead of simple functions, you can easily
-run in to the usual problems where passing a method to another function—like
-`Q.nfcall`—&#x22;un-binds&#x22; the method from its owner. To avoid this, you can either
-use `Function.prototype.bind` or some nice shortcut methods we provide:
+ * @param {String} name name of the method of object
+ * @param {Array} args arguments to pass to the method; the callback
+ * will be provided by Q and appended to these arguments.
+ * @returns a promise for the value or error
+ */
+Q.nmapply = // XXX As proposed by &#x22;Redsandro&#x22;
+Q.npost = function (object, name, args) {
+return Q(object).<span class="apidocCodeKeywordSpan">npost</span>(name, args);
+};
 
-```javascript
-return Q.ninvoke(redisClient, &#x22;get&#x22;, &#x22;user:1:id&#x22;);
-return Q.<span class="apidocCodeKeywordSpan">npost</span>(redisClient, &#x22;get&#x22;, [&#x22;user:1:id&#x22;]);
-```
-
-You can also create reusable wrappers with `Q.denodeify` or `Q.nbind`:
-
-```javascript
-var readFile = Q.denodeify(FS.readFile);
-return readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;);
+Promise.prototype.nmapply = // XXX As proposed by &#x22;Redsandro&#x22;
+Promise.prototype.npost = function (name, args) {
+var nodeArgs = array_slice(args || []);
+var deferred = defer();
+nodeArgs.push(deferred.makeNodeResolver());
 ...</pre></li>
     </ul>
 
@@ -7787,21 +7821,21 @@ round-trips by using these functions instead of ``then``.  To take
     return Q(object).then(void 0, void 0, progressed);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-});
-```
+  promise.
 
-Like `fail`, Q also provides a shorthand for progress callbacks
-called `progress`:
+## 0.8.9
 
-```javascript
-return uploadFile().<span class="apidocCodeKeywordSpan">progress</span>(function (progress) {
-    // We get notified of the upload&#x27;s progress
-});
-```
+- Added ``nend``
+- Added preliminary progress notification support, via
+  ``promise.then(onFulfilled, onRejected, onProgress)``,
+  ``promise.<span class="apidocCodeKeywordSpan">progress</span>(onProgress)``, and ``deferred.notify(...progressData)``.
+- Made ``put`` and ``del`` return the object acted upon for easier chaining.
+  #84
+- Fixed coercion cycles with cooperating promises. #106
 
-### The End
+## 0.8.7
 
-When you get to the end of a chain of promises, you should either
+- Support [Montage Require](http://github.com/kriskowal/mr)
 ...</pre></li>
     </ul>
 
@@ -7826,7 +7860,23 @@ When you get to the end of a chain of promises, you should either
     }
     return deferred.promise;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  and the message now includes the duration of the timeout in
+  miliseconds.  This doesn&#x27;t constitute (in my opinion) a
+  backward-incompatibility since it is a change of an undocumented and
+  unspecified public behavior, but if you happened to depend on the
+  exception being a string, you will need to revise your code.
+- Added ``deferred.makeNodeResolver()`` to replace the more cryptic
+  ``deferred.node()`` method.
+- Added experimental ``Q.<span class="apidocCodeKeywordSpan">promise</span>(maker(resolve, reject))`` to make a
+  promise inside a callback, such that thrown exceptions in the
+  callback are converted and the resolver and rejecter are arguments.
+  This is a shorthand for making a deferred directly and inspired by
+  @gozala’s stream constructor pattern and the Microsoft Windows Metro
+  Promise constructor interface.
+- Added experimental ``Q.begin()`` that is intended to kick off chains
+  of ``.then`` so that each of these can be reordered without having to
+...</pre></li>
     </ul>
 
 
@@ -7918,20 +7968,21 @@ When you get to the end of a chain of promises, you should either
     return rejection;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-instead of promise-based, Q provides a few shortcuts (like ``Q.nfcall`` and
-friends). But much of the time, the solution will be to use *deferreds*.
-
-```javascript
-var deferred = Q.defer();
-FS.readFile(&#x22;foo.txt&#x22;, &#x22;utf-8&#x22;, function (error, text) {
-    if (error) {
-        deferred.<span class="apidocCodeKeywordSpan">reject</span>(new Error(error));
-    } else {
-        deferred.resolve(text);
-    }
-});
-return deferred.promise;
-```
+ * promise.
+ * @returns a nodeback
+ */
+defer.prototype.makeNodeResolver = function () {
+    var self = this;
+    return function (error, value) {
+        if (error) {
+            self.<span class="apidocCodeKeywordSpan">reject</span>(error);
+        } else if (arguments.length &#x3e; 2) {
+            self.resolve(array_slice(arguments, 1));
+        } else {
+            self.resolve(value);
+        }
+    };
+};
 ...</pre></li>
     </ul>
 
@@ -8075,20 +8126,21 @@ return this;
     return Q(value).spread(fulfilled, rejected);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-replacement for ``then``.  The ``spread`` function “spreads” the
-values over the arguments of the fulfillment handler.  The rejection handler
-will get called at the first sign of failure.  That is, whichever of
-the received promises fails first gets handled by the rejection handler.
-
-```javascript
-function eventualAdd(a, b) {
-    return Q.<span class="apidocCodeKeywordSpan">spread</span>([a, b], function (a, b) {
-        return a + b;
-    })
-}
-```
-
-But ``spread`` calls ``all`` initially, so you can skip it in chains.
+- WARNING: ``enqueue`` removed.  Use ``nextTick`` instead.
+  This is more consistent with NodeJS and (subjectively)
+  more explicit and intuitive.
+- WARNING: ``def`` removed.  Use ``master`` instead.  The
+  term ``def`` was too confusing to new users.
+- WARNING: ``spy`` removed in favor of ``fin``.
+- WARNING: ``wait`` removed. Do ``all(args).get(0)`` instead.
+- WARNING: ``join`` removed. Do ``all(args).<span class="apidocCodeKeywordSpan">spread</span>(callback)`` instead.
+- WARNING: Removed the ``Q`` function module.exports alias
+  for ``Q.ref``. It conflicts with ``Q.apply`` in weird
+  ways, making it uncallable.
+- Revised ``delay`` so that it accepts both ``(value,
+  timeout)`` and ``(timeout)`` variations based on
+  arguments length.
+- Added ``ref().spread(cb(...args))``, a variant of
 ...</pre></li>
     </ul>
 
