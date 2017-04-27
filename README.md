@@ -1,6 +1,6 @@
 # npmdoc-q
 
-#### api documentation for  [q (v1.5.0)](https://github.com/kriskowal/q)  [![npm package](https://img.shields.io/npm/v/npmdoc-q.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-q) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-q.svg)](https://travis-ci.org/npmdoc/node-npmdoc-q)
+#### basic api documentation for  [q (v1.5.0)](https://github.com/kriskowal/q)  [![npm package](https://img.shields.io/npm/v/npmdoc-q.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-q) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-q.svg)](https://travis-ci.org/npmdoc/node-npmdoc-q)
 
 #### A library for promises (CommonJS/Promises/A,B,D)
 
@@ -119,7 +119,8 @@
         "test": "npm ls -s && jasmine-node spec && promises-aplus-tests spec/aplus-adapter && npm run -s lint",
         "test-browser": "opener spec/q-spec.html"
     },
-    "version": "1.5.0"
+    "version": "1.5.0",
+    "bin": {}
 }
 ```
 
